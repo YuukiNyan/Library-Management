@@ -237,7 +237,39 @@ for (int i=1;i<=g.Columns.Count;i++)
         private void but2_Click(object sender, EventArgs e)
         {
              
-               
+                string s1 = "", s2 = "", s3 = "", s4 = "", s5 = "";
+            if (cbMaSach.Text != "")
+                s1 = cbMaSach.Text;//MaSach
+            if (cbTheLoai.Text != "")
+                s2 = cbTheLoai.Text;//MaTheLoai
+            if (cbTenSach.Text != "")
+                s3 = cbTenSach.Text; //MaDauSach
+            if (cbTacGia.Text != "")//
+                s4 = cbTacGia.Text;//MaTacGia
+            if (cbTinhTrang.Text != "")
+                s5 = cbTinhTrang.Text;//TenTinhTrang
+            command.ExecuteNonQuery();
+            if ((radioButton1.Checked==true && s1 == "") || (radioButton2.Checked == true && s3 == "") || (radioButton4.Checked == true && s2 == "") || (radioButton3.Checked == true && s4 == "") || (radioButton5.Checked == true && s5 == ""))
+            {
+                MessageBox.Show("Bạn đang để trống giá trị Lọc");
+            }
+            if (s1 != "")
+            {
+                command.CommandText = "Select ROW_NUMBER() OVER (ORDER BY t.MaSach) AS [Số thứ tự],t.masach as [Mã Cuốn Sách],t.TenDauSach as [Tên Sách],t.TenTheLoai as [Thể Loại],t.TenTacGia as [Tác Giả],t.TinhTrang as [Tình Trạng] from TraCuu as t,sach as s,cuonsach as cs where s.MaSach='"+s1+"' and cs.masach=s.masach and t.masach=cs.macuonsach";
+                command.ExecuteNonQuery();
+
+            }
+            if (s2 != "")
+            {
+                command.CommandText = "Select ROW_NUMBER() OVER (ORDER BY MaSach) AS [Số thứ tự],masach as [Mã Cuốn Sách],TenDauSach as [Tên Sách],TenTheLoai as [Thể Loại],TenTacGia as [Tác Giả],TinhTrang as [Tình Trạng] from TraCuu where TenTheLoai=N'" + s2 + "'";
+                command.ExecuteNonQuery();
+
+            }
+            if (s3 != "")
+            {
+                command.CommandText = "Select ROW_NUMBER() OVER (ORDER BY MaSach) AS [Số thứ tự],masach as [Mã Cuốn Sách],TenDauSach as [Tên Sách],TenTheLoai as [Thể Loại],TenTacGia as [Tác Giả],TinhTrang as [Tình Trạng] from TraCuu where TenDauSach=N'" + s3 + "'";
+                command.ExecuteNonQuery();
+            }
             if (s4 != "")
             {
                 command.CommandText = "Select ROW_NUMBER() OVER (ORDER BY MaSach) AS [Số thứ tự],masach as [Mã Cuốn Sách],TenDauSach as [Tên Sách],TenTheLoai as [Thể Loại],TenTacGia as [Tác Giả],TinhTrang as [Tình Trạng] from TraCuu where TenTacGia=N'" + s4 + "'";
@@ -276,7 +308,20 @@ for (int i=1;i<=g.Columns.Count;i++)
         private void but1_Click(object sender, EventArgs e)
         {
             //   this.Close();
-           
+            cbMaSach.Text = "";
+            cbTheLoai.Text = "";
+            cbTinhTrang.Text = "";
+            cbTacGia.Text = "";
+            cbTenSach.Text = "";
+            MessageBox.Show("Bạn đã hủy áp dụng bộ lọc thành công");
+            command.CommandText = "Select ROW_NUMBER() OVER (ORDER BY MaSach) AS [Số thứ tự],masach as [Mã Cuốn Sách],TenDauSach as [Tên Sách],TenTheLoai as [Thể Loại],TenTacGia as [Tác Giả],TinhTrang as [Tình Trạng] from TraCuu";
+            adapter.SelectCommand = command;
+            System.Data.DataTable a = new System.Data.DataTable();
+            a.Clear();
+            adapter.Fill(a);
+            dgvDanhSachCuonSach.DataSource = null;
+            dgvDanhSachCuonSach.DataSource = a;
+        
 
 
                 for (int i = 0; i < dgvDanhSachCuonSach.Rows.Count; i++)

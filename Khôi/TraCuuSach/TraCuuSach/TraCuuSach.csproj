@@ -51,6 +51,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CustomPic.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="FormTraCuu.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -59,6 +62,15 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="radion.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="VBButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="VNPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <EmbeddedResource Include="FormTraCuu.resx">
       <DependentUpon>FormTraCuu.cs</DependentUpon>
     </EmbeddedResource>
