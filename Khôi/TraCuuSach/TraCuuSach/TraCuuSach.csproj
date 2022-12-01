@@ -66,9 +66,23 @@
     <Compile Include="FormTraCuu.Designer.cs">
       <DependentUpon>FormTraCuu.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormTraSach.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormTraSach.Designer.cs">
+      <DependentUpon>FormTraSach.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Models\BaseBook.cs" />
+    <Compile Include="Models\Book.cs" />
+    <Compile Include="Models\BookInfo.cs" />
+    <Compile Include="Models\Reader.cs" />
+    <Compile Include="Models\ReaderType.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="radion.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ToggleButton.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="VBButton.cs">
@@ -82,6 +96,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormTraCuu.resx">
       <DependentUpon>FormTraCuu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormTraSach.resx">
+      <DependentUpon>FormTraSach.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
