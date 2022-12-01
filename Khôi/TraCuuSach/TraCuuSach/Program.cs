@@ -16,7 +16,7 @@ namespace TraCuuSach
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FormTraCuu());
+            Application.Run(new FormMuonSach());
         }
     }
 }
