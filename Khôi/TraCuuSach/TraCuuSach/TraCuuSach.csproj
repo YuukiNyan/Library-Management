@@ -72,7 +72,14 @@
     <Compile Include="FormTraSach.Designer.cs">
       <DependentUpon>FormTraSach.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormXacNhanMuonSach.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormXacNhanMuonSach.Designer.cs">
+      <DependentUpon>FormXacNhanMuonSach.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\BookInfo.cs" />
+    <Compile Include="Models\BorrowSlip.cs" />
     <Compile Include="Models\Reader.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -96,6 +103,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormTraSach.resx">
       <DependentUpon>FormTraSach.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormXacNhanMuonSach.resx">
+      <DependentUpon>FormXacNhanMuonSach.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
