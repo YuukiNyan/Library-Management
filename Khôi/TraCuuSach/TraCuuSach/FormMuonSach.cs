@@ -413,6 +413,7 @@ namespace TraCuuSach
         }
     }
 }
+<<<<<<< HEAD
 
 //private bool CheckBorrowed()
 //{
@@ -450,3 +451,5 @@ namespace TraCuuSach
 //    LibraryManagement.fHome.SwitchForm(new LendBook());
 //}
 //    }
+=======
+>>>>>>> fbf281a7e4269956c6ae94fb74bd61e78cc6c77b
