@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace TraCuuSach.Models
 {
-    public class BookInfo : INotifyPropertyChanged
+    public class Book : INotifyPropertyChanged
     {
         [System.ComponentModel.DisplayName("Mã cuốn")]
         public string id { get; set; }
@@ -22,7 +22,7 @@ namespace TraCuuSach.Models
         [System.ComponentModel.DisplayName("Tác giả")]
         public string author { get; set; }
 
-        public BookInfo()
+        public Book()
         {
             id = "";
             bookId = "";
@@ -30,7 +30,7 @@ namespace TraCuuSach.Models
             category = "";
             author = "";
         }
-        public BookInfo(BookInfo book)
+        public Book(Book book)
         {
             this.id = book.id;
             this.bookId = book.bookId;
@@ -38,7 +38,7 @@ namespace TraCuuSach.Models
             this.category = book.category;
             this.author = book.author;
         }
-        public BookInfo(string id, string bookId, string name, string cate, string author)
+        public Book(string id, string bookId, string name, string cate, string author)
         {
             this.id = id;
             this.bookId = bookId;

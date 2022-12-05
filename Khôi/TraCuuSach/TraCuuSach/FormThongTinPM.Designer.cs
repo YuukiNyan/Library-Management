@@ -1,6 +1,6 @@
 ﻿namespace TraCuuSach
 {
-    partial class FormXacNhanMuonSach
+    partial class FormThongTinPM
     {
         /// <summary>
         /// Required designer variable.
@@ -28,15 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormXacNhanMuonSach));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.pnlName = new System.Windows.Forms.Panel();
-            this.pnlCode = new System.Windows.Forms.Panel();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormThongTinPM));
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            this.pnlReaderName = new System.Windows.Forms.Panel();
+            this.pnlReaderId = new System.Windows.Forms.Panel();
             this.pnlSlipId = new System.Windows.Forms.Panel();
             this.pnlBorrowDate = new System.Windows.Forms.Panel();
-            this.pnlReturnDate = new System.Windows.Forms.Panel();
             this.pnlAmount = new System.Windows.Forms.Panel();
             this.btnCancel = new TraCuuSach.But();
             this.btnDone = new TraCuuSach.But();
@@ -44,9 +43,9 @@
             this.printDocument1 = new System.Drawing.Printing.PrintDocument();
             this.pnlPrint = new System.Windows.Forms.Panel();
             this.lbAmount = new System.Windows.Forms.Label();
-            this.lbReturnDay = new System.Windows.Forms.Label();
+            this.lbReturnDate = new System.Windows.Forms.Label();
             this.lbBorrowDate = new System.Windows.Forms.Label();
-            this.dtgvChosenBook = new System.Windows.Forms.DataGridView();
+            this.dtgvChosen = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -63,35 +62,36 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.pnlTop = new System.Windows.Forms.Panel();
+            this.pnlReturnDate = new System.Windows.Forms.Panel();
             this.pnlPrint.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dtgvChosenBook)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dtgvChosen)).BeginInit();
             this.SuspendLayout();
             // 
-            // pnlName
+            // pnlReaderName
             // 
-            this.pnlName.BackColor = System.Drawing.Color.Black;
-            this.pnlName.Location = new System.Drawing.Point(176, 231);
-            this.pnlName.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.pnlName.Name = "pnlName";
-            this.pnlName.Size = new System.Drawing.Size(124, 2);
-            this.pnlName.TabIndex = 59;
+            this.pnlReaderName.BackColor = System.Drawing.Color.Black;
+            this.pnlReaderName.Location = new System.Drawing.Point(176, 231);
+            this.pnlReaderName.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.pnlReaderName.Name = "pnlReaderName";
+            this.pnlReaderName.Size = new System.Drawing.Size(124, 1);
+            this.pnlReaderName.TabIndex = 59;
             // 
-            // pnlCode
+            // pnlReaderId
             // 
-            this.pnlCode.BackColor = System.Drawing.Color.Black;
-            this.pnlCode.Location = new System.Drawing.Point(176, 172);
-            this.pnlCode.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.pnlCode.Name = "pnlCode";
-            this.pnlCode.Size = new System.Drawing.Size(60, 2);
-            this.pnlCode.TabIndex = 59;
+            this.pnlReaderId.BackColor = System.Drawing.Color.Black;
+            this.pnlReaderId.Location = new System.Drawing.Point(176, 172);
+            this.pnlReaderId.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.pnlReaderId.Name = "pnlReaderId";
+            this.pnlReaderId.Size = new System.Drawing.Size(60, 1);
+            this.pnlReaderId.TabIndex = 59;
             // 
             // pnlSlipId
             // 
             this.pnlSlipId.BackColor = System.Drawing.Color.Black;
-            this.pnlSlipId.Location = new System.Drawing.Point(176, 115);
+            this.pnlSlipId.Location = new System.Drawing.Point(176, 116);
             this.pnlSlipId.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.pnlSlipId.Name = "pnlSlipId";
-            this.pnlSlipId.Size = new System.Drawing.Size(85, 2);
+            this.pnlSlipId.Size = new System.Drawing.Size(85, 1);
             this.pnlSlipId.TabIndex = 60;
             // 
             // pnlBorrowDate
@@ -100,25 +100,16 @@
             this.pnlBorrowDate.Location = new System.Drawing.Point(534, 172);
             this.pnlBorrowDate.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.pnlBorrowDate.Name = "pnlBorrowDate";
-            this.pnlBorrowDate.Size = new System.Drawing.Size(98, 2);
+            this.pnlBorrowDate.Size = new System.Drawing.Size(98, 1);
             this.pnlBorrowDate.TabIndex = 61;
-            // 
-            // pnlReturnDate
-            // 
-            this.pnlReturnDate.BackColor = System.Drawing.Color.Black;
-            this.pnlReturnDate.Location = new System.Drawing.Point(534, 231);
-            this.pnlReturnDate.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.pnlReturnDate.Name = "pnlReturnDate";
-            this.pnlReturnDate.Size = new System.Drawing.Size(98, 2);
-            this.pnlReturnDate.TabIndex = 62;
             // 
             // pnlAmount
             // 
             this.pnlAmount.BackColor = System.Drawing.Color.Black;
-            this.pnlAmount.Location = new System.Drawing.Point(760, 231);
+            this.pnlAmount.Location = new System.Drawing.Point(762, 231);
             this.pnlAmount.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.pnlAmount.Name = "pnlAmount";
-            this.pnlAmount.Size = new System.Drawing.Size(14, 2);
+            this.pnlAmount.Size = new System.Drawing.Size(14, 1);
             this.pnlAmount.TabIndex = 63;
             // 
             // btnCancel
@@ -129,7 +120,7 @@
             this.btnCancel.BackColor = System.Drawing.Color.LightCoral;
             this.btnCancel.BackgroundColor = System.Drawing.Color.LightCoral;
             this.btnCancel.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.btnCancel.BorderRadius = 0;
+            this.btnCancel.BorderRadius = 20;
             this.btnCancel.BorderSize = 0;
             this.btnCancel.FlatAppearance.BorderSize = 0;
             this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -153,7 +144,7 @@
             this.btnDone.BackColor = System.Drawing.Color.MediumSeaGreen;
             this.btnDone.BackgroundColor = System.Drawing.Color.MediumSeaGreen;
             this.btnDone.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.btnDone.BorderRadius = 0;
+            this.btnDone.BorderRadius = 20;
             this.btnDone.BorderSize = 0;
             this.btnDone.FlatAppearance.BorderSize = 0;
             this.btnDone.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -187,13 +178,13 @@
             // 
             this.pnlPrint.BackColor = System.Drawing.Color.Transparent;
             this.pnlPrint.Controls.Add(this.lbAmount);
-            this.pnlPrint.Controls.Add(this.lbReturnDay);
+            this.pnlPrint.Controls.Add(this.lbReturnDate);
             this.pnlPrint.Controls.Add(this.lbBorrowDate);
-            this.pnlPrint.Controls.Add(this.dtgvChosenBook);
+            this.pnlPrint.Controls.Add(this.dtgvChosen);
             this.pnlPrint.Controls.Add(this.lbSlipId);
             this.pnlPrint.Controls.Add(this.lbReaderName);
-            this.pnlPrint.Controls.Add(this.pnlName);
-            this.pnlPrint.Controls.Add(this.pnlCode);
+            this.pnlPrint.Controls.Add(this.pnlReaderName);
+            this.pnlPrint.Controls.Add(this.pnlReaderId);
             this.pnlPrint.Controls.Add(this.lbReaderId);
             this.pnlPrint.Controls.Add(this.label2);
             this.pnlPrint.Controls.Add(this.label7);
@@ -219,16 +210,16 @@
             this.lbAmount.TabIndex = 72;
             this.lbAmount.Text = "5";
             // 
-            // lbReturnDay
+            // lbReturnDate
             // 
-            this.lbReturnDay.AutoSize = true;
-            this.lbReturnDay.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbReturnDay.Location = new System.Drawing.Point(532, 206);
-            this.lbReturnDay.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lbReturnDay.Name = "lbReturnDay";
-            this.lbReturnDay.Size = new System.Drawing.Size(104, 23);
-            this.lbReturnDay.TabIndex = 71;
-            this.lbReturnDay.Text = "18/12/2022";
+            this.lbReturnDate.AutoSize = true;
+            this.lbReturnDate.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbReturnDate.Location = new System.Drawing.Point(532, 206);
+            this.lbReturnDate.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lbReturnDate.Name = "lbReturnDate";
+            this.lbReturnDate.Size = new System.Drawing.Size(104, 23);
+            this.lbReturnDate.TabIndex = 71;
+            this.lbReturnDate.Text = "18/12/2022";
             // 
             // lbBorrowDate
             // 
@@ -241,52 +232,52 @@
             this.lbBorrowDate.TabIndex = 70;
             this.lbBorrowDate.Text = "12/12/2022";
             // 
-            // dtgvChosenBook
+            // dtgvChosen
             // 
-            this.dtgvChosenBook.AllowUserToAddRows = false;
-            this.dtgvChosenBook.AllowUserToResizeRows = false;
-            this.dtgvChosenBook.BackgroundColor = System.Drawing.Color.White;
-            this.dtgvChosenBook.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(84)))), ((int)(((byte)(131)))));
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(84)))), ((int)(((byte)(131)))));
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dtgvChosenBook.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
-            this.dtgvChosenBook.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dtgvChosenBook.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dtgvChosen.AllowUserToAddRows = false;
+            this.dtgvChosen.AllowUserToResizeRows = false;
+            this.dtgvChosen.BackgroundColor = System.Drawing.Color.White;
+            this.dtgvChosen.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(84)))), ((int)(((byte)(131)))));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(84)))), ((int)(((byte)(131)))));
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dtgvChosen.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.dtgvChosen.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dtgvChosen.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn6,
             this.dataGridViewTextBoxColumn7,
             this.dataGridViewTextBoxColumn8,
             this.dataGridViewTextBoxColumn9,
             this.dataGridViewTextBoxColumn10});
-            this.dtgvChosenBook.EnableHeadersVisualStyles = false;
-            this.dtgvChosenBook.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(84)))), ((int)(((byte)(131)))));
-            this.dtgvChosenBook.Location = new System.Drawing.Point(18, 249);
-            this.dtgvChosenBook.Margin = new System.Windows.Forms.Padding(20, 20, 20, 10);
-            this.dtgvChosenBook.MultiSelect = false;
-            this.dtgvChosenBook.Name = "dtgvChosenBook";
-            this.dtgvChosenBook.ReadOnly = true;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.LightSalmon;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dtgvChosenBook.RowHeadersDefaultCellStyle = dataGridViewCellStyle5;
-            this.dtgvChosenBook.RowHeadersVisible = false;
-            this.dtgvChosenBook.RowHeadersWidth = 40;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.Black;
-            this.dtgvChosenBook.RowsDefaultCellStyle = dataGridViewCellStyle6;
-            this.dtgvChosenBook.RowTemplate.Height = 26;
-            this.dtgvChosenBook.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dtgvChosenBook.Size = new System.Drawing.Size(760, 265);
-            this.dtgvChosenBook.TabIndex = 69;
+            this.dtgvChosen.EnableHeadersVisualStyles = false;
+            this.dtgvChosen.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(84)))), ((int)(((byte)(131)))));
+            this.dtgvChosen.Location = new System.Drawing.Point(18, 250);
+            this.dtgvChosen.Margin = new System.Windows.Forms.Padding(20, 20, 20, 10);
+            this.dtgvChosen.MultiSelect = false;
+            this.dtgvChosen.Name = "dtgvChosen";
+            this.dtgvChosen.ReadOnly = true;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.LightSalmon;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dtgvChosen.RowHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            this.dtgvChosen.RowHeadersVisible = false;
+            this.dtgvChosen.RowHeadersWidth = 40;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.Black;
+            this.dtgvChosen.RowsDefaultCellStyle = dataGridViewCellStyle3;
+            this.dtgvChosen.RowTemplate.Height = 26;
+            this.dtgvChosen.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dtgvChosen.Size = new System.Drawing.Size(760, 265);
+            this.dtgvChosen.TabIndex = 69;
             // 
             // dataGridViewTextBoxColumn6
             // 
@@ -459,7 +450,16 @@
             this.pnlTop.Size = new System.Drawing.Size(800, 38);
             this.pnlTop.TabIndex = 3;
             // 
-            // FormXacNhanMuonSach
+            // pnlReturnDate
+            // 
+            this.pnlReturnDate.BackColor = System.Drawing.Color.Black;
+            this.pnlReturnDate.Location = new System.Drawing.Point(534, 231);
+            this.pnlReturnDate.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.pnlReturnDate.Name = "pnlReturnDate";
+            this.pnlReturnDate.Size = new System.Drawing.Size(98, 1);
+            this.pnlReturnDate.TabIndex = 62;
+            // 
+            // FormThongTinPM
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -472,23 +472,22 @@
             this.Controls.Add(this.pnlSlipId);
             this.Controls.Add(this.pnlPrint);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "FormXacNhanMuonSach";
+            this.Name = "FormThongTinPM";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FormXacNhanMuonSach";
             this.Load += new System.EventHandler(this.FormXacNhanMuonSach_Load);
             this.pnlPrint.ResumeLayout(false);
             this.pnlPrint.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dtgvChosenBook)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dtgvChosen)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
-        private System.Windows.Forms.Panel pnlName;
-        private System.Windows.Forms.Panel pnlCode;
+        private System.Windows.Forms.Panel pnlReaderName;
+        private System.Windows.Forms.Panel pnlReaderId;
         private System.Windows.Forms.Panel pnlSlipId;
         private System.Windows.Forms.Panel pnlBorrowDate;
-        private System.Windows.Forms.Panel pnlReturnDate;
         private System.Windows.Forms.Panel pnlAmount;
         private But btnCancel;
         private But btnDone;
@@ -497,9 +496,9 @@
         private System.Windows.Forms.Panel pnlPrint;
         private System.Windows.Forms.Panel pnlTop;
         private System.Windows.Forms.Label lbAmount;
-        private System.Windows.Forms.Label lbReturnDay;
+        private System.Windows.Forms.Label lbReturnDate;
         private System.Windows.Forms.Label lbBorrowDate;
-        private System.Windows.Forms.DataGridView dtgvChosenBook;
+        private System.Windows.Forms.DataGridView dtgvChosen;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
@@ -515,5 +514,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Panel pnlReturnDate;
     }
 }

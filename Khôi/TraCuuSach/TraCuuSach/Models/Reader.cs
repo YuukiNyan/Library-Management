@@ -37,7 +37,7 @@ namespace TraCuuSach.Models
             this.type = reader.type;
             this.birth = reader.birth;
             this.address = reader.address;
-            this.email = reader.address;
+            this.email = reader.email;
             this.createAt = reader.createAt;
             this.expiredDate = reader.expiredDate;
             this.debt = reader.debt;
@@ -49,7 +49,7 @@ namespace TraCuuSach.Models
             this.type = type;
             this.birth = birth;
             this.address = address;
-            this.email = address;
+            this.email = email;
             this.createAt = createAt;
             this.expiredDate = expiredDate;
             this.debt = debt;

@@ -14,7 +14,7 @@ using TraCuuSach.Models;
 
 namespace TraCuuSach
 {
-    public partial class FormXacNhanMuonSach : Form
+    public partial class FormThongTinPM : Form
     {
         #region DragForm
         [DllImport("user32.DLL", EntryPoint = "ReleaseCapture")]
@@ -59,7 +59,7 @@ namespace TraCuuSach
         public static BorrowSlip borrowSlip;
         BindingSource bindingChosen;
 
-        public FormXacNhanMuonSach()
+        public FormThongTinPM()
         {
             InitializeComponent();
             Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, 12, 12));
@@ -69,26 +69,26 @@ namespace TraCuuSach
             btnDone.BorderRadius = 20;
             btnCancel.BorderRadius = 20;
 
-            lbSlipId.Text = borrowSlip.slipCode;
-            lbReaderId.Text = borrowSlip.code;
-            lbReaderName.Text = borrowSlip.name;
+            lbSlipId.Text = borrowSlip.id;
+            lbReaderId.Text = borrowSlip.readerId;
+            lbReaderName.Text = borrowSlip.readerName;
             lbBorrowDate.Text = DateTime.Parse(borrowSlip.borrowDate).ToString("dd/MM/yyyy");
-            lbReturnDay.Text = DateTime.Parse(borrowSlip.returnDate).ToString("dd/MM/yyyy");
-            lbAmount.Text = borrowSlip.amount;
+            lbReturnDate.Text = DateTime.Parse(borrowSlip.returnDate).ToString("dd/MM/yyyy");
+            lbAmount.Text = borrowSlip.amount.ToString();
 
             pnlSlipId.Width = lbSlipId.Width - 6;
-            pnlCode.Width = lbReaderId.Width - 6;
-            pnlName.Width = lbReaderName.Width - 6;
+            pnlReaderId.Width = lbReaderId.Width - 6;
+            pnlReaderName.Width = lbReaderName.Width - 6;
             pnlBorrowDate.Width = lbBorrowDate.Width - 6;
-            pnlReturnDate.Width = lbReturnDay.Width - 6;
+            pnlReturnDate.Width = lbReturnDate.Width - 6;
             pnlAmount.Width = lbAmount.Width - 8;
 
             bindingChosen = new BindingSource();
             bindingChosen.DataSource = borrowSlip.chosenBooks;
-            dtgvChosenBook.DataSource = bindingChosen;
+            dtgvChosen.DataSource = bindingChosen;
 
-            if (dtgvChosenBook.Rows.Count != 0)
-                dtgvChosenBook.Rows[0].Selected = false;
+            if (dtgvChosen.Rows.Count != 0)
+                dtgvChosen.Rows[0].Selected = false;
         }
 
         private void btnDone_Click(object sender, EventArgs e)
@@ -106,13 +106,13 @@ namespace TraCuuSach
 
         private void UpdataData()
         {
-            string createBorrowSlipCmd = $@"INSERT INTO PHIEUMUON (MaDocGia, NgMuon, HanTra) VALUES('{borrowSlip.code}','{borrowSlip.borrowDate}','{borrowSlip.returnDate}')";
+            string createBorrowSlipCmd = $@"INSERT INTO PHIEUMUON (MaDocGia, NgMuon, HanTra) VALUES('{borrowSlip.readerId}','{borrowSlip.borrowDate}','{borrowSlip.returnDate}')";
             string insertSlipDetail = "";
             string updateBookState = "";
 
-            foreach (BookInfo book in borrowSlip.chosenBooks)
+            foreach (Book book in borrowSlip.chosenBooks)
             {
-                insertSlipDetail = insertSlipDetail + $@"INSERT INTO CTPHIEUMUON(MaPhieuMuonSach, MaCuonSach, TinhTrangPM) VALUES('{borrowSlip.slipCode}','{book.id}', 0)" + "\n";
+                insertSlipDetail = insertSlipDetail + $@"INSERT INTO CTPHIEUMUON(MaPhieuMuonSach, MaCuonSach, TinhTrangPM) VALUES('{borrowSlip.id}','{book.id}', 0)" + "\n";
                 updateBookState = updateBookState + $@"UPDATE CUONSACH SET TinhTrang = 1 WHERE MaCuonSach = '{book.id}'" + "\n";
             }
 
@@ -136,6 +136,7 @@ namespace TraCuuSach
         {
             bmp = new Bitmap(pnlPrint.Width, pnlPrint.Height);
             pnlPrint.DrawToBitmap(bmp, new Rectangle(0, 0, pnlPrint.Width, pnlPrint.Height));
+            printDocument1.DocumentName = "BorrowSlip_" + borrowSlip.id;
             printPreviewDialog1.Document = printDocument1;
             printPreviewDialog1.ShowDialog();
         }
@@ -143,7 +144,7 @@ namespace TraCuuSach
         private void printDocument1_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
         {
             Rectangle pagearea = e.PageBounds;
-            e.Graphics.DrawImage(bmp, (pagearea.Width/2) - (pnlPrint.Width/2), pnlPrint.Location.Y);
+            e.Graphics.DrawImage(bmp, (pagearea.Width / 2) - (pnlPrint.Width / 2), pnlPrint.Location.Y);
         }
         #endregion
     }

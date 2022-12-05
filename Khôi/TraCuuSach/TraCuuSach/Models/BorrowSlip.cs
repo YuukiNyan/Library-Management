@@ -9,37 +9,33 @@ namespace TraCuuSach.Models
 {
     public class BorrowSlip
     {
-        public int stt { get; set; }
-        public string slipCode { get; set; }
-        public string code { get; set; }
-        public string name { get; set; }
-        public string email;
+        public string id { get; set; }
+        public string readerId { get; set; }
+        public string readerName { get; set; }
         public string borrowDate { get; set; }
         public string returnDate { get; set; }
-        public string amount;
-        public BindingList<BookInfo> chosenBooks;
+        public string amount { get; set; }
+        public BindingList<Book> chosenBooks;
 
         public BorrowSlip()
         {
-            slipCode = "";
-            code = "";
-            name = "";
-            email = "";
+            id = "";
+            readerId = "";
+            readerName = "";
             borrowDate = "";
             returnDate = "";
             amount = "";
-            chosenBooks = new BindingList<BookInfo>();
+            chosenBooks = new BindingList<Book>();
         }
-        public BorrowSlip(string slipCode, string code, string name, string email, string borrowDate, string returnDate, string amount, BindingList<BookInfo> selectedBooks)
+        public BorrowSlip(string slipId, string readerId, string readerName, string borrowDate, string returnDate, string am, BindingList<Book> selectedBooks)
         {
-            this.slipCode = slipCode;
-            this.code = code;
-            this.name = name;
-            this.email = email;
+            this.id = slipId;
+            this.readerId = readerId;
+            this.readerName = readerName;
             this.borrowDate = borrowDate;
             this.returnDate = returnDate;
-            this.amount = amount;
-            chosenBooks = new BindingList<BookInfo>(selectedBooks);
+            this.amount = am;
+            chosenBooks = new BindingList<Book>(selectedBooks);
         }
     }
 }

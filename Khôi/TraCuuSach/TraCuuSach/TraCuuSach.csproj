@@ -54,6 +54,12 @@
     <Compile Include="CustomPic.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="FormCTPM.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormCTPM.Designer.cs">
+      <DependentUpon>FormCTPM.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormMuonSach.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -72,14 +78,21 @@
     <Compile Include="FormTraSach.Designer.cs">
       <DependentUpon>FormTraSach.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormXacNhanMuonSach.cs">
+    <Compile Include="FormThongTinPM.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormXacNhanMuonSach.Designer.cs">
-      <DependentUpon>FormXacNhanMuonSach.cs</DependentUpon>
+    <Compile Include="FormThongTinPM.Designer.cs">
+      <DependentUpon>FormThongTinPM.cs</DependentUpon>
     </Compile>
-    <Compile Include="Models\BookInfo.cs" />
+    <Compile Include="FormDanhSachPM.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormDanhSachPM.Designer.cs">
+      <DependentUpon>FormDanhSachPM.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Book.cs" />
     <Compile Include="Models\BorrowSlip.cs" />
+    <Compile Include="Models\DetailBorrowSlip.cs" />
     <Compile Include="Models\Reader.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -95,6 +108,9 @@
     <Compile Include="VNPanel.cs">
       <SubType>Component</SubType>
     </Compile>
+    <EmbeddedResource Include="FormCTPM.resx">
+      <DependentUpon>FormCTPM.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormMuonSach.resx">
       <DependentUpon>FormMuonSach.cs</DependentUpon>
     </EmbeddedResource>
@@ -104,8 +120,11 @@
     <EmbeddedResource Include="FormTraSach.resx">
       <DependentUpon>FormTraSach.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormXacNhanMuonSach.resx">
-      <DependentUpon>FormXacNhanMuonSach.cs</DependentUpon>
+    <EmbeddedResource Include="FormThongTinPM.resx">
+      <DependentUpon>FormThongTinPM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormDanhSachPM.resx">
+      <DependentUpon>FormDanhSachPM.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

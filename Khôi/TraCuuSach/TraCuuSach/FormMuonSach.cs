@@ -31,8 +31,8 @@ namespace TraCuuSach
         SqlDataAdapter adapter = new SqlDataAdapter();
 
         List<Reader> readers;
-        BindingList<BookInfo> stockBooks;
-        BindingList<BookInfo> chosenBooks;
+        BindingList<Book> stockBooks;
+        BindingList<Book> chosenBooks;
 
         BindingSource bingdingStock;
         BindingSource bingdingChosen;
@@ -55,28 +55,26 @@ namespace TraCuuSach
         {
             this.dtgvStock.AutoGenerateColumns = false;
             this.dtgvChosen.AutoGenerateColumns = false;
-            btnViewBorrowList.BorderRadius = 20;
-            btnBorrow.BorderRadius = 20;
-            btnUpdate.BorderRadius = 20;
+            btnBorrowList.BorderRadius = 12;
+            btnBorrow.BorderRadius = 12;
+            btnUpdate.BorderRadius = 12;
             btnAdd.BorderRadius = 15;
             btnRemove.BorderRadius = 15;
             btnBorrow.Enabled = false;
-            btnUpdate.Enabled = false;
+            txtReaderName.Enabled = false;
+            dtpReturn.Enabled = false;
 
             connection = new SqlConnection(str);
             connection.Open();
 
             readers = new List<Reader>();
-            stockBooks = new BindingList<BookInfo>();
-            chosenBooks = new BindingList<BookInfo>();
-
-            txtReaderName.Enabled = false;
-            returnDate.Enabled = false;
+            stockBooks = new BindingList<Book>();
+            chosenBooks = new BindingList<Book>();
 
             LoadData();
 
             //Parameters.LoadParam();
-            returnDate.Value = borrowDate.Value.AddDays(maxDays);
+            dtpReturn.Value = dtpBorrow.Value.AddDays(maxDays);
             lbMaxBorrow.Text = "Số sách được mượn tối đa: " + max;
             lbAmount.Text = "Số lượng: " + dtgvChosen.Rows.Count;
         }
@@ -114,7 +112,7 @@ namespace TraCuuSach
             adapter.Fill(table);
             foreach (DataRow item in table.Rows)
             {
-                BookInfo b = new BookInfo(item[0].ToString(), item[1].ToString(), item[2].ToString(), item[3].ToString(), item[4].ToString());
+                Book b = new Book(item[0].ToString(), item[1].ToString(), item[2].ToString(), item[3].ToString(), item[4].ToString());
                 stockBooks.Add(b);
             }
             bingdingStock = new BindingSource();
@@ -145,7 +143,7 @@ namespace TraCuuSach
             newBorrowSlip = $"MPMS{stt:000}";
         }
 
-        private void LoadDataGridView(BindingList<BookInfo> list, DataGridView dtgv, BindingSource bd)
+        private void LoadDataGridView(BindingList<Book> list, DataGridView dtgv, BindingSource bd)
         {
             bd.DataSource = list;
             dtgv.DataSource = bd;
@@ -168,9 +166,6 @@ namespace TraCuuSach
                 MessageBox.Show("Không được mượn quá " + max + " cuốn sách", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             else if (addRow < 0)
                 MessageBox.Show("Bạn chưa chọn cuốn sách cần thêm!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-
-            //else if (CheckBorrowed())
-            //    MessageBox.Show($"Độc giả đã mượn quyển sách này rồi", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             else
             {
                 ChangeBookBetweenTwoList(stockBooks, chosenBooks, addRow);
@@ -191,11 +186,11 @@ namespace TraCuuSach
             }
         }
 
-        private void ChangeBookBetweenTwoList(BindingList<BookInfo> l1, BindingList<BookInfo> l2, int i)
+        private void ChangeBookBetweenTwoList(BindingList<Book> l1, BindingList<Book> l2, int i)
         {
             {
                 int j = 0;
-                foreach (BookInfo b in l1)
+                foreach (Book b in l1)
                 {
                     if (i == j)
                     {
@@ -224,6 +219,9 @@ namespace TraCuuSach
                 WHERE MaDocGia = '{cbbReaderId.Text}' AND PHIEUMUON.MaPhieuMuonSach = CTPHIEUMUON.MaPhieuMuonSach AND TinhTrangPM = 1";
                 adapter.SelectCommand = command;
                 numborrowedBooks = int.Parse(command.ExecuteScalar().ToString());
+                lbBorrowed.Text = "Số sách đang mượn: " + numborrowedBooks;
+
+                dtpBorrow.Text = DateTime.Now.ToString();
             }
             else
                 txtReaderName.Text = "";
@@ -244,20 +242,20 @@ namespace TraCuuSach
                 cbb.Text = cbb.Text.ToUpper();
 
                 foreach (Reader reader in readers)
-                {
                     if (cbb.Text == reader.id)
                     {
                         existed = true;
                         break;
                     }
-                }
             }
+
             lbWCode.Visible = existed ? false : true;
+            dtpBorrow.Value = existed ? DateTime.Now : dtpBorrow.Value;
         }
 
-        private void borrowDate_ValueChanged(object sender, EventArgs e)
+        private void dtpBorrow_ValueChanged(object sender, EventArgs e)
         {
-            returnDate.Value = borrowDate.Value.AddDays(maxDays);
+            dtpReturn.Value = dtpBorrow.Value.AddDays(maxDays);
         }
 
         private void toggleButton1_CheckedChanged(object sender, EventArgs e)
@@ -381,28 +379,70 @@ namespace TraCuuSach
             RemoveBook();
         }
 
+        private void btnBorrowList_Click(object sender, EventArgs e)
+        {
+            new FormDanhSachPM().ShowDialog();
+        }
+
         private void btnBorrow_Click(object sender, EventArgs e)
         {
             if (cbbReaderId.SelectedIndex == -1)
                 MessageBox.Show("Vui lòng nhập mã độc giả!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             else if (toggleButton1.CheckState == CheckState.Checked)
+            {
                 if (numborrowedBooks + dtgvChosen.Rows.Count > max)
                     MessageBox.Show($"Không được mượn quá {max} quyển sách!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else
+                ShowConfirmForm();
 
-            ShowConfirmForm();
+            lbBorrowed.Text = "Số sách đang mượn: " + (numborrowedBooks + dtgvChosen.Rows.Count);
         }
+
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
+            //    LibraryManagement.fHome.SwitchForm(new LendBook());
+
+        }
+
+        //private void CheckBorrowed()
+        //{
+        //    List<string> borrowedBooks = new List<string>();
+        //    List<string> existedBooks = new List<string>();
+
+        //    command = connection.CreateCommand();
+        //    command.CommandText = $@"SELECT CTPHIEUMUON.MaCuonSach
+        //    FROM PHIEUMUON, CTPHIEUMUON
+        //    WHERE PHIEUMUON.MaPhieuMuonSach = CTPHIEUMUON.MaPhieuMuonSach AND TinhTrangPM = 0 
+        //    AND MaDocGia = '{cbbReaderId.Text}'";
+        //    adapter.SelectCommand = command;
+        //    DataTable table = new DataTable();
+        //    adapter.Fill(table);
+        //    foreach (DataRow item in table.Rows)
+        //        borrowedBooks.Add(item[0].ToString());
+
+        //    for (int i = 0; i < dtgvChosen.Rows.Count; i++)
+        //        for (int j = 0; j < borrowedBooks.Count; j++)
+        //            if (dtgvChosen.Rows[i].Cells[1].Value.ToString() == borrowedBooks[j].ToString())
+        //                existedBooks.Add(dtgvChosen.Rows[i].Cells[3].Value.ToString());
+        //    var msg = "";
+        //    if (existedBooks.Count > 0)
+        //    {
+        //        msg = string.Join(Environment.NewLine, existedBooks);
+        //        MessageBox.Show($"Độc giả đã mượn:\n" + msg, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        //    }
+        //}
 
         private void ShowConfirmForm()
         {
-            string code = cbbReaderId.Text;
+            string readerId = cbbReaderId.Text;
             string name = txtReaderName.Text;
-            string email = readers[cbbReaderId.SelectedIndex].email;
-            string date = borrowDate.Value.ToString("yyyy-MM-dd");
-            string backDate = returnDate.Value.ToString("yyyy-MM-dd");
+            string date = dtpBorrow.Value.ToString("yyyy - MM - dd");
+            string backDate = dtpReturn.Value.ToString("yyyy-MM-dd");
             string amount = dtgvChosen.Rows.Count.ToString();
 
-            FormXacNhanMuonSach.borrowSlip = new BorrowSlip(newBorrowSlip, code, name, email, date, backDate, amount, chosenBooks);
-            new FormXacNhanMuonSach().ShowDialog();
+            FormThongTinPM.borrowSlip = new BorrowSlip(newBorrowSlip, readerId, name, date, backDate, amount, chosenBooks);
+            new FormThongTinPM().ShowDialog();
 
             if (borrowState == "Success")
             {
