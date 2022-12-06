@@ -11,24 +11,24 @@ namespace TraCuuSach.Models
         public string id { get; set; }
         public string name { get; set; }
         public string type { get; set; }
-        public DateTime birth { get; set; }
+        public string birth { get; set; }
         public string address { get; set; }
         public string email { get; set; }
-        public DateTime createAt { get; set; }
-        public DateTime expiredDate { get; set; }
-        public float debt { get; set; }
+        public string createAt { get; set; }
+        public string expiredDate { get; set; }
+        public long debt { get; set; }
 
         public Reader()
         {
             id = "";
             name = "";
             type = "";
-            birth = DateTime.Parse("");
+            birth = "";
             address = "";
             email = "";
-            createAt = DateTime.Parse("");
-            expiredDate = DateTime.Parse("");
-            debt = float.Parse("");
+            createAt = "";
+            expiredDate = "";
+            debt = long.Parse("");
         }
         public Reader(Reader reader)
         {
@@ -42,7 +42,7 @@ namespace TraCuuSach.Models
             this.expiredDate = reader.expiredDate;
             this.debt = reader.debt;
         }
-        public Reader(string id, string name, string type, DateTime birth, string address, string email, DateTime createAt, DateTime expiredDate, float debt)
+        public Reader(string id, string name, string type, string birth, string address, string email, string createAt, string expiredDate, long debt)
         {
             this.id = id;
             this.name = name;

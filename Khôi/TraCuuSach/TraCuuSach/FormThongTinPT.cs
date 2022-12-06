@@ -4,7 +4,6 @@ using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
-using System.Drawing.Printing;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -14,7 +13,7 @@ using TraCuuSach.Models;
 
 namespace TraCuuSach
 {
-    public partial class FormThongTinPM : Form
+    public partial class FormThongTinPT : Form
     {
         #region DragForm
         [DllImport("user32.DLL", EntryPoint = "ReleaseCapture")]
@@ -56,35 +55,37 @@ namespace TraCuuSach
         }
         #endregion
 
-        public static BorrowSlip borrowSlip;
+        public static ReturnSlip returnSlip;
         BindingSource bindingChosen;
 
-        public FormThongTinPM()
+        public FormThongTinPT()
         {
             InitializeComponent();
             Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, 12, 12));
         }
-        private void FormXacNhanMuonSach_Load(object sender, EventArgs e)
+
+        private void FormThongTinPT_Load(object sender, EventArgs e)
         {
+            this.dtgvChosen.AutoGenerateColumns = false;
             btnDone.BorderRadius = 20;
             btnCancel.BorderRadius = 20;
 
-            lbSlipId.Text = borrowSlip.id;
-            lbReaderId.Text = borrowSlip.readerId;
-            lbReaderName.Text = borrowSlip.readerName;
-            lbBorrowDate.Text = DateTime.Parse(borrowSlip.borrowDate).ToString("dd/MM/yyyy");
-            lbReturnDate.Text = DateTime.Parse(borrowSlip.returnDate).ToString("dd/MM/yyyy");
-            lbAmount.Text = borrowSlip.amount.ToString();
+            lbSlipId.Text = returnSlip.id;
+            lbReaderId.Text = returnSlip.readerId;
+            lbReaderName.Text = returnSlip.readerName;
+            lbReturnDate.Text = DateTime.Parse(returnSlip.returnDate).ToString("dd/MM/yyyy");
+            lbFine.Text = returnSlip.fineThisPeriod.ToString();
+            lbTotalFine.Text = returnSlip.totalFine.ToString();
 
             pnlSlipId.Width = lbSlipId.Width - 6;
             pnlReaderId.Width = lbReaderId.Width - 6;
             pnlReaderName.Width = lbReaderName.Width - 6;
-            pnlBorrowDate.Width = lbBorrowDate.Width - 6;
             pnlReturnDate.Width = lbReturnDate.Width - 6;
-            pnlAmount.Width = lbAmount.Width - 8;
+            pnlFine.Width = lbFine.Width - 6;
+            pnlTotalFine.Width = lbTotalFine.Width - 8;
 
             bindingChosen = new BindingSource();
-            bindingChosen.DataSource = borrowSlip.chosenBooks;
+            bindingChosen.DataSource = returnSlip.returnBooks;
             dtgvChosen.DataSource = bindingChosen;
 
             if (dtgvChosen.Rows.Count != 0)
@@ -93,50 +94,53 @@ namespace TraCuuSach
 
         private void btnDone_Click(object sender, EventArgs e)
         {
-            if (FormMuonSach.print)
+            if (FormTraSach.print)
                 Print();
             UpdateData();
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            FormMuonSach.borrowState = "Cancelled";
+            FormTraSach.returnState = "Cancelled";
             this.Close();
         }
 
         private void UpdateData()
         {
-            string createBorrowSlipCmd = $@"INSERT INTO PHIEUMUON (MaDocGia, NgMuon, HanTra) VALUES('{borrowSlip.readerId}','{borrowSlip.borrowDate}','{borrowSlip.returnDate}')";
-            string insertSlipDetail = "";
-            string updateBookState = "";
+            string createReturnSlipCmd = $@"INSERT INTO PHIEUTRASACH(MaDocGia, NgTra, TienPhatKyNay) VALUES('{returnSlip.readerId}', '{returnSlip.returnDate}', {returnSlip.fineThisPeriod})";
+            string insertSlipDetail = @"";
+            string setBookAndSlipDetailStatus = @"";
+            string updateTotalFine = $@"UPDATE DOCGIA SET TongNo = TongNo - {returnSlip.fineThisPeriod} WHERE MaDocGia = '{returnSlip.readerId}'";
 
-            foreach (Book book in borrowSlip.chosenBooks)
+            foreach (ReturnBook book in returnSlip.returnBooks)
             {
-                insertSlipDetail = insertSlipDetail + $@"INSERT INTO CTPHIEUMUON(MaPhieuMuonSach, MaCuonSach, TinhTrangPM) VALUES('{borrowSlip.id}','{book.id}', 0)" + "\n";
-                updateBookState = updateBookState + $@"UPDATE CUONSACH SET TinhTrang = 1 WHERE MaCuonSach = '{book.id}'" + "\n";
+                insertSlipDetail += $@"INSERT INTO CTPT(MaPhieuTraSach, MaCuonSach, MaPhieuMuonSach, SoNgayMuon, TienPhat) VALUES('{returnSlip.id}','{book.id}','{book.borrowSlipId}', {book.borrowedDays}, {book.fine})" + "\n";
+                setBookAndSlipDetailStatus += $@"UPDATE CTPHIEUMUON SET TinhTrangPM = 1  WHERE MaChiTietPhieuMuon = '{book.detailBorrowId}'" + "\n" + $@"UPDATE CUONSACH SET TinhTrang = 0 WHERE MaCuonSach = '{book.id}'";
             }
 
             SqlConnection conn = new SqlConnection(FormMuonSach.str);
             conn.Open();
-            SqlCommand cmd = new SqlCommand(createBorrowSlipCmd, conn);
+            SqlCommand cmd = new SqlCommand(createReturnSlipCmd, conn);
             cmd.ExecuteNonQuery();
             cmd.CommandText = insertSlipDetail;
             cmd.ExecuteNonQuery();
-            cmd.CommandText = updateBookState;
+            cmd.CommandText = setBookAndSlipDetailStatus;
+            cmd.ExecuteNonQuery();
+            cmd.CommandText = updateTotalFine;
             cmd.ExecuteNonQuery();
             conn.Close();
 
-            FormMuonSach.borrowState = "Success";
+            FormTraSach.returnState = "Success";
             this.Close();
         }
-        #region Print Borrow Slip
+        #region Print Return Slip
         Bitmap bmp;
 
         private void Print()
         {
             bmp = new Bitmap(pnlPrint.Width, pnlPrint.Height);
             pnlPrint.DrawToBitmap(bmp, new Rectangle(0, 0, pnlPrint.Width, pnlPrint.Height));
-            printDocument1.DocumentName = "BorrowSlip_" + borrowSlip.id;
+            printDocument1.DocumentName = "ReturnSlip_" + returnSlip.id;
             printPreviewDialog1.Document = printDocument1;
             printPreviewDialog1.ShowDialog();
         }

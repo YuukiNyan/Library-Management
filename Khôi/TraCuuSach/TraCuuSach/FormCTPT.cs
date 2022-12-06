@@ -5,7 +5,6 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
-using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,7 +13,7 @@ using TraCuuSach.Models;
 
 namespace TraCuuSach
 {
-    public partial class FormCTPM : Form
+    public partial class FormCTPT : Form
     {
         #region DragForm
         [DllImport("user32.DLL", EntryPoint = "ReleaseCapture")]
@@ -56,18 +55,18 @@ namespace TraCuuSach
         }
         #endregion
 
-        List<DetailBorrowSlip> detailSlips;
+        List<DetailReturnSlip> detailSlips;
         string slipId;
         public static bool dataChanged = false;
 
-        public FormCTPM(string slipId)
+        public FormCTPT(string slipId)
         {
             InitializeComponent();
             Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, 12, 12));
             this.slipId = slipId;
         }
 
-        private void FormChiTietPhieuMuon_Load(object sender, EventArgs e)
+        private void FormCTPT_Load(object sender, EventArgs e)
         {
             btnDelete.BorderRadius = 12;
             btnCancel.BorderRadius = 12;
@@ -76,7 +75,7 @@ namespace TraCuuSach
             btnDelete.Enabled = false;
             btnCancel.Enabled = false;
 
-            detailSlips = new List<DetailBorrowSlip>();
+            detailSlips = new List<DetailReturnSlip>();
             LoadData();
         }
 
@@ -84,11 +83,10 @@ namespace TraCuuSach
         {
             detailSlips.Clear();
             dtgv.Rows.Clear();
-            string queryCmd = $@"SELECT MaChiTietPhieuMuon, CTPHIEUMUON.MaCuonSach, TenDauSach, TinhTrangPM
-            FROM CTPHIEUMUON, PHIEUMUON, DAUSACH, SACH, CUONSACH
-            WHERE PHIEUMUON.MaPhieuMuonSach = '{slipId}' 
-            AND PHIEUMUON.MaPhieuMuonSach = CTPHIEUMUON.MaPhieuMuonSach
-            AND CUONSACH.MaCuonSach = CTPHIEUMUON.MaCuonSach
+            string queryCmd = $@"SELECT MaChiTietPhieuTra, CTPT.MaPhieuTraSach, TenDauSach, SoNgayMuon, TienPhat
+            FROM CTPT, DAUSACH, SACH, CUONSACH
+            WHERE CTPT.MaPhieuTraSach = '{slipId}' 
+            AND CUONSACH.MaCuonSach = CTPT.MaCuonSach
             AND CUONSACH.MaSach = SACH.MaSach
             AND DAUSACH.MaDauSach = SACH.MaDauSach";
 
@@ -98,17 +96,17 @@ namespace TraCuuSach
             using (SqlDataReader reader = cmd.ExecuteReader())
                 while (reader.Read())
                 {
-                    DetailBorrowSlip slip = new DetailBorrowSlip(reader.GetString(0), slipId, reader.GetString(1), reader.GetString(2), (reader.GetSqlBoolean(3)) ? "Đã trả" : "Chưa trả");
+                    DetailReturnSlip slip = new DetailReturnSlip(reader.GetString(0), slipId, reader.GetString(1), reader.GetString(2), (int)reader.GetSqlInt32(3), (long)reader.GetSqlMoney(4));
                     detailSlips.Add(slip);
                 }
             conn.Close();
 
             detailSlips.OrderBy(o => o.id).ThenBy(o => o.bookId).ThenBy(o => o.bookName).ToList();
             int stt = 1;
-            foreach (DetailBorrowSlip slip in detailSlips)
+            foreach (DetailReturnSlip slip in detailSlips)
             {
-                dtgv.Rows.Add(new object[] { stt, slip.id, slip.bookId, slip.bookName, slip.status });
                 stt++;
+                dtgv.Rows.Add(new object[] { stt, slip.id, slip.bookId, slip.bookName, slip.borrowDays, slip.fine });
             }
 
             if (dtgv.Rows.Count != 0)
@@ -121,13 +119,15 @@ namespace TraCuuSach
             lbDetailId.Text = "";
             lbBookId.Text = "";
             lbBookName.Text = "";
-            lbStatus.Text = "";
+            lbBorrowDays.Text = "";
+            lbFine.Text = "";
 
             pnlSlipId.Width = 0;
             pnlDetailId.Width = 0;
             pnlBookId.Width = 0;
             pnlBookName.Width = 0;
-            pnlStatus.Width = 0;
+            pnlBorrowDays.Width = 0;
+            pnlFine.Width = 0;
 
             btnDelete.Enabled = false;
             btnCancel.Enabled = false;
@@ -145,16 +145,19 @@ namespace TraCuuSach
                 lbDetailId.Text = dtgv.Rows[i].Cells[1].Value.ToString();
                 lbBookId.Text = dtgv.Rows[i].Cells[2].Value.ToString();
                 lbBookName.Text = dtgv.Rows[i].Cells[3].Value.ToString();
-                lbStatus.Text = dtgv.Rows[i].Cells[4].Value.ToString();
+                lbBorrowDays.Text = dtgv.Rows[i].Cells[4].Value.ToString();
+                lbFine.Text = dtgv.Rows[i].Cells[5].Value.ToString();
 
                 pnlSlipId.Width = lbSlipId.Width - 6;
                 pnlDetailId.Width = lbDetailId.Width - 6;
                 pnlBookId.Width = lbBookId.Width - 6;
                 pnlBookName.Width = lbBookName.Width - 6;
-                pnlStatus.Width = lbStatus.Width - 6;
+                pnlBorrowDays.Width = lbBorrowDays.Width - 6;
+                pnlFine.Width = lbFine.Width - 6;
 
                 btnDelete.Enabled = true;
                 btnCancel.Enabled = true;
+                dataChanged = false;
             }
         }
 
@@ -162,32 +165,32 @@ namespace TraCuuSach
         {
             var id = lbDetailId.Text;
             bool deleteSlip = false;
-            string msg = $"Bạn có muốn xóa chi tiết phiếu mượn {id} không?";
+            string msg = $"Bạn có muốn xóa chi tiết phiếu trả {id} không?";
             if (dtgv.Rows.Count == 1)
             {
-                msg += $"\n\nNếu xóa chi tiết phiếu mượn {id} thì sẽ xóa luôn phiếu mượn {slipId}!";
+                msg += $"\n\nNếu xóa chi tiết phiếu trả {id} thì sẽ xóa luôn phiếu trả {slipId}!";
                 deleteSlip = true;
             }
-            var result = MessageBox.Show(msg, "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+            var result = MessageBox.Show(msg, "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
             if (result == DialogResult.OK)
             {
-                string queryUpdateCmd = $@"DELETE FROM CTPHIEUMUON
-                WHERE MaChiTietPhieuMuon = '{id}'
+                string queryUpdateCmd = $@"DELETE FROM CTPT
+                WHERE MaChiTietPhieuTra = '{id}'
             
                 UPDATE CUONSACH
-                SET TinhTrang = 0
+                SET TinhTrang = 1
                 WHERE MaCuonSach = '{lbBookId.Text}'
                 ";
                 if (deleteSlip)
-                    queryUpdateCmd += $@" DELETE FROM PHIEUMUON
-                    WHERE MaPhieuMuonSach = '{slipId}'";
+                    queryUpdateCmd += $@" DELETE FROM PHIEUTRASACH
+                    WHERE MaPhieuTraSach = '{slipId}'";
                 SqlConnection conn = new SqlConnection(FormMuonSach.str);
                 conn.Open();
                 SqlCommand cmd = new SqlCommand(queryUpdateCmd, conn);
                 cmd.ExecuteNonQuery();
                 conn.Close();
 
-                MessageBox.Show("Bạn đã xóa chi tiết phiếu mượn thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Bạn đã xóa chi tiết phiếu trả thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 if (deleteSlip)
                     this.Close();

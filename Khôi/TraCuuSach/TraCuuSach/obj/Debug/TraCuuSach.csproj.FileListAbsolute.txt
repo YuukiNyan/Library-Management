@@ -74,3 +74,6 @@ C:\Users\Lenovo\Documents\GitHub\Library-Management\Khôi\TraCuuSach\TraCuuSach\
 C:\Users\Lenovo\Documents\GitHub\Library-Management\Khôi\TraCuuSach\TraCuuSach\obj\Debug\TraCuuSach.FormCTPM.resources
 C:\Users\Lenovo\Documents\GitHub\Library-Management\Khôi\TraCuuSach\TraCuuSach\obj\Debug\TraCuuSach.FormDanhSachPM.resources
 C:\Users\Lenovo\Documents\GitHub\Library-Management\Khôi\TraCuuSach\TraCuuSach\obj\Debug\TraCuuSach.FormThongTinPM.resources
+C:\Users\Lenovo\Documents\GitHub\Library-Management\Khôi\TraCuuSach\TraCuuSach\obj\Debug\TraCuuSach.FormThongTinPT.resources
+C:\Users\Lenovo\Documents\GitHub\Library-Management\Khôi\TraCuuSach\TraCuuSach\obj\Debug\TraCuuSach.FormDanhSachPT.resources
+C:\Users\Lenovo\Documents\GitHub\Library-Management\Khôi\TraCuuSach\TraCuuSach\obj\Debug\TraCuuSach.FormCTPT.resources

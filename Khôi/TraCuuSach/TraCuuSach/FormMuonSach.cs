@@ -45,7 +45,8 @@ namespace TraCuuSach
         string newBorrowSlip;
 
         public static string borrowState = "";
-        public static bool askBeforePrint = true;
+        public static bool print = true;
+
         public FormMuonSach()
         {
             InitializeComponent();
@@ -89,7 +90,7 @@ namespace TraCuuSach
             adapter.Fill(table);
             foreach (DataRow item in table.Rows)
             {
-                Reader r = new Reader(item[0].ToString(), item[1].ToString(), item[2].ToString(), DateTime.Parse(item[3].ToString()), item[4].ToString(), item[5].ToString(), DateTime.Parse(item[6].ToString()), DateTime.Parse(item[7].ToString()), float.Parse(item[8].ToString()));
+                Reader r = new Reader(item[0].ToString(), item[1].ToString(), item[2].ToString(), item[3].ToString(), item[4].ToString(), item[5].ToString(), item[6].ToString(), item[7].ToString(), Convert.ToInt64(item[8]));
                 readers.Add(r);
                 cbbReaderId.Items.Add(r.id);
             }
@@ -158,31 +159,34 @@ namespace TraCuuSach
                 btnBorrow.Enabled = false;
         }
 
-        private void AddBook()
+        private void ChangeBook(int opt)
         {
-            if (cbbReaderId.SelectedIndex == -1)
-                MessageBox.Show("Độc giả không hợp lệ!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            else if (chosenBooks.Count + numborrowedBooks + 1 > max && toggleButton1.Checked)
-                MessageBox.Show("Không được mượn quá " + max + " cuốn sách", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            else if (addRow < 0)
-                MessageBox.Show("Bạn chưa chọn cuốn sách cần thêm!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            else
+            //1: Add; 2: Remove
+            if (opt == 1)
             {
-                ChangeBookBetweenTwoList(stockBooks, chosenBooks, addRow);
-                LoadDataGridView(chosenBooks, dtgvChosen, bingdingChosen);
-                LoadDataGridView(stockBooks, dtgvStock, bingdingStock);
+                if (cbbReaderId.SelectedIndex == -1)
+                    MessageBox.Show("Độc giả không hợp lệ!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                else if (chosenBooks.Count + numborrowedBooks + 1 > max && toggleButton1.Checked)
+                    MessageBox.Show("Không được mượn quá " + max + " cuốn sách", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                else if (addRow < 0)
+                    MessageBox.Show("Bạn chưa chọn cuốn sách cần thêm!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                else
+                {
+                    ChangeBookBetweenTwoList(stockBooks, chosenBooks, addRow);
+                    LoadDataGridView(chosenBooks, dtgvChosen, bingdingChosen);
+                    LoadDataGridView(stockBooks, dtgvStock, bingdingStock);
+                }
             }
-        }
-
-        private void RemoveBook()
-        {
-            if (removeRow < 0)
-                MessageBox.Show("Vui lòng chọn sách cần bỏ!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            else if (dtgvChosen.Rows.Count > 0)
+            else if (opt == 2)
             {
-                ChangeBookBetweenTwoList(chosenBooks, stockBooks, removeRow);
-                LoadDataGridView(chosenBooks, dtgvChosen, bingdingChosen);
-                LoadDataGridView(stockBooks, dtgvStock, bingdingStock);
+                if (removeRow < 0)
+                    MessageBox.Show("Vui lòng chọn sách cần bỏ!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                else if (dtgvChosen.Rows.Count > 0)
+                {
+                    ChangeBookBetweenTwoList(chosenBooks, stockBooks, removeRow);
+                    LoadDataGridView(chosenBooks, dtgvChosen, bingdingChosen);
+                    LoadDataGridView(stockBooks, dtgvStock, bingdingStock);
+                }
             }
         }
 
@@ -220,11 +224,7 @@ namespace TraCuuSach
                 adapter.SelectCommand = command;
                 numborrowedBooks = int.Parse(command.ExecuteScalar().ToString());
                 lbBorrowed.Text = "Số sách đang mượn: " + numborrowedBooks;
-
-                dtpBorrow.Text = DateTime.Now.ToString();
             }
-            else
-                txtReaderName.Text = "";
         }
 
         private void cbbReaderId_TextChanged(object sender, EventArgs e)
@@ -249,8 +249,10 @@ namespace TraCuuSach
                     }
             }
 
+            if (!existed)
+                txtReaderName.Text = "";
             lbWCode.Visible = existed ? false : true;
-            dtpBorrow.Value = existed ? DateTime.Now : dtpBorrow.Value;
+            cbb.SelectionStart = cbb.Text.Length;
         }
 
         private void dtpBorrow_ValueChanged(object sender, EventArgs e)
@@ -268,8 +270,9 @@ namespace TraCuuSach
 
         private void toggleButton2_CheckedChanged(object sender, EventArgs e)
         {
-            askBeforePrint = (toggleButton2.CheckState == CheckState.Checked) ? true : false;
+            print = (toggleButton2.CheckState == CheckState.Checked) ? true : false;
         }
+
         public static DataTable ToDataTable<T>(BindingList<T> items)
         {
             DataTable dataTable = new DataTable(typeof(T).Name);
@@ -343,17 +346,12 @@ namespace TraCuuSach
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            AddBook();
+            ChangeBook(1);
         }
 
         private void dtgvStock_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            AddBook();
-        }
-
-        private void btnRemove_Click(object sender, EventArgs e)
-        {
-            RemoveBook();
+            ChangeBook(1);
         }
 
         private void dtgvStock_SelectionChanged(object sender, EventArgs e)
@@ -365,6 +363,16 @@ namespace TraCuuSach
                 addRow = -1;
         }
 
+        private void btnRemove_Click(object sender, EventArgs e)
+        {
+            ChangeBook(2);
+        }
+
+        private void dtgvChosen_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            ChangeBook(2);
+        }
+
         private void dtgvChosen_SelectionChanged(object sender, EventArgs e)
         {
             DataGridView dtgv = sender as DataGridView;
@@ -372,11 +380,6 @@ namespace TraCuuSach
                 removeRow = dtgv.CurrentCell.RowIndex;
             else
                 removeRow = -1;
-        }
-
-        private void dtgvChosen_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            RemoveBook();
         }
 
         private void btnBorrowList_Click(object sender, EventArgs e)
@@ -392,46 +395,18 @@ namespace TraCuuSach
             {
                 if (numborrowedBooks + dtgvChosen.Rows.Count > max)
                     MessageBox.Show($"Không được mượn quá {max} quyển sách!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                else
+                    ShowConfirmForm();
             }
             else
                 ShowConfirmForm();
-
-            lbBorrowed.Text = "Số sách đang mượn: " + (numborrowedBooks + dtgvChosen.Rows.Count);
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-            //    LibraryManagement.fHome.SwitchForm(new LendBook());
+            //    LibraryManagement.fHome.SwitchForm(new FormMuonSach());
 
         }
-
-        //private void CheckBorrowed()
-        //{
-        //    List<string> borrowedBooks = new List<string>();
-        //    List<string> existedBooks = new List<string>();
-
-        //    command = connection.CreateCommand();
-        //    command.CommandText = $@"SELECT CTPHIEUMUON.MaCuonSach
-        //    FROM PHIEUMUON, CTPHIEUMUON
-        //    WHERE PHIEUMUON.MaPhieuMuonSach = CTPHIEUMUON.MaPhieuMuonSach AND TinhTrangPM = 0 
-        //    AND MaDocGia = '{cbbReaderId.Text}'";
-        //    adapter.SelectCommand = command;
-        //    DataTable table = new DataTable();
-        //    adapter.Fill(table);
-        //    foreach (DataRow item in table.Rows)
-        //        borrowedBooks.Add(item[0].ToString());
-
-        //    for (int i = 0; i < dtgvChosen.Rows.Count; i++)
-        //        for (int j = 0; j < borrowedBooks.Count; j++)
-        //            if (dtgvChosen.Rows[i].Cells[1].Value.ToString() == borrowedBooks[j].ToString())
-        //                existedBooks.Add(dtgvChosen.Rows[i].Cells[3].Value.ToString());
-        //    var msg = "";
-        //    if (existedBooks.Count > 0)
-        //    {
-        //        msg = string.Join(Environment.NewLine, existedBooks);
-        //        MessageBox.Show($"Độc giả đã mượn:\n" + msg, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-        //    }
-        //}
 
         private void ShowConfirmForm()
         {
@@ -446,9 +421,13 @@ namespace TraCuuSach
 
             if (borrowState == "Success")
             {
-                MessageBox.Show("Cho mượn thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Mượn sách thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //    LibraryManagement.fHome.SwitchForm(new FormMuonSach());
+                lbBorrowed.Text = "Số sách đang mượn: " + (numborrowedBooks + dtgvChosen.Rows.Count);
+                dtgvChosen.Rows.Clear();
                 btnBorrow.Enabled = false;
                 borrowState = "";
+                lbAmount.Text = "Số lượng: 0";
             }
         }
     }

@@ -60,11 +60,29 @@
     <Compile Include="FormCTPM.Designer.cs">
       <DependentUpon>FormCTPM.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormCTPT.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormCTPT.Designer.cs">
+      <DependentUpon>FormCTPT.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormDanhSachPT.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormDanhSachPT.Designer.cs">
+      <DependentUpon>FormDanhSachPT.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormMuonSach.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FormMuonSach.Designer.cs">
       <DependentUpon>FormMuonSach.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormThongTinPT.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormThongTinPT.Designer.cs">
+      <DependentUpon>FormThongTinPT.cs</DependentUpon>
     </Compile>
     <Compile Include="FormTraCuu.cs">
       <SubType>Form</SubType>
@@ -93,7 +111,10 @@
     <Compile Include="Models\Book.cs" />
     <Compile Include="Models\BorrowSlip.cs" />
     <Compile Include="Models\DetailBorrowSlip.cs" />
+    <Compile Include="Models\DetailReturnSlip.cs" />
     <Compile Include="Models\Reader.cs" />
+    <Compile Include="Models\ReturnBook.cs" />
+    <Compile Include="Models\ReturnSlip.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="radion.cs">
@@ -111,8 +132,17 @@
     <EmbeddedResource Include="FormCTPM.resx">
       <DependentUpon>FormCTPM.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormCTPT.resx">
+      <DependentUpon>FormCTPT.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormDanhSachPT.resx">
+      <DependentUpon>FormDanhSachPT.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormMuonSach.resx">
       <DependentUpon>FormMuonSach.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormThongTinPT.resx">
+      <DependentUpon>FormThongTinPT.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormTraCuu.resx">
       <DependentUpon>FormTraCuu.cs</DependentUpon>
