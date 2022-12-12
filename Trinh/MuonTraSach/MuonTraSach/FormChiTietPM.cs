@@ -59,7 +59,7 @@ namespace MuonTraSach
 
         List<DetailBorrowSlip> detailSlips;
         string slipId;
-        public static bool dataChanged = false;
+        public static bool deleteSlip = false;
 
         public FormChiTietPM(string slipId)
         {
@@ -72,7 +72,6 @@ namespace MuonTraSach
         {
             btnDelete.BorderRadius = 12;
             btnExit.BorderRadius = 20;
-
             btnDelete.Enabled = false;
 
             lbSlipId.Text = slipId;
@@ -153,13 +152,11 @@ namespace MuonTraSach
         private void btnDelete_Click(object sender, EventArgs e)
         {
             var id = lbDetailId.Text;
-            bool deleteSlip = false;
             string msg = $"Bạn có muốn xóa chi tiết phiếu mượn {id} không?";
             if (dtgv.Rows.Count == 1)
             {
                 msg += $"\n\nNếu xóa chi tiết phiếu mượn {id} thì sẽ xóa luôn phiếu mượn {slipId}!";
                 deleteSlip = true;
-                dataChanged = true;
             }
             var result = MessageBox.Show(msg, "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
             if (result == DialogResult.OK)

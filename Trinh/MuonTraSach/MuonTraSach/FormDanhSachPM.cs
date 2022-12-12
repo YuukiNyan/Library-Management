@@ -160,50 +160,47 @@ namespace MuonTraSach
 
         private void UpdateData()
         {
-            if (optUpdate != -1)
+            string query = "";
+            string msg = "";
+            string id = lbSlipId.Text;
+            bool accept = false;
+            if (optUpdate == 1)
             {
-                string query = "";
-                string msg = "";
-                string id = lbSlipId.Text;
-                bool accept = false;
-                if (optUpdate == 1)
-                {
-                    query = $@"UPDATE PHIEUMUON
+                query = $@"UPDATE PHIEUMUON
                     SET NgMuon = '{dtpBorrow.Value}', HanTra = '{lbReturnDate.Text}'
                     WHERE MaPhieuMuonSach = '{id}'";
-                    msg = "Lưu thay đổi thành công!";
-                    accept = true;
-                }
-                else if (optUpdate == 2)
+                msg = "Lưu thay đổi thành công!";
+                accept = true;
+            }
+            else if (optUpdate == 2)
+            {
+                var result = MessageBox.Show($"Bạn có muốn xóa phiếu mượn sách {id} không?", "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                if (result == DialogResult.OK)
                 {
-                    var result = MessageBox.Show($"Bạn có muốn xóa phiếu mượn sách {id} không?", "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
-                    if (result == DialogResult.OK)
-                    {
-                        query = $@"UPDATE CUONSACH SET TinhTrang = 1 
+                    query = $@"UPDATE CUONSACH SET TinhTrang = 1 
                         WHERE CUONSACH.MaCuonSach IN (SELECT CTPHIEUMUON.MaCuonSach FROM CTPHIEUMUON 
                         WHERE CTPHIEUMUON.MaPhieuMuonSach = '{id}')
                         DELETE FROM CTPHIEUMUON WHERE MaPhieuMuonSach = '{id}'
                         DELETE FROM CTPT WHERE MaPhieuMuonSach = '{id}'
                         DELETE FROM PHIEUMUON WHERE MaPhieuMuonSach = '{id}'";
-                        msg = $"Xóa phiếu mượn sách {id} thành công!";
-                        accept = true;
-                    }
-                    else
-                        accept = false;
+                    msg = $"Xóa phiếu mượn sách {id} thành công!";
+                    accept = true;
                 }
+                else
+                    accept = false;
+            }
 
-                if (accept)
-                {
-                    cmd = conn.CreateCommand();
-                    cmd.CommandText = query;
-                    cmd.ExecuteNonQuery();
+            if (accept)
+            {
+                cmd = conn.CreateCommand();
+                cmd.CommandText = query;
+                cmd.ExecuteNonQuery();
 
-                    MessageBox.Show(msg, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(msg, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                    LoadBorrowSlipsList();
-                    optUpdate = -1;
-                    dataChanged = true;
-                }
+                LoadBorrowSlipsList();
+                optUpdate = -1;
+                dataChanged = true;
             }
         }
 
@@ -255,21 +252,19 @@ namespace MuonTraSach
         private void dtpBorrow_ValueChanged(object sender, EventArgs e)
         {
             if (index != -1 && dateDropdown && (sender as DateTimePicker).Value != DateTime.ParseExact(borrowSlips[index].borrowDate, "dd/MM/yyyy", null))
-            {
-
                 lbReturnDate.Text = dtpBorrow.Value.AddDays(maxDays).ToString("dd/MM/yyyy");
-                //if (value != DateTime.ParseExact(borrowSlips[index].borrowDate, "dd/MM/yyyy", null) && dateDropdown)         
-                //if (value > DateTime.ParseExact(borrowSlips[index].returnDate, "dd/MM/yyyy", null))
-                //{
-                //    MessageBox.Show("Ngày mượn không thể trễ hơn hạn trả!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                //    (sender as DateTimePicker).Value = DateTime.ParseExact(borrowSlips[index].borrowDate, "dd/MM/yyyy", null);
-                //    dataChanged = false;
-                //}
-                //else
-                //    dataChanged = true;
-            }
             dateDropdown = false;
             Lock();
+
+            //if (value != DateTime.ParseExact(borrowSlips[index].borrowDate, "dd/MM/yyyy", null) && dateDropdown)         
+            //if (value > DateTime.ParseExact(borrowSlips[index].returnDate, "dd/MM/yyyy", null))
+            //{
+            //    MessageBox.Show("Ngày mượn không thể trễ hơn hạn trả!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            //    (sender as DateTimePicker).Value = DateTime.ParseExact(borrowSlips[index].borrowDate, "dd/MM/yyyy", null);
+            //    dataChanged = false;
+            //}
+            //else
+            //    dataChanged = true;
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
@@ -299,7 +294,7 @@ namespace MuonTraSach
         {
             new FormChiTietPM(dtgv.Rows[index].Cells[1].Value.ToString()).ShowDialog();
 
-            if (FormChiTietPM.dataChanged)
+            if (FormChiTietPM.deleteSlip)
             {
                 this.Close();
                 new FormDanhSachPM().ShowDialog();

@@ -49,6 +49,7 @@ namespace MuonTraSach
             btnRemove.BorderRadius = 15;
             btnReturn.Enabled = false;
             txtReaderName.Enabled = false;
+            dtpReturn.Enabled = false;
 
             connection = new SqlConnection(FormMuonSach.stringConnect);
             connection.Open();
@@ -63,9 +64,9 @@ namespace MuonTraSach
 
         private void LoadData()
         {
-            //Get reader list and load combobox
+            //Get list of readers and load combobox
             command = connection.CreateCommand();
-            command.CommandText = "SELECT * FROM DOCGIA";
+            command.CommandText = @"SELECT * FROM DOCGIA  WHERE NgHetHan >= GETDATE()";
             using (SqlDataReader reader = command.ExecuteReader())
                 while (reader.Read())
                 {
@@ -76,7 +77,7 @@ namespace MuonTraSach
             cbbReaderId.DisplayMember = "MaDocGia";
             cbbReaderId.SelectedIndex = -1;
 
-            //Get max days can borrow
+            //Get max number of days can be borrowed
             command = connection.CreateCommand();
             command.CommandText = @"SELECT SoNgayMuonMax FROM THAMSO";
             maxDays = int.Parse(command.ExecuteScalar().ToString());
@@ -98,7 +99,7 @@ namespace MuonTraSach
             newReturnSlip = $"MPTS{stt:000}";
         }
 
-        private void LoadDataGridView(BindingList<ReturnBook> list, DataGridView dtgv, BindingSource bd)
+        private void FillDataGridView(BindingList<ReturnBook> list, DataGridView dtgv, BindingSource bd)
         {
             bd.DataSource = list;
             dtgv.DataSource = bd;
@@ -128,8 +129,8 @@ namespace MuonTraSach
                 else
                 {
                     ChangeBookBetweenTwoList(borrowBooks, chosenBooks, addRow);
-                    LoadDataGridView(chosenBooks, dtgvChosen, bingdingChosen);
-                    LoadDataGridView(borrowBooks, dtgvBorrow, bingdingBorrow);
+                    FillDataGridView(chosenBooks, dtgvChosen, bingdingChosen);
+                    FillDataGridView(borrowBooks, dtgvBorrow, bingdingBorrow);
                 }
             }
             else if (opt == 2)
@@ -139,8 +140,8 @@ namespace MuonTraSach
                 else if (dtgvChosen.Rows.Count > 0)
                 {
                     ChangeBookBetweenTwoList(chosenBooks, borrowBooks, removeRow);
-                    LoadDataGridView(chosenBooks, dtgvChosen, bingdingChosen);
-                    LoadDataGridView(borrowBooks, dtgvBorrow, bingdingBorrow);
+                    FillDataGridView(chosenBooks, dtgvChosen, bingdingChosen);
+                    FillDataGridView(borrowBooks, dtgvBorrow, bingdingBorrow);
                 }
             }
 
@@ -160,19 +161,17 @@ namespace MuonTraSach
 
         private void ChangeBookBetweenTwoList(BindingList<ReturnBook> l1, BindingList<ReturnBook> l2, int i)
         {
+            int j = 0;
+            foreach (ReturnBook b in l1)
             {
-                int j = 0;
-                foreach (ReturnBook b in l1)
+                if (i == j)
                 {
-                    if (i == j)
-                    {
-                        l2.Add(b);
-                        l1.Remove(b);
-                        return;
-                    }
-                    else
-                        j++;
+                    l2.Add(b);
+                    l1.Remove(b);
+                    return;
                 }
+                else
+                    j++;
             }
         }
 
@@ -186,8 +185,9 @@ namespace MuonTraSach
                 lbLateDays.Text = "0";
                 txtFineThisPeriod.Text = "0";
                 txbTotalFine.Text = readers[cbbReaderId.SelectedIndex].debt.ToString();
+                dtpReturn.Enabled = true;
 
-                //Get books were borrowed by cbbReaderId and fill datagridview
+                //Get list of books were borrowed by cbbReaderId and fill datagridview
                 dtgvBorrow.Rows.Clear();
                 command = connection.CreateCommand();
                 command.CommandText = $@"SELECT DISTINCT CTPHIEUMUON.MaPhieuMuonSach, MaChiTietPhieuMuon, CUONSACH.MaCuonSach, TenDauSach, NgMuon
@@ -196,7 +196,9 @@ namespace MuonTraSach
                 AND CTPHIEUMUON.MaCuonSach = CUONSACH.MaCuonSach
                 AND CUONSACH.MaSach = SACH.MaSach 
                 AND SACH.MaDauSach = DAUSACH.MaDauSach 
-                AND TinhTrangPM = 0 AND MaDocGia='{cbbReaderId.Text}'";
+                AND TinhTrangPM = 0 AND MaDocGia='{cbbReaderId.Text}'
+				ORDER BY MaPhieuMuonSach, MaChiTietPhieuMuon";
+
                 using (SqlDataReader reader = command.ExecuteReader())
                     while (reader.Read())
                     {
@@ -216,42 +218,9 @@ namespace MuonTraSach
                         }
                         borrowBooks.Add(b);
                     }
-
-                LoadDataGridView(borrowBooks, dtgvBorrow, bingdingBorrow);
+                FillDataGridView(borrowBooks, dtgvBorrow, bingdingBorrow);
                 dtgvChosen.Rows.Clear();
             }
-        }
-
-        private void txtReaderName_TextChanged(object sender, EventArgs e)
-        {
-            var cbb = (sender as ComboBox);
-            bool existed = false;
-
-            if (cbb.Text.Length == 0)
-            {
-                txtReaderName.Text = "";
-                dtgvBorrow.Rows.Clear();
-                existed = true;
-            }
-            else
-            {
-                cbb.Text = cbb.Text.ToUpper();
-
-                foreach (Reader reader in readers)
-                    if (cbb.Text == reader.id)
-                    {
-                        existed = true;
-                        break;
-                    }
-            }
-
-            if (!existed)
-            {
-                dtgvBorrow.Rows.Clear();
-                txtReaderName.Text = "";
-            }
-            lbWCode.Visible = existed ? false : true;
-            cbb.SelectionStart = cbb.Text.Length;
         }
 
         private void dtpReturn_ValueChanged(object sender, EventArgs e)
@@ -279,7 +248,10 @@ namespace MuonTraSach
 
         private void btnRemove_Click(object sender, EventArgs e)
         {
-            ChangeBook(2);
+            if (dtgvChosen.Rows.Count > 0)
+                ChangeBook(2);
+            else
+                MessageBox.Show("Danh sách sách đã chọn trống!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
         private void toggleButton_CheckedChanged(object sender, EventArgs e)
         {
@@ -288,7 +260,7 @@ namespace MuonTraSach
 
         private void btnReturnList_Click(object sender, EventArgs e)
         {
-            //new FormDanhSachPT().ShowDialog();
+            new FormDanhSachPT().ShowDialog();
         }
 
         private void btnReturn_Click(object sender, EventArgs e)
@@ -301,7 +273,7 @@ namespace MuonTraSach
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-            //LibraryManagement.fHome.SwitchForm(new FormTraSach());
+            //fHome.SwitchForm(new FormTraSach());
         }
 
         private void dtgvBorrow_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -332,6 +304,46 @@ namespace MuonTraSach
                 removeRow = -1;
         }
 
+        private void cbbReaderId_TextChanged(object sender, EventArgs e)
+        {
+            var cbb = (sender as ComboBox);
+            bool existed = false;
+
+            if (cbb.Text.Length == 0)
+            {
+                Clear();
+                existed = true;
+            }
+            else
+            {
+                cbb.Text = cbb.Text.ToUpper();
+
+                foreach (Reader reader in readers)
+                    if (cbb.Text == reader.id)
+                    {
+                        existed = true;
+                        break;
+                    }
+            }
+
+            if (!existed)
+                Clear();
+            lbWCode.Visible = existed ? false : true;
+            cbb.SelectionStart = cbb.Text.Length;
+        }
+
+        private void Clear()
+        {
+            txtReaderName.Text = "";
+            lbLateDays.Text = "0";
+            txtFineThisPeriod.Text = "0";
+            txbTotalFine.Text = "0";
+            dtgvBorrow.Rows.Clear();
+            dtgvChosen.Rows.Clear();
+            btnReturn.Enabled = false;
+            dtpReturn.Enabled = false;
+        }
+
         private void ShowConfirmForm()
         {
             string readerId = cbbReaderId.Text;
@@ -340,13 +352,13 @@ namespace MuonTraSach
             string totalFine = txbTotalFine.Text;
             string fine = txtFineThisPeriod.Text;
 
-            //FormThongTinPT.returnSlip = new ReturnSlip(newReturnSlip, readerId, name, date, totalFine, fine, chosenBooks);
-            //new FormThongTinPT().ShowDialog();
+            FormThongTinPT.returnSlip = new ReturnSlip(newReturnSlip, readerId, name, date, totalFine, fine, chosenBooks);
+            new FormThongTinPT().ShowDialog();
 
             if (returnState == "Success")
             {
                 MessageBox.Show("Trả sách thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                //LibraryManagement.fHome.SwitchForm(new FormTraSach());
+                //fHome.SwitchForm(new FormTraSach());
                 dtgvChosen.Rows.Clear();
                 btnReturn.Enabled = false;
                 returnState = "";

@@ -25,7 +25,6 @@ namespace MuonTraSach.Models
         public ReturnSlip(string slipId, string readerId, string readerName, string returnDate, string totalFine, string fineThisPeriod = "", BindingList<ReturnBook> chosenBooks = null)
         {
             this.id = slipId;
-            this.borrowSlipId = borrowSlipId;
             this.readerId = readerId;
             this.readerName = readerName;
             this.returnDate = returnDate;

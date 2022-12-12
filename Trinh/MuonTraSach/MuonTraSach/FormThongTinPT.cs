@@ -57,7 +57,6 @@ namespace MuonTraSach
         #endregion
 
         public static ReturnSlip returnSlip;
-        BindingSource bindingChosen;
 
         public FormThongTinPT()
         {
@@ -85,12 +84,9 @@ namespace MuonTraSach
             pnlFine.Width = lbFine.Width - 6;
             pnlTotalFine.Width = lbTotalFine.Width - 8;
 
-            bindingChosen = new BindingSource();
-            bindingChosen.DataSource = returnSlip.returnBooks;
-            dtgvChosen.DataSource = bindingChosen;
-
-            if (dtgvChosen.Rows.Count != 0)
-                dtgvChosen.Rows[0].Selected = false;
+            returnSlip.returnBooks = new BindingList<ReturnBook>(returnSlip.returnBooks.OrderBy(o => o.id).ThenBy(o => o.bookName).ToList());
+            foreach (ReturnBook b in returnSlip.returnBooks)
+                dtgvChosen.Rows.Add(b.id, b.bookName, b.borrowDate, b.borrowedDays, b.fine);
         }
 
         private void btnDone_Click(object sender, EventArgs e)
@@ -108,26 +104,24 @@ namespace MuonTraSach
 
         private void UpdateData()
         {
-            string createReturnSlipCmd = $@"INSERT INTO PHIEUTRASACH(MaDocGia, NgTra, TienPhatKyNay) VALUES('{returnSlip.readerId}', '{returnSlip.returnDate}', {returnSlip.fineThisPeriod})";
-            string insertSlipDetail = @"";
-            string setBookAndSlipDetailStatus = @"";
-            string updateTotalFine = $@"UPDATE DOCGIA SET TongNo = TongNo - {returnSlip.fineThisPeriod} WHERE MaDocGia = '{returnSlip.readerId}'";
+            string createReturnSlip = $@"INSERT INTO PHIEUTRASACH(MaPhieuTraSach, MaDocGia, NgTra, TienPhatKyNay) VALUES('{returnSlip.id}', '{returnSlip.readerId}', '{returnSlip.returnDate}', {returnSlip.fineThisPeriod})";
+            string insertDetail = "";
+            string updateStatus = "";
 
             foreach (ReturnBook book in returnSlip.returnBooks)
             {
-                insertSlipDetail += $@"INSERT INTO CTPT(MaPhieuTraSach, MaCuonSach, MaPhieuMuonSach, SoNgayMuon, TienPhat) VALUES('{returnSlip.id}','{book.id}','{book.borrowSlipId}', {book.borrowedDays}, {book.fine})" + "\n";
-                setBookAndSlipDetailStatus += $@"UPDATE CTPHIEUMUON SET TinhTrangPM = 1  WHERE MaChiTietPhieuMuon = '{book.detailBorrowId}'" + "\n" + $@"UPDATE CUONSACH SET TinhTrang = 0 WHERE MaCuonSach = '{book.id}'";
+                insertDetail += $"INSERT INTO CTPT(MaPhieuTraSach, MaCuonSach, MaPhieuMuonSach, SoNgayMuon, TienPhat) VALUES('{returnSlip.id}','{book.id}','{book.borrowSlipId}', {book.borrowedDays}, {book.fine})" + "\n";
+                updateStatus += $@"UPDATE CTPHIEUMUON SET TinhTrangPM = 1 WHERE MaChiTietPhieuMuon = '{book.detailBorrowId}'
+                UPDATE CUONSACH SET TinhTrang = 1 WHERE MaCuonSach = '{book.id}'" + "\n";
             }
 
             SqlConnection conn = new SqlConnection(FormMuonSach.stringConnect);
             conn.Open();
-            SqlCommand cmd = new SqlCommand(createReturnSlipCmd, conn);
+            SqlCommand cmd = new SqlCommand(createReturnSlip, conn);
             cmd.ExecuteNonQuery();
-            cmd.CommandText = insertSlipDetail;
+            cmd.CommandText = insertDetail;
             cmd.ExecuteNonQuery();
-            cmd.CommandText = setBookAndSlipDetailStatus;
-            cmd.ExecuteNonQuery();
-            cmd.CommandText = updateTotalFine;
+            cmd.CommandText = updateStatus;
             cmd.ExecuteNonQuery();
             conn.Close();
 

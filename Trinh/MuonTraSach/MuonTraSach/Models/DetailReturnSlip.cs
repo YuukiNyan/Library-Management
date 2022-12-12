@@ -12,6 +12,7 @@ namespace MuonTraSach.Models
         public string slipId { get; set; }
         public string bookId { get; set; }
         public string bookName { get; set; }
+        public string borrowDetailSlip { get; set; }
         public int borrowDays { get; set; }
         public long fine { get; set; }
 

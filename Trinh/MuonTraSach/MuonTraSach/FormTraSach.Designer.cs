@@ -51,6 +51,7 @@
             this.lbHeader = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.vbButton1 = new MuonTraSach.VBButton();
+            this.toggleButton = new MuonTraSach.ToggleButton();
             this.dtpReturn = new System.Windows.Forms.DateTimePicker();
             this.label8 = new System.Windows.Forms.Label();
             this.txbTotalFine = new System.Windows.Forms.TextBox();
@@ -65,7 +66,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.cbbReaderId = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.toggleButton = new MuonTraSach.ToggleButton();
             this.btnReturnList = new MuonTraSach.But();
             this.btnUpdate = new MuonTraSach.But();
             this.btnReturn = new MuonTraSach.But();
@@ -343,6 +343,22 @@
             this.vbButton1.TabIndex = 85;
             this.vbButton1.TextColor = System.Drawing.Color.White;
             // 
+            // toggleButton
+            // 
+            this.toggleButton.Checked = true;
+            this.toggleButton.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.toggleButton.Location = new System.Drawing.Point(1719, 269);
+            this.toggleButton.MinimumSize = new System.Drawing.Size(45, 22);
+            this.toggleButton.Name = "toggleButton";
+            this.toggleButton.OffBackColor = System.Drawing.Color.Gray;
+            this.toggleButton.OffToggleColor = System.Drawing.Color.Gainsboro;
+            this.toggleButton.OnBackColor = System.Drawing.Color.SlateBlue;
+            this.toggleButton.OnToggleColor = System.Drawing.Color.WhiteSmoke;
+            this.toggleButton.Size = new System.Drawing.Size(80, 43);
+            this.toggleButton.TabIndex = 88;
+            this.toggleButton.UseVisualStyleBackColor = true;
+            this.toggleButton.CheckedChanged += new System.EventHandler(this.toggleButton_CheckedChanged);
+            // 
             // dtpReturn
             // 
             this.dtpReturn.CalendarFont = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -457,7 +473,6 @@
             this.txtReaderName.Name = "txtReaderName";
             this.txtReaderName.Size = new System.Drawing.Size(520, 35);
             this.txtReaderName.TabIndex = 78;
-            this.txtReaderName.TextChanged += new System.EventHandler(this.txtReaderName_TextChanged);
             // 
             // label4
             // 
@@ -495,6 +510,7 @@
             this.cbbReaderId.Size = new System.Drawing.Size(373, 37);
             this.cbbReaderId.TabIndex = 74;
             this.cbbReaderId.SelectedIndexChanged += new System.EventHandler(this.cbbReaderId_SelectedIndexChanged);
+            this.cbbReaderId.TextChanged += new System.EventHandler(this.cbbReaderId_TextChanged);
             // 
             // label2
             // 
@@ -507,22 +523,6 @@
             this.label2.Size = new System.Drawing.Size(137, 29);
             this.label2.TabIndex = 75;
             this.label2.Text = "Mã độc giả:";
-            // 
-            // toggleButton
-            // 
-            this.toggleButton.Checked = true;
-            this.toggleButton.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.toggleButton.Location = new System.Drawing.Point(1719, 269);
-            this.toggleButton.MinimumSize = new System.Drawing.Size(45, 22);
-            this.toggleButton.Name = "toggleButton";
-            this.toggleButton.OffBackColor = System.Drawing.Color.Gray;
-            this.toggleButton.OffToggleColor = System.Drawing.Color.Gainsboro;
-            this.toggleButton.OnBackColor = System.Drawing.Color.SlateBlue;
-            this.toggleButton.OnToggleColor = System.Drawing.Color.WhiteSmoke;
-            this.toggleButton.Size = new System.Drawing.Size(80, 43);
-            this.toggleButton.TabIndex = 88;
-            this.toggleButton.UseVisualStyleBackColor = true;
-            this.toggleButton.CheckedChanged += new System.EventHandler(this.toggleButton_CheckedChanged);
             // 
             // btnReturnList
             // 

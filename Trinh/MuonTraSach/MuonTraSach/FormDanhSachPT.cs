@@ -57,10 +57,10 @@ namespace MuonTraSach
         #endregion
 
         List<ReturnSlip> returnSlips;
-
+        SqlConnection conn;
+        SqlCommand cmd;
         int index;
         bool isLocked = true;
-        bool dateDropdown = false;
         public static bool dataChanged = false;
         int optUpdate = -1; //-1: Not changed; 1: Update; 2: Delete
 
@@ -86,41 +86,39 @@ namespace MuonTraSach
             dtpReturn.Enabled = false;
 
             returnSlips = new List<ReturnSlip>();
+            conn = new SqlConnection(FormMuonSach.stringConnect);
+            conn.Open();
 
-            LoadData();
+            LoadReturnSlipsList();
         }
 
-        private void LoadData()
+        private void LoadReturnSlipsList()
         {
-            //Get return slips list and load data grid view
+            //Get list of return slips and load data grid view
             dtgv.Rows.Clear();
             returnSlips.Clear();
-            string queryCmd = @"SELECT MaPhieuTraSach, PHIEUTRASACH.MaDocGia, HoTen, NgTra, TienPhatKyNay
-            FROM PHIEUTRASACH, DOCGIA
-            WHERE PHIEUTRASACH.MaDocGia = DOCGIA.MaDocGia";
-            SqlConnection conn = new SqlConnection(FormMuonSach.stringConnect);
-            conn.Open();
-            SqlCommand cmd = new SqlCommand(queryCmd, conn);
+            int stt = 1;
+            cmd = conn.CreateCommand();
+            cmd.CommandText = @"SELECT DISTINCT PHIEUTRASACH.MaPhieuTraSach, PHIEUMUON.MaPhieuMuonSach, PHIEUTRASACH.MaDocGia, HoTen, NgTra, TienPhatKyNay
+            FROM PHIEUTRASACH, DOCGIA, CTPT,PHIEUMUON
+            WHERE PHIEUTRASACH.MaDocGia = DOCGIA.MaDocGia AND PHIEUTRASACH.MaPhieuTraSach = CTPT.MaPhieuTraSach 
+			AND PHIEUMUON.MaPhieuMuonSach = CTPT.MaPhieuMuonSach
+			ORDER BY MaPhieuTraSach, PHIEUTRASACH.MaDocGia";
+
             using (SqlDataReader reader = cmd.ExecuteReader())
                 while (reader.Read())
                 {
                     ReturnSlip slip = new ReturnSlip();
                     slip.id = reader.GetString(0);
-                    slip.readerId = reader.GetString(1);
-                    slip.readerName = reader.GetString(2);
-                    slip.returnDate = reader.GetDateTime(3).ToString("dd/MM/yyyy");
-                    slip.fineThisPeriod = (long)reader.GetSqlMoney(4);
+                    slip.borrowSlipId = reader.GetString(1);
+                    slip.readerId = reader.GetString(2);
+                    slip.readerName = reader.GetString(3);
+                    slip.returnDate = reader.GetDateTime(4).ToString("dd/MM/yyyy");
+                    slip.fineThisPeriod = (long)reader.GetSqlMoney(5);
                     returnSlips.Add(slip);
+                    dtgv.Rows.Add(new object[] { stt, slip.id, slip.readerId, slip.readerName, slip.returnDate, slip.fineThisPeriod });
+                    stt++;
                 }
-            conn.Close();
-
-            returnSlips.OrderBy(o => o.id).ThenBy(o => o.readerId).ThenBy(o => o.readerName).ToList();
-            int stt = 1;
-            foreach (ReturnSlip slip in returnSlips)
-            {
-                stt++;
-                dtgv.Rows.Add(new object[] { stt, slip.id, slip.readerId, slip.readerName, slip.returnDate, slip.fineThisPeriod });
-            }
 
             if (dtgv.Rows.Count != 0)
                 if (optUpdate != 1)
@@ -144,7 +142,7 @@ namespace MuonTraSach
                 dtpReturn.Enabled = false;
             }
 
-            if (dataChanged)
+            if (optUpdate != -1)
             {
                 btnUpdate.Enabled = true;
                 btnCancel.Enabled = true;
@@ -158,49 +156,46 @@ namespace MuonTraSach
 
         private void UpdateData()
         {
-            if (optUpdate != -1)
+            string query = "";
+            string msg = "";
+            string id = lbSlipId.Text;
+            bool accept = false;
+            if (optUpdate == 1)
             {
-                string queryUpdateCmd = "";
-                string msg = "";
-                string id = lbSlipId.Text;
-                bool update = false;
-                if (optUpdate == 1)
-                {
-                    queryUpdateCmd = $@"UPDATE PHIEUTRASACH
+                query = $@"UPDATE PHIEUTRASACH
                     SET NgTra = '{dtpReturn.Value}'
                     WHERE MaPhieuTraSach = '{id}'";
-                    msg = "Lưu thay đổi thành công!";
-                    update = true;
-                }
-                else if (optUpdate == 2)
+                msg = "Lưu thay đổi thành công!";
+                accept = true;
+            }
+            else if (optUpdate == 2)
+            {
+                var result = MessageBox.Show($"Bạn có muốn xóa phiếu trả sách {id} không?", "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                if (result == DialogResult.OK)
                 {
-                    var result = MessageBox.Show($"Bạn có muốn xóa phiếu trả sách {id} không?", "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
-                    if (result == DialogResult.OK)
-                    {
-                        queryUpdateCmd = $@"UPDATE CTPHIEUMUON SET TinhTrangPM = 0  WHERE MaChiTietPhieuMuon IN 
-                                (SELECT MaChiTietPhieuMuon FROM CTPHIEUMUON, CTPT WHERE  CTPHIEUMUON.MaPhieuMuonSach = CTPT.MaPhieuMuonSach AND CTPT.MaPhieuTraSach = '{id}')"
-                                + "\n" + $@"UPDATE CUONSACH SET TinhTrang = 1 WHERE CUONSACH.MaCuonSach IN(SELECT CTPT.MaCuonSach FROM CTPT WHERE CTPT.MaPhieuTraSach = '{id}')
-                                DELETE FROM CTPT WHERE MaPhieuTraSach = '{id}'
-                                DELETE FROM PHIEUTRASACH WHERE MaPhieuTraSach = '{id}'";
-                        msg = $"Xóa phiếu trả sách {id} thành công!";
-                        update = true;
-                    }
-                    else
-                        update = false;
+                    query = $@"UPDATE CTPHIEUMUON SET TinhTrangPM = 0  WHERE MaChiTietPhieuMuon IN 
+                    (SELECT MaChiTietPhieuMuon FROM CTPHIEUMUON, CTPT WHERE  CTPHIEUMUON.MaPhieuMuonSach = CTPT.MaPhieuMuonSach AND CTPT.MaPhieuTraSach = '{id}')
+                    UPDATE CUONSACH SET TinhTrang = 0 WHERE CUONSACH.MaCuonSach IN(SELECT CTPT.MaCuonSach FROM CTPT WHERE CTPT.MaPhieuTraSach = '{id}')
+                    DELETE FROM CTPT WHERE MaPhieuTraSach = '{id}'
+                    DELETE FROM PHIEUTRASACH WHERE MaPhieuTraSach = '{id}'";
+                    msg = $"Xóa phiếu trả sách {id} thành công!";
+                    accept = true;
                 }
-                if (update)
-                {
-                    SqlConnection conn = new SqlConnection(FormMuonSach.stringConnect);
-                    conn.Open();
-                    SqlCommand cmd = new SqlCommand(queryUpdateCmd, conn);
-                    cmd.ExecuteNonQuery();
-                    conn.Close();
-                    MessageBox.Show(msg, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                else
+                    accept = false;
+            }
 
-                    LoadData();
-                    optUpdate = -1;
-                    dataChanged = true;
-                }
+            if (accept)
+            {
+                cmd = conn.CreateCommand();
+                cmd.CommandText = query;
+                cmd.ExecuteNonQuery();
+
+                MessageBox.Show(msg, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                LoadReturnSlipsList();
+                optUpdate = -1;
+                dataChanged = true;
             }
         }
 
@@ -218,7 +213,6 @@ namespace MuonTraSach
             pnlReaderName.Width = 0;
             pnlFine.Width = 0;
 
-            dataChanged = false;
             isLocked = true;
             Lock();
         }
@@ -229,7 +223,6 @@ namespace MuonTraSach
             if (i != -1)
             {
                 isLocked = false;
-                dataChanged = false;
                 Lock();
 
                 index = i;
@@ -246,35 +239,36 @@ namespace MuonTraSach
             }
         }
 
-        private void dtpReturn_ValueChanged(object sender, EventArgs e)
-        {
-            var value = (sender as DateTimePicker).Value;
-            if (index != -1)
-            {
-                if (value != DateTime.ParseExact(returnSlips[index].returnDate, "dd/MM/yyyy", null) && dateDropdown)
-                    if (value < DateTime.ParseExact(returnSlips[index].returnDate, "dd/MM/yyyy", null))
-                    {
-                        MessageBox.Show("Bạn phải chọn ngày trả mới lớn hơn ngày cũ!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        (sender as DateTimePicker).Value = DateTime.ParseExact(returnSlips[index].returnDate, "dd/MM/yyyy", null);
-                        dataChanged = false;
-                    }
-                    else
-                        dataChanged = true;
-            }
-            dateDropdown = false;
-            Lock();
-        }
+        //private void dtpReturn_ValueChanged(object sender, EventArgs e)
+        //{
+        //    dateDropdown = false;
+        //    Lock();
+        //    //var value = (sender as DateTimePicker).Value;
+        //    //if (index != -1)
+        //    //{
+        //    //    if (value != DateTime.ParseExact(returnSlips[index].returnDate, "dd/MM/yyyy", null) && dateDropdown)
+        //    //        if (value < DateTime.ParseExact(returnSlips[index].returnDate, "dd/MM/yyyy", null))
+        //    //        {
+        //    //            MessageBox.Show("Bạn phải chọn ngày trả mới lớn hơn ngày cũ!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        //    //            (sender as DateTimePicker).Value = DateTime.ParseExact(returnSlips[index].returnDate, "dd/MM/yyyy", null);
+        //    //            dataChanged = false;
+        //    //        }
+        //    //        else
+        //    //            dataChanged = true;
+        //    //}
+        //    //dateDropdown = false;
+        //    //Lock();
+        //}
 
-        private void dtpReturn_DropDown(object sender, EventArgs e)
-        {
-            dateDropdown = true;
-        }
+        //private void dtpReturn_DropDown(object sender, EventArgs e)
+        //{
+        //    dateDropdown = true;
+        //}
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
             optUpdate = 1;
             UpdateData();
-            dataChanged = false;
             Lock();
         }
 
@@ -295,23 +289,23 @@ namespace MuonTraSach
 
         private void btnDetail_Click(object sender, EventArgs e)
         {
-            //new FormCTPT(dtgv.Rows[index].Cells[1].Value.ToString()).ShowDialog();
+            new FormChiTietPT(returnSlips[index]).ShowDialog();
 
-            //if (FormCTPT.dataChanged)
-            //{
-            //    this.Close();
-            //    new FormDanhSachPT().ShowDialog();
-            //}
+            if (FormChiTietPT.dataChanged)
+            {
+                this.Close();
+                new FormDanhSachPT().ShowDialog();
+            }
         }
 
         private void btnExit_Click(object sender, EventArgs e)
         {
-            //if (dataChanged)
-            //{
-            //    this.Hide();
-            //    LibraryManagement.fHome.SwitchForm(new FormTraSach());
-            //    MessageBox.Show("Dữ liệu vừa được cập nhật!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            //}
+            if (dataChanged)
+            {
+                this.Hide();
+                new FormTraSach();
+                MessageBox.Show("Dữ liệu vừa được cập nhật!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
             this.Close();
         }
     }

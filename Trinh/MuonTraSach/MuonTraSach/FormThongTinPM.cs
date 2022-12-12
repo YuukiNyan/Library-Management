@@ -57,7 +57,6 @@ namespace MuonTraSach
         #endregion
 
         public static BorrowSlip borrowSlip;
-        BindingSource bindingChosen;
 
         public FormThongTinPM()
         {
@@ -84,12 +83,9 @@ namespace MuonTraSach
             pnlReturnDate.Width = lbReturnDate.Width - 6;
             pnlAmount.Width = lbAmount.Width - 8;
 
-            bindingChosen = new BindingSource();
-            bindingChosen.DataSource = borrowSlip.chosenBooks;
-            dtgvChosen.DataSource = bindingChosen;
-
-            if (dtgvChosen.Rows.Count != 0)
-                dtgvChosen.Rows[0].Selected = false;
+            borrowSlip.chosenBooks = new BindingList<Book>(borrowSlip.chosenBooks.OrderBy(o => o.id).ThenBy(o => o.bookId).ToList());
+            foreach (Book b in borrowSlip.chosenBooks)
+                dtgvChosen.Rows.Add(b.id, b.bookId, b.name, b.category, b.author);
         }
 
         private void btnDone_Click(object sender, EventArgs e)
@@ -107,21 +103,21 @@ namespace MuonTraSach
 
         private void UpdateData()
         {
-            string createBorrowSlipCmd = $@"INSERT INTO PHIEUMUON (MaDocGia, NgMuon, HanTra) VALUES('{borrowSlip.readerId}','{borrowSlip.borrowDate}','{borrowSlip.returnDate}')";
-            string insertSlipDetail = "";
+            string createBorrowSlip = $@"INSERT INTO PHIEUMUON (MaDocGia, NgMuon, HanTra) VALUES('{borrowSlip.readerId}','{borrowSlip.borrowDate}','{borrowSlip.returnDate}')";
+            string insertDetail = "";
             string updateBookState = "";
 
             foreach (Book book in borrowSlip.chosenBooks)
             {
-                insertSlipDetail = insertSlipDetail + $@"INSERT INTO CTPHIEUMUON(MaPhieuMuonSach, MaCuonSach, TinhTrangPM) VALUES('{borrowSlip.id}','{book.id}', 0)" + "\n";
-                updateBookState = updateBookState + $@"UPDATE CUONSACH SET TinhTrang = 0 WHERE MaCuonSach = '{book.id}'" + "\n";
+                insertDetail += $@"INSERT INTO CTPHIEUMUON(MaPhieuMuonSach, MaCuonSach, TinhTrangPM) VALUES('{borrowSlip.id}','{book.id}', 0)" + "\n";
+                updateBookState += $@"UPDATE CUONSACH SET TinhTrang = 0 WHERE MaCuonSach = '{book.id}'" + "\n";
             }
 
             SqlConnection conn = new SqlConnection(FormMuonSach.stringConnect);
             conn.Open();
-            SqlCommand cmd = new SqlCommand(createBorrowSlipCmd, conn);
+            SqlCommand cmd = new SqlCommand(createBorrowSlip, conn);
             cmd.ExecuteNonQuery();
-            cmd.CommandText = insertSlipDetail;
+            cmd.CommandText = insertDetail;
             cmd.ExecuteNonQuery();
             cmd.CommandText = updateBookState;
             cmd.ExecuteNonQuery();

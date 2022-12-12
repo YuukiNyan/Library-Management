@@ -29,8 +29,7 @@ namespace MuonTraSach
 
         int max;
         int maxDays;
-        int addRow;
-        int removeRow;
+        int addRow = -1, removeRow = -1;
         int numborrowedBooks = -1;
         string newBorrowSlip;
 
@@ -73,9 +72,7 @@ namespace MuonTraSach
         {
             //Get list of readers and load combobox
             command = connection.CreateCommand();
-            command.CommandText = @"SELECT *
-            FROM DOCGIA 
-            WHERE NgHetHan >= GETDATE()";
+            command.CommandText = @"SELECT * FROM DOCGIA  WHERE NgHetHan >= GETDATE()";
             using (SqlDataReader reader = command.ExecuteReader())
                 while (reader.Read())
                 {
@@ -105,7 +102,7 @@ namespace MuonTraSach
                 }
             bingdingStock = new BindingSource();
             bingdingChosen = new BindingSource();
-            LoadDataGridView(stockBooks, dtgvStock, bingdingStock);
+            FillDataGridView(stockBooks, dtgvStock, bingdingStock);
 
             //Get max number of books can be borrowed
             command = connection.CreateCommand();
@@ -120,16 +117,17 @@ namespace MuonTraSach
             //Get the last borrow slip
             command = connection.CreateCommand();
             command.CommandText = @"SELECT TOP(1) MAPHIEUMUONSACH
-            FROM phieumuon
-            ORDER BY maphieumuonsach DESC";
+            FROM PHIEUMUON
+            ORDER BY MaPhieuMuonSach DESC";
             string last = command.ExecuteScalar().ToString();
             int stt = int.Parse(last.Substring(4, 3)) + 1;
             newBorrowSlip = $"MPMS{stt:000}";
         }
 
-        private void LoadDataGridView(BindingList<Book> list, DataGridView dtgv, BindingSource bd)
+        private void FillDataGridView(BindingList<Book> list, DataGridView dtgv, BindingSource bd)
         {
-            bd.DataSource = list.OrderBy(o => o.id).ThenBy(o => o.bookId).ThenBy(o => o.name).ToList();
+            //bd.DataSource = list.OrderBy(o => o.id).ToList();
+            bd.DataSource = list;
             dtgv.DataSource = bd;
 
             if (dtgv.Rows.Count != 0)
@@ -156,8 +154,8 @@ namespace MuonTraSach
                 else
                 {
                     ChangeBookBetweenTwoList(stockBooks, chosenBooks, addRow);
-                    LoadDataGridView(chosenBooks, dtgvChosen, bingdingChosen);
-                    LoadDataGridView(stockBooks, dtgvStock, bingdingStock);
+                    FillDataGridView(chosenBooks, dtgvChosen, bingdingChosen);
+                    FillDataGridView(stockBooks, dtgvStock, bingdingStock);
                 }
             }
             else if (opt == 2)
@@ -167,8 +165,8 @@ namespace MuonTraSach
                 else if (dtgvChosen.Rows.Count > 0)
                 {
                     ChangeBookBetweenTwoList(chosenBooks, stockBooks, removeRow);
-                    LoadDataGridView(chosenBooks, dtgvChosen, bingdingChosen);
-                    LoadDataGridView(stockBooks, dtgvStock, bingdingStock);
+                    FillDataGridView(chosenBooks, dtgvChosen, bingdingChosen);
+                    FillDataGridView(stockBooks, dtgvStock, bingdingStock);
                 }
             }
         }
@@ -286,7 +284,7 @@ namespace MuonTraSach
             if (stockBooks.Count != 0)
             {
                 if (txt.Text.Length == 0)
-                    LoadDataGridView(stockBooks, dtgvStock, bingdingStock);
+                    FillDataGridView(stockBooks, dtgvStock, bingdingStock);
                 else
                 {
                     try
@@ -312,7 +310,7 @@ namespace MuonTraSach
                 }
             }
             else if (txt.TextLength == 0)
-                LoadDataGridView(stockBooks, dtgvStock, bingdingStock);
+                FillDataGridView(stockBooks, dtgvStock, bingdingStock);
         }
 
         private void linkLabelClear_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -334,7 +332,7 @@ namespace MuonTraSach
             if (dtgvChosen.Rows.Count > 0)
                 ChangeBook(2);
             else
-                MessageBox.Show("Danh sách sách đang chọn trống!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Danh sách sách đã chọn trống!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
         private void dtgvStock_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
