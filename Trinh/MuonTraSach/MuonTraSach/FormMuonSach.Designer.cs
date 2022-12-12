@@ -28,12 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle22 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle23 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle24 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.eventLog1 = new System.Diagnostics.EventLog();
             this.lbAmount = new System.Windows.Forms.Label();
             this.dtgvChosen = new System.Windows.Forms.DataGridView();
@@ -55,6 +55,18 @@
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.lbHeader = new System.Windows.Forms.Label();
+            this.btnRemove = new MuonTraSach.But();
+            this.btnAdd = new MuonTraSach.But();
+            this.btnBorrowList = new MuonTraSach.But();
+            this.btnUpdate = new MuonTraSach.But();
+            this.btnBorrow = new MuonTraSach.But();
+            this.vbButton2 = new MuonTraSach.VBButton();
+            this.toggleButton2 = new MuonTraSach.ToggleButton();
+            this.toggleButton1 = new MuonTraSach.ToggleButton();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.lbBorrowed = new System.Windows.Forms.Label();
+            this.lbMaxBorrow = new System.Windows.Forms.Label();
             this.vbButton1 = new MuonTraSach.VBButton();
             this.lbWCode = new System.Windows.Forms.Label();
             this.txtReaderName = new System.Windows.Forms.TextBox();
@@ -65,23 +77,11 @@
             this.label3 = new System.Windows.Forms.Label();
             this.cbbReaderId = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.vbButton2 = new MuonTraSach.VBButton();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.lbBorrowed = new System.Windows.Forms.Label();
-            this.lbMaxBorrow = new System.Windows.Forms.Label();
-            this.btnBorrowList = new MuonTraSach.But();
-            this.btnUpdate = new MuonTraSach.But();
-            this.btnBorrow = new MuonTraSach.But();
-            this.btnRemove = new MuonTraSach.But();
-            this.btnAdd = new MuonTraSach.But();
-            this.toggleButton1 = new MuonTraSach.ToggleButton();
-            this.toggleButton2 = new MuonTraSach.ToggleButton();
             ((System.ComponentModel.ISupportInitialize)(this.eventLog1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtgvChosen)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtgvStock)).BeginInit();
-            this.vbButton1.SuspendLayout();
             this.vbButton2.SuspendLayout();
+            this.vbButton1.SuspendLayout();
             this.SuspendLayout();
             // 
             // eventLog1
@@ -107,14 +107,14 @@
             this.dtgvChosen.AllowUserToResizeRows = false;
             this.dtgvChosen.BackgroundColor = System.Drawing.Color.White;
             this.dtgvChosen.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle19.BackColor = System.Drawing.Color.DarkSlateBlue;
-            dataGridViewCellStyle19.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle19.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle19.SelectionBackColor = System.Drawing.Color.DarkSlateBlue;
-            dataGridViewCellStyle19.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle19.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dtgvChosen.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle19;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.DarkSlateBlue;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.DarkSlateBlue;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dtgvChosen.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dtgvChosen.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dtgvChosen.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn1,
@@ -129,20 +129,20 @@
             this.dtgvChosen.MultiSelect = false;
             this.dtgvChosen.Name = "dtgvChosen";
             this.dtgvChosen.ReadOnly = true;
-            dataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle20.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle20.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle20.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle20.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle20.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle20.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dtgvChosen.RowHeadersDefaultCellStyle = dataGridViewCellStyle20;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dtgvChosen.RowHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dtgvChosen.RowHeadersVisible = false;
             this.dtgvChosen.RowHeadersWidth = 40;
-            dataGridViewCellStyle21.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle21.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle21.SelectionForeColor = System.Drawing.Color.Black;
-            this.dtgvChosen.RowsDefaultCellStyle = dataGridViewCellStyle21;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.Black;
+            this.dtgvChosen.RowsDefaultCellStyle = dataGridViewCellStyle3;
             this.dtgvChosen.RowTemplate.Height = 26;
             this.dtgvChosen.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dtgvChosen.Size = new System.Drawing.Size(825, 470);
@@ -216,14 +216,14 @@
             this.dtgvStock.AllowUserToResizeRows = false;
             this.dtgvStock.BackgroundColor = System.Drawing.Color.White;
             this.dtgvStock.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle22.BackColor = System.Drawing.Color.DarkSlateBlue;
-            dataGridViewCellStyle22.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle22.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle22.SelectionBackColor = System.Drawing.Color.DarkSlateBlue;
-            dataGridViewCellStyle22.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle22.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dtgvStock.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle22;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.DarkSlateBlue;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.DarkSlateBlue;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dtgvStock.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.dtgvStock.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dtgvStock.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn6,
@@ -238,20 +238,20 @@
             this.dtgvStock.MultiSelect = false;
             this.dtgvStock.Name = "dtgvStock";
             this.dtgvStock.ReadOnly = true;
-            dataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle23.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle23.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle23.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle23.SelectionBackColor = System.Drawing.Color.LightSalmon;
-            dataGridViewCellStyle23.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle23.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dtgvStock.RowHeadersDefaultCellStyle = dataGridViewCellStyle23;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.LightSalmon;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dtgvStock.RowHeadersDefaultCellStyle = dataGridViewCellStyle5;
             this.dtgvStock.RowHeadersVisible = false;
             this.dtgvStock.RowHeadersWidth = 40;
-            dataGridViewCellStyle24.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle24.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle24.SelectionForeColor = System.Drawing.Color.Black;
-            this.dtgvStock.RowsDefaultCellStyle = dataGridViewCellStyle24;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.Black;
+            this.dtgvStock.RowsDefaultCellStyle = dataGridViewCellStyle6;
             this.dtgvStock.RowTemplate.Height = 26;
             this.dtgvStock.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dtgvStock.Size = new System.Drawing.Size(825, 470);
@@ -373,6 +373,226 @@
             this.lbHeader.Size = new System.Drawing.Size(415, 70);
             this.lbHeader.TabIndex = 65;
             this.lbHeader.Text = "Cho Mượn Sách";
+            // 
+            // btnRemove
+            // 
+            this.btnRemove.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnRemove.BackColor = System.Drawing.Color.LightCoral;
+            this.btnRemove.BackgroundColor = System.Drawing.Color.LightCoral;
+            this.btnRemove.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.btnRemove.BorderRadius = 20;
+            this.btnRemove.BorderSize = 0;
+            this.btnRemove.FlatAppearance.BorderSize = 0;
+            this.btnRemove.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRemove.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold);
+            this.btnRemove.ForeColor = System.Drawing.Color.White;
+            this.btnRemove.Location = new System.Drawing.Point(873, 852);
+            this.btnRemove.Margin = new System.Windows.Forms.Padding(4, 8, 4, 5);
+            this.btnRemove.Name = "btnRemove";
+            this.btnRemove.Size = new System.Drawing.Size(144, 62);
+            this.btnRemove.TabIndex = 89;
+            this.btnRemove.Text = "<- Bỏ";
+            this.btnRemove.TextColor = System.Drawing.Color.White;
+            this.btnRemove.UseVisualStyleBackColor = false;
+            this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
+            // 
+            // btnAdd
+            // 
+            this.btnAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAdd.BackColor = System.Drawing.Color.YellowGreen;
+            this.btnAdd.BackgroundColor = System.Drawing.Color.YellowGreen;
+            this.btnAdd.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.btnAdd.BorderRadius = 20;
+            this.btnAdd.BorderSize = 0;
+            this.btnAdd.FlatAppearance.BorderSize = 0;
+            this.btnAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAdd.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold);
+            this.btnAdd.ForeColor = System.Drawing.Color.White;
+            this.btnAdd.Location = new System.Drawing.Point(873, 775);
+            this.btnAdd.Margin = new System.Windows.Forms.Padding(4, 5, 4, 8);
+            this.btnAdd.Name = "btnAdd";
+            this.btnAdd.Size = new System.Drawing.Size(144, 62);
+            this.btnAdd.TabIndex = 90;
+            this.btnAdd.Text = "Thêm ->";
+            this.btnAdd.TextColor = System.Drawing.Color.White;
+            this.btnAdd.UseVisualStyleBackColor = false;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
+            // 
+            // btnBorrowList
+            // 
+            this.btnBorrowList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnBorrowList.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.btnBorrowList.BackgroundColor = System.Drawing.Color.MediumSeaGreen;
+            this.btnBorrowList.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.btnBorrowList.BorderRadius = 12;
+            this.btnBorrowList.BorderSize = 0;
+            this.btnBorrowList.FlatAppearance.BorderSize = 0;
+            this.btnBorrowList.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnBorrowList.Font = new System.Drawing.Font("Segoe UI Semibold", 13F, System.Drawing.FontStyle.Bold);
+            this.btnBorrowList.ForeColor = System.Drawing.Color.White;
+            this.btnBorrowList.Location = new System.Drawing.Point(1090, 108);
+            this.btnBorrowList.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnBorrowList.Name = "btnBorrowList";
+            this.btnBorrowList.Size = new System.Drawing.Size(285, 72);
+            this.btnBorrowList.TabIndex = 86;
+            this.btnBorrowList.Text = "Xem phiếu mượn";
+            this.btnBorrowList.TextColor = System.Drawing.Color.White;
+            this.btnBorrowList.UseVisualStyleBackColor = false;
+            this.btnBorrowList.Click += new System.EventHandler(this.btnBorrowList_Click);
+            // 
+            // btnUpdate
+            // 
+            this.btnUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnUpdate.BackColor = System.Drawing.Color.LightCoral;
+            this.btnUpdate.BackgroundColor = System.Drawing.Color.LightCoral;
+            this.btnUpdate.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.btnUpdate.BorderRadius = 12;
+            this.btnUpdate.BorderSize = 0;
+            this.btnUpdate.FlatAppearance.BorderSize = 0;
+            this.btnUpdate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnUpdate.Font = new System.Drawing.Font("Segoe UI Semibold", 13F, System.Drawing.FontStyle.Bold);
+            this.btnUpdate.ForeColor = System.Drawing.Color.White;
+            this.btnUpdate.Location = new System.Drawing.Point(1642, 108);
+            this.btnUpdate.Margin = new System.Windows.Forms.Padding(4, 5, 15, 5);
+            this.btnUpdate.Name = "btnUpdate";
+            this.btnUpdate.Size = new System.Drawing.Size(192, 72);
+            this.btnUpdate.TabIndex = 87;
+            this.btnUpdate.Text = "Cập nhật";
+            this.btnUpdate.TextColor = System.Drawing.Color.White;
+            this.btnUpdate.UseVisualStyleBackColor = false;
+            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
+            // 
+            // btnBorrow
+            // 
+            this.btnBorrow.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnBorrow.BackColor = System.Drawing.Color.YellowGreen;
+            this.btnBorrow.BackgroundColor = System.Drawing.Color.YellowGreen;
+            this.btnBorrow.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.btnBorrow.BorderRadius = 12;
+            this.btnBorrow.BorderSize = 0;
+            this.btnBorrow.FlatAppearance.BorderSize = 0;
+            this.btnBorrow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnBorrow.Font = new System.Drawing.Font("Segoe UI Semibold", 13F, System.Drawing.FontStyle.Bold);
+            this.btnBorrow.ForeColor = System.Drawing.Color.White;
+            this.btnBorrow.Location = new System.Drawing.Point(1411, 108);
+            this.btnBorrow.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnBorrow.Name = "btnBorrow";
+            this.btnBorrow.Size = new System.Drawing.Size(192, 72);
+            this.btnBorrow.TabIndex = 88;
+            this.btnBorrow.Text = "Cho mượn";
+            this.btnBorrow.TextColor = System.Drawing.Color.White;
+            this.btnBorrow.UseVisualStyleBackColor = false;
+            this.btnBorrow.Click += new System.EventHandler(this.btnBorrow_Click);
+            // 
+            // vbButton2
+            // 
+            this.vbButton2.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.vbButton2.BackgroundColor = System.Drawing.SystemColors.ActiveCaption;
+            this.vbButton2.BorderColor = System.Drawing.Color.Navy;
+            this.vbButton2.BorderRadius = 20;
+            this.vbButton2.BorderSize = 1;
+            this.vbButton2.Controls.Add(this.toggleButton2);
+            this.vbButton2.Controls.Add(this.toggleButton1);
+            this.vbButton2.Controls.Add(this.label7);
+            this.vbButton2.Controls.Add(this.label6);
+            this.vbButton2.Controls.Add(this.lbBorrowed);
+            this.vbButton2.Controls.Add(this.lbMaxBorrow);
+            this.vbButton2.ForeColor = System.Drawing.Color.White;
+            this.vbButton2.Location = new System.Drawing.Point(1070, 203);
+            this.vbButton2.Name = "vbButton2";
+            this.vbButton2.Size = new System.Drawing.Size(792, 258);
+            this.vbButton2.TabIndex = 85;
+            this.vbButton2.TextColor = System.Drawing.Color.White;
+            // 
+            // toggleButton2
+            // 
+            this.toggleButton2.Checked = true;
+            this.toggleButton2.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.toggleButton2.Location = new System.Drawing.Point(453, 190);
+            this.toggleButton2.MinimumSize = new System.Drawing.Size(45, 22);
+            this.toggleButton2.Name = "toggleButton2";
+            this.toggleButton2.OffBackColor = System.Drawing.Color.Gray;
+            this.toggleButton2.OffToggleColor = System.Drawing.Color.Gainsboro;
+            this.toggleButton2.OnBackColor = System.Drawing.Color.SlateBlue;
+            this.toggleButton2.OnToggleColor = System.Drawing.Color.WhiteSmoke;
+            this.toggleButton2.Size = new System.Drawing.Size(80, 43);
+            this.toggleButton2.TabIndex = 65;
+            this.toggleButton2.UseVisualStyleBackColor = true;
+            this.toggleButton2.CheckedChanged += new System.EventHandler(this.toggleButton2_CheckedChanged);
+            // 
+            // toggleButton1
+            // 
+            this.toggleButton1.Checked = true;
+            this.toggleButton1.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.toggleButton1.Location = new System.Drawing.Point(453, 124);
+            this.toggleButton1.MinimumSize = new System.Drawing.Size(45, 22);
+            this.toggleButton1.Name = "toggleButton1";
+            this.toggleButton1.OffBackColor = System.Drawing.Color.Gray;
+            this.toggleButton1.OffToggleColor = System.Drawing.Color.Gainsboro;
+            this.toggleButton1.OnBackColor = System.Drawing.Color.SlateBlue;
+            this.toggleButton1.OnToggleColor = System.Drawing.Color.WhiteSmoke;
+            this.toggleButton1.Size = new System.Drawing.Size(80, 43);
+            this.toggleButton1.TabIndex = 65;
+            this.toggleButton1.UseVisualStyleBackColor = true;
+            this.toggleButton1.CheckedChanged += new System.EventHandler(this.toggleButton1_CheckedChanged);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.ForeColor = System.Drawing.Color.Navy;
+            this.label7.Location = new System.Drawing.Point(27, 193);
+            this.label7.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(164, 29);
+            this.label7.TabIndex = 64;
+            this.label7.Text = "In phiếu mượn";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.ForeColor = System.Drawing.Color.Navy;
+            this.label6.Location = new System.Drawing.Point(27, 127);
+            this.label6.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(392, 29);
+            this.label6.TabIndex = 63;
+            this.label6.Text = "Áp dụng số sách tối đa có thể mượn";
+            // 
+            // lbBorrowed
+            // 
+            this.lbBorrowed.AutoSize = true;
+            this.lbBorrowed.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbBorrowed.ForeColor = System.Drawing.Color.Maroon;
+            this.lbBorrowed.Location = new System.Drawing.Point(27, 73);
+            this.lbBorrowed.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.lbBorrowed.Name = "lbBorrowed";
+            this.lbBorrowed.Size = new System.Drawing.Size(325, 33);
+            this.lbBorrowed.TabIndex = 62;
+            this.lbBorrowed.Text = "Số sách đang mượn: 0";
+            // 
+            // lbMaxBorrow
+            // 
+            this.lbMaxBorrow.AutoSize = true;
+            this.lbMaxBorrow.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbMaxBorrow.ForeColor = System.Drawing.Color.Navy;
+            this.lbMaxBorrow.Location = new System.Drawing.Point(27, 22);
+            this.lbMaxBorrow.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.lbMaxBorrow.Name = "lbMaxBorrow";
+            this.lbMaxBorrow.Size = new System.Drawing.Size(410, 33);
+            this.lbMaxBorrow.TabIndex = 62;
+            this.lbMaxBorrow.Text = "Số sách được mượn tối đa: 5\r\n";
             // 
             // vbButton1
             // 
@@ -507,226 +727,6 @@
             this.label2.TabIndex = 33;
             this.label2.Text = "Mã độc giả:";
             // 
-            // vbButton2
-            // 
-            this.vbButton2.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.vbButton2.BackgroundColor = System.Drawing.SystemColors.ActiveCaption;
-            this.vbButton2.BorderColor = System.Drawing.Color.Navy;
-            this.vbButton2.BorderRadius = 20;
-            this.vbButton2.BorderSize = 1;
-            this.vbButton2.Controls.Add(this.toggleButton2);
-            this.vbButton2.Controls.Add(this.toggleButton1);
-            this.vbButton2.Controls.Add(this.label7);
-            this.vbButton2.Controls.Add(this.label6);
-            this.vbButton2.Controls.Add(this.lbBorrowed);
-            this.vbButton2.Controls.Add(this.lbMaxBorrow);
-            this.vbButton2.ForeColor = System.Drawing.Color.White;
-            this.vbButton2.Location = new System.Drawing.Point(1070, 203);
-            this.vbButton2.Name = "vbButton2";
-            this.vbButton2.Size = new System.Drawing.Size(792, 258);
-            this.vbButton2.TabIndex = 85;
-            this.vbButton2.TextColor = System.Drawing.Color.White;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.ForeColor = System.Drawing.Color.Navy;
-            this.label7.Location = new System.Drawing.Point(27, 193);
-            this.label7.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(164, 29);
-            this.label7.TabIndex = 64;
-            this.label7.Text = "In phiếu mượn";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.ForeColor = System.Drawing.Color.Navy;
-            this.label6.Location = new System.Drawing.Point(27, 127);
-            this.label6.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(392, 29);
-            this.label6.TabIndex = 63;
-            this.label6.Text = "Áp dụng số sách tối đa có thể mượn";
-            // 
-            // lbBorrowed
-            // 
-            this.lbBorrowed.AutoSize = true;
-            this.lbBorrowed.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbBorrowed.ForeColor = System.Drawing.Color.Maroon;
-            this.lbBorrowed.Location = new System.Drawing.Point(27, 73);
-            this.lbBorrowed.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.lbBorrowed.Name = "lbBorrowed";
-            this.lbBorrowed.Size = new System.Drawing.Size(325, 33);
-            this.lbBorrowed.TabIndex = 62;
-            this.lbBorrowed.Text = "Số sách đang mượn: 0";
-            // 
-            // lbMaxBorrow
-            // 
-            this.lbMaxBorrow.AutoSize = true;
-            this.lbMaxBorrow.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbMaxBorrow.ForeColor = System.Drawing.Color.Navy;
-            this.lbMaxBorrow.Location = new System.Drawing.Point(27, 22);
-            this.lbMaxBorrow.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.lbMaxBorrow.Name = "lbMaxBorrow";
-            this.lbMaxBorrow.Size = new System.Drawing.Size(410, 33);
-            this.lbMaxBorrow.TabIndex = 62;
-            this.lbMaxBorrow.Text = "Số sách được mượn tối đa: 5\r\n";
-            // 
-            // btnBorrowList
-            // 
-            this.btnBorrowList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnBorrowList.BackColor = System.Drawing.Color.MediumSeaGreen;
-            this.btnBorrowList.BackgroundColor = System.Drawing.Color.MediumSeaGreen;
-            this.btnBorrowList.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.btnBorrowList.BorderRadius = 12;
-            this.btnBorrowList.BorderSize = 0;
-            this.btnBorrowList.FlatAppearance.BorderSize = 0;
-            this.btnBorrowList.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnBorrowList.Font = new System.Drawing.Font("Segoe UI Semibold", 13F, System.Drawing.FontStyle.Bold);
-            this.btnBorrowList.ForeColor = System.Drawing.Color.White;
-            this.btnBorrowList.Location = new System.Drawing.Point(1090, 108);
-            this.btnBorrowList.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.btnBorrowList.Name = "btnBorrowList";
-            this.btnBorrowList.Size = new System.Drawing.Size(285, 72);
-            this.btnBorrowList.TabIndex = 86;
-            this.btnBorrowList.Text = "Xem phiếu mượn";
-            this.btnBorrowList.TextColor = System.Drawing.Color.White;
-            this.btnBorrowList.UseVisualStyleBackColor = false;
-            this.btnBorrowList.Click += new System.EventHandler(this.btnBorrowList_Click);
-            // 
-            // btnUpdate
-            // 
-            this.btnUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnUpdate.BackColor = System.Drawing.Color.LightCoral;
-            this.btnUpdate.BackgroundColor = System.Drawing.Color.LightCoral;
-            this.btnUpdate.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.btnUpdate.BorderRadius = 12;
-            this.btnUpdate.BorderSize = 0;
-            this.btnUpdate.FlatAppearance.BorderSize = 0;
-            this.btnUpdate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnUpdate.Font = new System.Drawing.Font("Segoe UI Semibold", 13F, System.Drawing.FontStyle.Bold);
-            this.btnUpdate.ForeColor = System.Drawing.Color.White;
-            this.btnUpdate.Location = new System.Drawing.Point(1642, 108);
-            this.btnUpdate.Margin = new System.Windows.Forms.Padding(4, 5, 15, 5);
-            this.btnUpdate.Name = "btnUpdate";
-            this.btnUpdate.Size = new System.Drawing.Size(192, 72);
-            this.btnUpdate.TabIndex = 87;
-            this.btnUpdate.Text = "Cập nhật";
-            this.btnUpdate.TextColor = System.Drawing.Color.White;
-            this.btnUpdate.UseVisualStyleBackColor = false;
-            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
-            // 
-            // btnBorrow
-            // 
-            this.btnBorrow.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnBorrow.BackColor = System.Drawing.Color.YellowGreen;
-            this.btnBorrow.BackgroundColor = System.Drawing.Color.YellowGreen;
-            this.btnBorrow.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.btnBorrow.BorderRadius = 12;
-            this.btnBorrow.BorderSize = 0;
-            this.btnBorrow.FlatAppearance.BorderSize = 0;
-            this.btnBorrow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnBorrow.Font = new System.Drawing.Font("Segoe UI Semibold", 13F, System.Drawing.FontStyle.Bold);
-            this.btnBorrow.ForeColor = System.Drawing.Color.White;
-            this.btnBorrow.Location = new System.Drawing.Point(1411, 108);
-            this.btnBorrow.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.btnBorrow.Name = "btnBorrow";
-            this.btnBorrow.Size = new System.Drawing.Size(192, 72);
-            this.btnBorrow.TabIndex = 88;
-            this.btnBorrow.Text = "Cho mượn";
-            this.btnBorrow.TextColor = System.Drawing.Color.White;
-            this.btnBorrow.UseVisualStyleBackColor = false;
-            this.btnBorrow.Click += new System.EventHandler(this.btnBorrow_Click);
-            // 
-            // btnRemove
-            // 
-            this.btnRemove.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnRemove.BackColor = System.Drawing.Color.LightCoral;
-            this.btnRemove.BackgroundColor = System.Drawing.Color.LightCoral;
-            this.btnRemove.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.btnRemove.BorderRadius = 20;
-            this.btnRemove.BorderSize = 0;
-            this.btnRemove.FlatAppearance.BorderSize = 0;
-            this.btnRemove.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnRemove.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold);
-            this.btnRemove.ForeColor = System.Drawing.Color.White;
-            this.btnRemove.Location = new System.Drawing.Point(873, 852);
-            this.btnRemove.Margin = new System.Windows.Forms.Padding(4, 8, 4, 5);
-            this.btnRemove.Name = "btnRemove";
-            this.btnRemove.Size = new System.Drawing.Size(144, 62);
-            this.btnRemove.TabIndex = 89;
-            this.btnRemove.Text = "<- Bỏ";
-            this.btnRemove.TextColor = System.Drawing.Color.White;
-            this.btnRemove.UseVisualStyleBackColor = false;
-            this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
-            // 
-            // btnAdd
-            // 
-            this.btnAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAdd.BackColor = System.Drawing.Color.YellowGreen;
-            this.btnAdd.BackgroundColor = System.Drawing.Color.YellowGreen;
-            this.btnAdd.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.btnAdd.BorderRadius = 20;
-            this.btnAdd.BorderSize = 0;
-            this.btnAdd.FlatAppearance.BorderSize = 0;
-            this.btnAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAdd.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold);
-            this.btnAdd.ForeColor = System.Drawing.Color.White;
-            this.btnAdd.Location = new System.Drawing.Point(873, 775);
-            this.btnAdd.Margin = new System.Windows.Forms.Padding(4, 5, 4, 8);
-            this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(144, 62);
-            this.btnAdd.TabIndex = 90;
-            this.btnAdd.Text = "Thêm ->";
-            this.btnAdd.TextColor = System.Drawing.Color.White;
-            this.btnAdd.UseVisualStyleBackColor = false;
-            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
-            // 
-            // toggleButton1
-            // 
-            this.toggleButton1.Checked = true;
-            this.toggleButton1.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.toggleButton1.Location = new System.Drawing.Point(453, 124);
-            this.toggleButton1.MinimumSize = new System.Drawing.Size(45, 22);
-            this.toggleButton1.Name = "toggleButton1";
-            this.toggleButton1.OffBackColor = System.Drawing.Color.Gray;
-            this.toggleButton1.OffToggleColor = System.Drawing.Color.Gainsboro;
-            this.toggleButton1.OnBackColor = System.Drawing.Color.SlateBlue;
-            this.toggleButton1.OnToggleColor = System.Drawing.Color.WhiteSmoke;
-            this.toggleButton1.Size = new System.Drawing.Size(80, 43);
-            this.toggleButton1.TabIndex = 65;
-            this.toggleButton1.UseVisualStyleBackColor = true;
-            this.toggleButton1.CheckedChanged += new System.EventHandler(this.toggleButton1_CheckedChanged);
-            // 
-            // toggleButton2
-            // 
-            this.toggleButton2.Checked = true;
-            this.toggleButton2.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.toggleButton2.Location = new System.Drawing.Point(453, 190);
-            this.toggleButton2.MinimumSize = new System.Drawing.Size(45, 22);
-            this.toggleButton2.Name = "toggleButton2";
-            this.toggleButton2.OffBackColor = System.Drawing.Color.Gray;
-            this.toggleButton2.OffToggleColor = System.Drawing.Color.Gainsboro;
-            this.toggleButton2.OnBackColor = System.Drawing.Color.SlateBlue;
-            this.toggleButton2.OnToggleColor = System.Drawing.Color.WhiteSmoke;
-            this.toggleButton2.Size = new System.Drawing.Size(80, 43);
-            this.toggleButton2.TabIndex = 65;
-            this.toggleButton2.UseVisualStyleBackColor = true;
-            this.toggleButton2.CheckedChanged += new System.EventHandler(this.toggleButton2_CheckedChanged);
-            // 
             // FormMuonSach
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -752,15 +752,15 @@
             this.Controls.Add(this.lbHeader);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "FormMuonSach";
-            this.Text = "Form1";
+            this.Text = "Mượn Sách";
             this.Load += new System.EventHandler(this.FormMuonSach_Load);
             ((System.ComponentModel.ISupportInitialize)(this.eventLog1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtgvChosen)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtgvStock)).EndInit();
-            this.vbButton1.ResumeLayout(false);
-            this.vbButton1.PerformLayout();
             this.vbButton2.ResumeLayout(false);
             this.vbButton2.PerformLayout();
+            this.vbButton1.ResumeLayout(false);
+            this.vbButton1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 

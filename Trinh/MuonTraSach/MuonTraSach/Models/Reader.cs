@@ -42,16 +42,16 @@ namespace MuonTraSach.Models
             this.expiredDate = reader.expiredDate;
             this.debt = reader.debt;
         }
-        public Reader(string id, string name, string type, string birth, string address, string email, string createAt, string expiredDate, long debt)
+        public Reader(string id, string name, string type, DateTime birth, string address, string email, DateTime createAt, DateTime expiredDate, long debt)
         {
             this.id = id;
             this.name = name;
             this.type = type;
-            this.birth = birth;
+            this.birth = birth.ToString("dd/MM/yyyy");
             this.address = address;
             this.email = email;
-            this.createAt = createAt;
-            this.expiredDate = expiredDate;
+            this.createAt = createAt.ToString("dd/MM/yyyy");
+            this.expiredDate = expiredDate.ToString("dd/MM/yyyy");
             this.debt = debt;
         }
     }

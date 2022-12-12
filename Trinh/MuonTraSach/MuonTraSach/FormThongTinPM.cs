@@ -114,10 +114,10 @@ namespace MuonTraSach
             foreach (Book book in borrowSlip.chosenBooks)
             {
                 insertSlipDetail = insertSlipDetail + $@"INSERT INTO CTPHIEUMUON(MaPhieuMuonSach, MaCuonSach, TinhTrangPM) VALUES('{borrowSlip.id}','{book.id}', 0)" + "\n";
-                updateBookState = updateBookState + $@"UPDATE CUONSACH SET TinhTrang = 1 WHERE MaCuonSach = '{book.id}'" + "\n";
+                updateBookState = updateBookState + $@"UPDATE CUONSACH SET TinhTrang = 0 WHERE MaCuonSach = '{book.id}'" + "\n";
             }
 
-            SqlConnection conn = new SqlConnection(FormMuonSach.str);
+            SqlConnection conn = new SqlConnection(FormMuonSach.stringConnect);
             conn.Open();
             SqlCommand cmd = new SqlCommand(createBorrowSlipCmd, conn);
             cmd.ExecuteNonQuery();

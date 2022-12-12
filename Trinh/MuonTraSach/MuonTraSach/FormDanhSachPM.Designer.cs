@@ -28,10 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle22 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle23 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle24 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.dtpReturn = new System.Windows.Forms.DateTimePicker();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dtpBorrow = new System.Windows.Forms.DateTimePicker();
             this.dtgv = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -58,24 +57,15 @@
             this.pnlReaderName = new System.Windows.Forms.Panel();
             this.pnlReaderId = new System.Windows.Forms.Panel();
             this.lbReaderId = new System.Windows.Forms.Label();
+            this.lbReturnDate = new System.Windows.Forms.Label();
+            this.pnlReturnDate = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.dtgv)).BeginInit();
             this.SuspendLayout();
-            // 
-            // dtpReturn
-            // 
-            this.dtpReturn.CalendarFont = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dtpReturn.CustomFormat = "dd/MM/yyyy";
-            this.dtpReturn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dtpReturn.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtpReturn.Location = new System.Drawing.Point(798, 329);
-            this.dtpReturn.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
-            this.dtpReturn.Name = "dtpReturn";
-            this.dtpReturn.Size = new System.Drawing.Size(162, 35);
-            this.dtpReturn.TabIndex = 91;
             // 
             // dtpBorrow
             // 
             this.dtpBorrow.CalendarFont = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtpBorrow.Checked = false;
             this.dtpBorrow.CustomFormat = "dd/MM/yyyy";
             this.dtpBorrow.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtpBorrow.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
@@ -93,14 +83,14 @@
             this.dtgv.AllowUserToResizeRows = false;
             this.dtgv.BackgroundColor = System.Drawing.Color.White;
             this.dtgv.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle22.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(84)))), ((int)(((byte)(131)))));
-            dataGridViewCellStyle22.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle22.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle22.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(84)))), ((int)(((byte)(131)))));
-            dataGridViewCellStyle22.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle22.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dtgv.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle22;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(84)))), ((int)(((byte)(131)))));
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(84)))), ((int)(((byte)(131)))));
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dtgv.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.dtgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dtgv.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn6,
@@ -116,20 +106,20 @@
             this.dtgv.MultiSelect = false;
             this.dtgv.Name = "dtgv";
             this.dtgv.ReadOnly = true;
-            dataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle23.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle23.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle23.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle23.SelectionBackColor = System.Drawing.Color.LightSalmon;
-            dataGridViewCellStyle23.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle23.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dtgv.RowHeadersDefaultCellStyle = dataGridViewCellStyle23;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.LightSalmon;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dtgv.RowHeadersDefaultCellStyle = dataGridViewCellStyle5;
             this.dtgv.RowHeadersVisible = false;
             this.dtgv.RowHeadersWidth = 40;
-            dataGridViewCellStyle24.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle24.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle24.SelectionForeColor = System.Drawing.Color.Black;
-            this.dtgv.RowsDefaultCellStyle = dataGridViewCellStyle24;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.Black;
+            this.dtgv.RowsDefaultCellStyle = dataGridViewCellStyle6;
             this.dtgv.RowTemplate.Height = 26;
             this.dtgv.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dtgv.Size = new System.Drawing.Size(1440, 431);
@@ -451,11 +441,32 @@
             this.lbReaderId.Size = new System.Drawing.Size(0, 35);
             this.lbReaderId.TabIndex = 97;
             // 
+            // lbReturnDate
+            // 
+            this.lbReturnDate.AutoSize = true;
+            this.lbReturnDate.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbReturnDate.Location = new System.Drawing.Point(798, 329);
+            this.lbReturnDate.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.lbReturnDate.Name = "lbReturnDate";
+            this.lbReturnDate.Size = new System.Drawing.Size(0, 35);
+            this.lbReturnDate.TabIndex = 102;
+            // 
+            // pnlReturnDate
+            // 
+            this.pnlReturnDate.BackColor = System.Drawing.Color.Black;
+            this.pnlReturnDate.Location = new System.Drawing.Point(801, 366);
+            this.pnlReturnDate.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
+            this.pnlReturnDate.Name = "pnlReturnDate";
+            this.pnlReturnDate.Size = new System.Drawing.Size(0, 2);
+            this.pnlReturnDate.TabIndex = 101;
+            // 
             // FormDanhSachPM
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1500, 962);
+            this.Controls.Add(this.lbReturnDate);
+            this.Controls.Add(this.pnlReturnDate);
             this.Controls.Add(this.pnlSlipId);
             this.Controls.Add(this.lbSlipId);
             this.Controls.Add(this.lbReaderName);
@@ -467,7 +478,6 @@
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnUpdate);
-            this.Controls.Add(this.dtpReturn);
             this.Controls.Add(this.dtpBorrow);
             this.Controls.Add(this.dtgv);
             this.Controls.Add(this.label2);
@@ -480,7 +490,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "FormDanhSachPM";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "FormDanhSachPM";
+            this.Text = "Danh sách Phiếu mượn";
             this.Load += new System.EventHandler(this.FormDanhSachPM_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dtgv)).EndInit();
             this.ResumeLayout(false);
@@ -489,8 +499,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.DateTimePicker dtpReturn;
         private System.Windows.Forms.DateTimePicker dtpBorrow;
         private System.Windows.Forms.DataGridView dtgv;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
@@ -517,5 +525,7 @@
         private System.Windows.Forms.Panel pnlReaderName;
         private System.Windows.Forms.Panel pnlReaderId;
         private System.Windows.Forms.Label lbReaderId;
+        private System.Windows.Forms.Label lbReturnDate;
+        private System.Windows.Forms.Panel pnlReturnDate;
     }
 }

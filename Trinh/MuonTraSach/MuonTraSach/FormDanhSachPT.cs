@@ -98,7 +98,7 @@ namespace MuonTraSach
             string queryCmd = @"SELECT MaPhieuTraSach, PHIEUTRASACH.MaDocGia, HoTen, NgTra, TienPhatKyNay
             FROM PHIEUTRASACH, DOCGIA
             WHERE PHIEUTRASACH.MaDocGia = DOCGIA.MaDocGia";
-            SqlConnection conn = new SqlConnection(FormMuonSach.str);
+            SqlConnection conn = new SqlConnection(FormMuonSach.stringConnect);
             conn.Open();
             SqlCommand cmd = new SqlCommand(queryCmd, conn);
             using (SqlDataReader reader = cmd.ExecuteReader())
@@ -190,7 +190,7 @@ namespace MuonTraSach
                 }
                 if (update)
                 {
-                    SqlConnection conn = new SqlConnection(FormMuonSach.str);
+                    SqlConnection conn = new SqlConnection(FormMuonSach.stringConnect);
                     conn.Open();
                     SqlCommand cmd = new SqlCommand(queryUpdateCmd, conn);
                     cmd.ExecuteNonQuery();

@@ -15,10 +15,10 @@ namespace MuonTraSach
 {
     public partial class FormMuonSach : Form
     {
+        // TINHTRANG CUONSACH = 1: Available;; = 0: Is borrowed
         SqlConnection connection;
         SqlCommand command;
-        public static string str = @"Data Source=LAPTOP-RDTT4402;Initial Catalog=QLTV1;Integrated Security=True";
-        SqlDataAdapter adapter = new SqlDataAdapter();
+        public static string stringConnect = @"Data Source=LAPTOP-RDTT4402;Initial Catalog=QLTV;Integrated Security=True";
 
         List<Reader> readers;
         BindingList<Book> stockBooks;
@@ -55,7 +55,7 @@ namespace MuonTraSach
             txtReaderName.Enabled = false;
             dtpReturn.Enabled = false;
 
-            connection = new SqlConnection(str);
+            connection = new SqlConnection(stringConnect);
             connection.Open();
 
             readers = new List<Reader>();
@@ -64,7 +64,6 @@ namespace MuonTraSach
 
             LoadData();
 
-            //Parameters.LoadParam();
             dtpReturn.Value = dtpBorrow.Value.AddDays(maxDays);
             lbMaxBorrow.Text = "Số sách được mượn tối đa: " + max;
             lbAmount.Text = "Số lượng: " + dtgvChosen.Rows.Count;
@@ -72,55 +71,50 @@ namespace MuonTraSach
 
         private void LoadData()
         {
-            //Get reader list and load combobox
+            //Get list of readers and load combobox
             command = connection.CreateCommand();
-            command.CommandText = "select * from DOCGIA";
-            adapter.SelectCommand = command;
-            DataTable table = new DataTable();
-            adapter.Fill(table);
-            foreach (DataRow item in table.Rows)
-            {
-                Reader r = new Reader(item[0].ToString(), item[1].ToString(), item[2].ToString(), item[3].ToString(), item[4].ToString(), item[5].ToString(), item[6].ToString(), item[7].ToString(), Convert.ToInt64(item[8]));
-                readers.Add(r);
-                cbbReaderId.Items.Add(r.id);
-            }
+            command.CommandText = @"SELECT *
+            FROM DOCGIA 
+            WHERE NgHetHan >= GETDATE()";
+            using (SqlDataReader reader = command.ExecuteReader())
+                while (reader.Read())
+                {
+                    Reader r = new Reader(reader.GetString(0), reader.GetString(1), reader.GetString(2), reader.GetDateTime(3), reader.GetString(4), reader.GetString(5), reader.GetDateTime(6), reader.GetDateTime(7), (long)reader.GetSqlMoney(8));
+                    readers.Add(r);
+                    cbbReaderId.Items.Add(r.id);
+                }
             cbbReaderId.DisplayMember = "MaDocGia";
             cbbReaderId.SelectedIndex = -1;
 
-            //Get book in stock and fill datagridview
+            //Get list of books in stock and fill datagridview
             command = connection.CreateCommand();
             command.CommandText = @"SELECT DISTINCT MaCuonSach, CUONSACH.MaSach, TenDauSach, TenTheLoai, TenTacGia
             FROM SACH, DAUSACH, CUONSACH, THELOAI, CTTACGIA, TACGIA
-            WHERE SACH.MaDauSach = DAUSACH.MaDauSach AND DAUSACH.MaTheLoai = THELOAI.MaTheLoai
-            AND DAUSACH.MaDauSach = CTTACGIA.MaDauSach AND CTTACGIA.MaTacGia = TACGIA.MaTacGia
-            AND SACH.MaSach = CUONSACH.MaSach AND TinhTrang = 0
+            WHERE SACH.MaDauSach = DAUSACH.MaDauSach AND SACH.MaSach = CUONSACH.MaSach
+			AND DAUSACH.MaTheLoai = THELOAI.MaTheLoai AND DAUSACH.MaDauSach = CTTACGIA.MaDauSach 
+			AND CTTACGIA.MaTacGia = TACGIA.MaTacGia AND TinhTrang = 1
 			AND CUONSACH.MaCuonSach = (SELECT MAX(B.MaCuonSach)
 				FROM CUONSACH B
-				WHERE B.MaSach = CUONSACH.MaSach AND B. TinhTrang = 0)
-			ORDER BY CUONSACH.MaSach";
-            adapter.SelectCommand = command;
-            table.Reset();
-            adapter.Fill(table);
-            foreach (DataRow item in table.Rows)
-            {
-                Book b = new Book(item[0].ToString(), item[1].ToString(), item[2].ToString(), item[3].ToString(), item[4].ToString());
-                stockBooks.Add(b);
-            }
+				WHERE B.MaSach = CUONSACH.MaSach AND B. TinhTrang = 1)
+			ORDER BY CUONSACH.MaCuonSach, MaSach, TenDauSach";
+            using (SqlDataReader reader = command.ExecuteReader())
+                while (reader.Read())
+                {
+                    Book b = new Book(reader.GetString(0), reader.GetString(1), reader.GetString(2), reader.GetString(3), reader.GetString(4));
+                    stockBooks.Add(b);
+                }
             bingdingStock = new BindingSource();
             bingdingChosen = new BindingSource();
             LoadDataGridView(stockBooks, dtgvStock, bingdingStock);
 
-            //Get max books can borrow
+            //Get max number of books can be borrowed
             command = connection.CreateCommand();
-            command.CommandText = @"select SoSachMuonMax from THAMSO";
-            adapter.SelectCommand = command;
+            command.CommandText = @"SELECT SoSachMuonMax FROM THAMSO";
             max = int.Parse(command.ExecuteScalar().ToString());
 
-
-            //Get max days can borrow
+            //Get max number of days can be borrowed
             command = connection.CreateCommand();
-            command.CommandText = @"select SoNgayMuonMax from THAMSO";
-            adapter.SelectCommand = command;
+            command.CommandText = @"SELECT SoNgayMuonMax FROM THAMSO";
             maxDays = int.Parse(command.ExecuteScalar().ToString());
 
             //Get the last borrow slip
@@ -128,7 +122,6 @@ namespace MuonTraSach
             command.CommandText = @"SELECT TOP(1) MAPHIEUMUONSACH
             FROM phieumuon
             ORDER BY maphieumuonsach DESC";
-            adapter.SelectCommand = command;
             string last = command.ExecuteScalar().ToString();
             int stt = int.Parse(last.Substring(4, 3)) + 1;
             newBorrowSlip = $"MPMS{stt:000}";
@@ -136,7 +129,7 @@ namespace MuonTraSach
 
         private void LoadDataGridView(BindingList<Book> list, DataGridView dtgv, BindingSource bd)
         {
-            bd.DataSource = list;
+            bd.DataSource = list.OrderBy(o => o.id).ThenBy(o => o.bookId).ThenBy(o => o.name).ToList();
             dtgv.DataSource = bd;
 
             if (dtgv.Rows.Count != 0)
@@ -182,19 +175,17 @@ namespace MuonTraSach
 
         private void ChangeBookBetweenTwoList(BindingList<Book> l1, BindingList<Book> l2, int i)
         {
+            int j = 0;
+            foreach (Book b in l1)
             {
-                int j = 0;
-                foreach (Book b in l1)
+                if (i == j)
                 {
-                    if (i == j)
-                    {
-                        l2.Add(b);
-                        l1.Remove(b);
-                        return;
-                    }
-                    else
-                        j++;
+                    l2.Add(b);
+                    l1.Remove(b);
+                    return;
                 }
+                else
+                    j++;
             }
         }
 
@@ -208,10 +199,9 @@ namespace MuonTraSach
                 txtReaderName.Text = readers[cbbReaderId.SelectedIndex].name;
 
                 command = connection.CreateCommand();
-                command.CommandText = $@"SELECT count(*)
+                command.CommandText = $@"SELECT COUNT(*)
                 FROM PHIEUMUON, CTPHIEUMUON
-                WHERE MaDocGia = '{cbbReaderId.Text}' AND PHIEUMUON.MaPhieuMuonSach = CTPHIEUMUON.MaPhieuMuonSach AND TinhTrangPM = 1";
-                adapter.SelectCommand = command;
+                WHERE MaDocGia = '{cbbReaderId.Text}' AND PHIEUMUON.MaPhieuMuonSach = CTPHIEUMUON.MaPhieuMuonSach AND TinhTrangPM = 0";
                 numborrowedBooks = int.Parse(command.ExecuteScalar().ToString());
                 lbBorrowed.Text = "Số sách đang mượn: " + numborrowedBooks;
             }
@@ -341,7 +331,10 @@ namespace MuonTraSach
 
         private void btnRemove_Click(object sender, EventArgs e)
         {
-            ChangeBook(2);
+            if (dtgvChosen.Rows.Count > 0)
+                ChangeBook(2);
+            else
+                MessageBox.Show("Danh sách sách đang chọn trống!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
         private void dtgvStock_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -394,7 +387,7 @@ namespace MuonTraSach
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-            //    fHome.SwitchForm(new FormMuonSach());
+            //fHome.Switch(new FormMuonSach();
         }
 
         private void ShowConfirmForm()
@@ -411,7 +404,7 @@ namespace MuonTraSach
             if (borrowState == "Success")
             {
                 MessageBox.Show("Mượn sách thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                //    LibraryManagement.fHome.SwitchForm(new FormMuonSach());
+                //fHome.Switch(new FormMuonSach();
                 lbBorrowed.Text = "Số sách đang mượn: " + (numborrowedBooks + dtgvChosen.Rows.Count);
                 dtgvChosen.Rows.Clear();
                 btnBorrow.Enabled = false;

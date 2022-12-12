@@ -77,10 +77,10 @@ namespace MuonTraSach
             btnCancel.Enabled = false;
 
             detailSlips = new List<DetailReturnSlip>();
-            LoadData();
+            LoadDetailList();
         }
 
-        private void LoadData()
+        private void LoadDetailList()
         {
             detailSlips.Clear();
             dtgv.Rows.Clear();
@@ -91,7 +91,7 @@ namespace MuonTraSach
             AND CUONSACH.MaSach = SACH.MaSach
             AND DAUSACH.MaDauSach = SACH.MaDauSach";
 
-            SqlConnection conn = new SqlConnection(FormMuonSach.str);
+            SqlConnection conn = new SqlConnection(FormMuonSach.stringConnect);
             conn.Open();
             SqlCommand cmd = new SqlCommand(queryCmd, conn);
             using (SqlDataReader reader = cmd.ExecuteReader())
@@ -185,7 +185,7 @@ namespace MuonTraSach
                 if (deleteSlip)
                     queryUpdateCmd += $@" DELETE FROM PHIEUTRASACH
                     WHERE MaPhieuTraSach = '{slipId}'";
-                SqlConnection conn = new SqlConnection(FormMuonSach.str);
+                SqlConnection conn = new SqlConnection(FormMuonSach.stringConnect);
                 conn.Open();
                 SqlCommand cmd = new SqlCommand(queryUpdateCmd, conn);
                 cmd.ExecuteNonQuery();
@@ -197,7 +197,7 @@ namespace MuonTraSach
                     this.Close();
                 dataChanged = true;
                 Clear();
-                LoadData();
+                LoadDetailList();
             }
         }
 

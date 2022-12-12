@@ -119,7 +119,7 @@ namespace MuonTraSach
                 setBookAndSlipDetailStatus += $@"UPDATE CTPHIEUMUON SET TinhTrangPM = 1  WHERE MaChiTietPhieuMuon = '{book.detailBorrowId}'" + "\n" + $@"UPDATE CUONSACH SET TinhTrang = 0 WHERE MaCuonSach = '{book.id}'";
             }
 
-            SqlConnection conn = new SqlConnection(FormMuonSach.str);
+            SqlConnection conn = new SqlConnection(FormMuonSach.stringConnect);
             conn.Open();
             SqlCommand cmd = new SqlCommand(createReturnSlipCmd, conn);
             cmd.ExecuteNonQuery();

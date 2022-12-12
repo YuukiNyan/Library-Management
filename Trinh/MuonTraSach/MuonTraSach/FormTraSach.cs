@@ -50,7 +50,7 @@ namespace MuonTraSach
             btnReturn.Enabled = false;
             txtReaderName.Enabled = false;
 
-            connection = new SqlConnection(FormMuonSach.str);
+            connection = new SqlConnection(FormMuonSach.stringConnect);
             connection.Open();
             readers = new List<Reader>();
             borrowBooks = new BindingList<ReturnBook>();
@@ -69,7 +69,7 @@ namespace MuonTraSach
             using (SqlDataReader reader = command.ExecuteReader())
                 while (reader.Read())
                 {
-                    Reader r = new Reader(reader.GetString(0), reader.GetString(1), reader.GetString(2), reader.GetDateTime(3).ToString("dd/MM/yyyy"), reader.GetString(4), reader.GetString(5), reader.GetDateTime(6).ToString("dd/MM/yyyy"), reader.GetDateTime(7).ToString("dd/MM/yyyy"), (long)reader.GetSqlMoney(8));
+                    Reader r = new Reader(reader.GetString(0), reader.GetString(1), reader.GetString(2), reader.GetDateTime(3), reader.GetString(4), reader.GetString(5), reader.GetDateTime(6), reader.GetDateTime(7), (long)reader.GetSqlMoney(8));
                     readers.Add(r);
                     cbbReaderId.Items.Add(r.id);
                 }

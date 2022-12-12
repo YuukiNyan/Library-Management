@@ -71,17 +71,18 @@ namespace MuonTraSach
         private void FormChiTietPM_Load(object sender, EventArgs e)
         {
             btnDelete.BorderRadius = 12;
-            btnCancel.BorderRadius = 12;
             btnExit.BorderRadius = 20;
 
             btnDelete.Enabled = false;
-            btnCancel.Enabled = false;
+
+            lbSlipId.Text = slipId;
+            pnlSlipId.Width = lbSlipId.Width - 6;
 
             detailSlips = new List<DetailBorrowSlip>();
-            LoadData();
+            LoadDetailList();
         }
 
-        private void LoadData()
+        private void LoadDetailList()
         {
             detailSlips.Clear();
             dtgv.Rows.Clear();
@@ -91,26 +92,22 @@ namespace MuonTraSach
             AND PHIEUMUON.MaPhieuMuonSach = CTPHIEUMUON.MaPhieuMuonSach
             AND CUONSACH.MaCuonSach = CTPHIEUMUON.MaCuonSach
             AND CUONSACH.MaSach = SACH.MaSach
-            AND DAUSACH.MaDauSach = SACH.MaDauSach";
+            AND DAUSACH.MaDauSach = SACH.MaDauSach
+			ORDER BY MaChiTietPhieuMuon, CTPHIEUMUON.MaCuonSach, TenDauSach";
 
-            SqlConnection conn = new SqlConnection(FormMuonSach.str);
+            SqlConnection conn = new SqlConnection(FormMuonSach.stringConnect);
             conn.Open();
             SqlCommand cmd = new SqlCommand(queryCmd, conn);
+            int stt = 1;
             using (SqlDataReader reader = cmd.ExecuteReader())
                 while (reader.Read())
                 {
                     DetailBorrowSlip slip = new DetailBorrowSlip(reader.GetString(0), slipId, reader.GetString(1), reader.GetString(2), (reader.GetSqlBoolean(3)) ? "Đã trả" : "Chưa trả");
                     detailSlips.Add(slip);
+                    dtgv.Rows.Add(new object[] { stt, slip.id, slip.bookId, slip.bookName, slip.status });
+                    stt++;
                 }
             conn.Close();
-
-            detailSlips.OrderBy(o => o.id).ThenBy(o => o.bookId).ThenBy(o => o.bookName).ToList();
-            int stt = 1;
-            foreach (DetailBorrowSlip slip in detailSlips)
-            {
-                dtgv.Rows.Add(new object[] { stt, slip.id, slip.bookId, slip.bookName, slip.status });
-                stt++;
-            }
 
             if (dtgv.Rows.Count != 0)
                 dtgv.ClearSelection();
@@ -118,20 +115,17 @@ namespace MuonTraSach
 
         private void Clear()
         {
-            lbSlipId.Text = "";
             lbDetailId.Text = "";
             lbBookId.Text = "";
             lbBookName.Text = "";
             lbStatus.Text = "";
 
-            pnlSlipId.Width = 0;
             pnlDetailId.Width = 0;
             pnlBookId.Width = 0;
             pnlBookName.Width = 0;
             pnlStatus.Width = 0;
 
             btnDelete.Enabled = false;
-            btnCancel.Enabled = false;
 
             if (dtgv.Rows.Count != 0)
                 dtgv.ClearSelection();
@@ -142,20 +136,17 @@ namespace MuonTraSach
             var i = e.RowIndex;
             if (i != -1)
             {
-                lbSlipId.Text = slipId;
                 lbDetailId.Text = dtgv.Rows[i].Cells[1].Value.ToString();
                 lbBookId.Text = dtgv.Rows[i].Cells[2].Value.ToString();
                 lbBookName.Text = dtgv.Rows[i].Cells[3].Value.ToString();
                 lbStatus.Text = dtgv.Rows[i].Cells[4].Value.ToString();
 
-                pnlSlipId.Width = lbSlipId.Width - 6;
                 pnlDetailId.Width = lbDetailId.Width - 6;
                 pnlBookId.Width = lbBookId.Width - 6;
                 pnlBookName.Width = lbBookName.Width - 6;
                 pnlStatus.Width = lbStatus.Width - 6;
 
                 btnDelete.Enabled = true;
-                btnCancel.Enabled = true;
             }
         }
 
@@ -168,6 +159,7 @@ namespace MuonTraSach
             {
                 msg += $"\n\nNếu xóa chi tiết phiếu mượn {id} thì sẽ xóa luôn phiếu mượn {slipId}!";
                 deleteSlip = true;
+                dataChanged = true;
             }
             var result = MessageBox.Show(msg, "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
             if (result == DialogResult.OK)
@@ -176,13 +168,13 @@ namespace MuonTraSach
                 WHERE MaChiTietPhieuMuon = '{id}'
             
                 UPDATE CUONSACH
-                SET TinhTrang = 0
+                SET TinhTrang = 1
                 WHERE MaCuonSach = '{lbBookId.Text}'
                 ";
                 if (deleteSlip)
                     queryUpdateCmd += $@" DELETE FROM PHIEUMUON
                     WHERE MaPhieuMuonSach = '{slipId}'";
-                SqlConnection conn = new SqlConnection(FormMuonSach.str);
+                SqlConnection conn = new SqlConnection(FormMuonSach.stringConnect);
                 conn.Open();
                 SqlCommand cmd = new SqlCommand(queryUpdateCmd, conn);
                 cmd.ExecuteNonQuery();
@@ -192,15 +184,9 @@ namespace MuonTraSach
 
                 if (deleteSlip)
                     this.Close();
-                dataChanged = true;
                 Clear();
-                LoadData();
+                LoadDetailList();
             }
-        }
-
-        private void btnCancel_Click(object sender, EventArgs e)
-        {
-            Clear();
         }
 
         private void btnExit_Click(object sender, EventArgs e)

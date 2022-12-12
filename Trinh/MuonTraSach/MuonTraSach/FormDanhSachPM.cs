@@ -56,12 +56,15 @@ namespace MuonTraSach
         #endregion
 
         List<BorrowSlip> borrowSlips;
-
+        SqlConnection conn;
+        SqlCommand cmd;
         int index;
+        int maxDays;
         bool isLocked = true;
         bool dateDropdown = false;
         public static bool dataChanged = false;
         int optUpdate = -1; //-1: Not changed; 1: Update; 2: Delete
+
         public FormDanhSachPM()
         {
             InitializeComponent();
@@ -82,24 +85,31 @@ namespace MuonTraSach
             btnDetail.Enabled = false;
 
             dtpBorrow.Enabled = false;
-            dtpReturn.Enabled = false;
 
             borrowSlips = new List<BorrowSlip>();
+            conn = new SqlConnection(FormMuonSach.stringConnect);
+            conn.Open();
 
-            LoadData();
+            //Get max number of days can be borrowed
+            cmd = conn.CreateCommand();
+            cmd.CommandText = @"SELECT SoNgayMuonMax FROM THAMSO";
+            maxDays = int.Parse(cmd.ExecuteScalar().ToString());
+
+            LoadBorrowSlipsList();
         }
 
-        private void LoadData()
+        private void LoadBorrowSlipsList()
         {
-            //Get borrow slips list and load data grid view
+            //Get list of borrow slips and load data grid view
             dtgv.Rows.Clear();
             borrowSlips.Clear();
-            string queryCmd = @"SELECT MaPhieuMuonSach, PHIEUMUON.MaDocGia, HoTen, NgMuon, HanTra
+            int stt = 1;
+            cmd = conn.CreateCommand();
+            cmd.CommandText = @"SELECT MaPhieuMuonSach, PHIEUMUON.MaDocGia, HoTen, NgMuon, HanTra
             FROM PHIEUMUON, DOCGIA
-            WHERE PHIEUMUON.MaDocGia = DOCGIA.MaDocGia";
-            SqlConnection conn = new SqlConnection(FormMuonSach.str);
-            conn.Open();
-            SqlCommand cmd = new SqlCommand(queryCmd, conn);
+            WHERE PHIEUMUON.MaDocGia = DOCGIA.MaDocGia
+			ORDER BY MaPhieuMuonSach, PHIEUMUON.MaDocGia, HoTen";
+
             using (SqlDataReader reader = cmd.ExecuteReader())
                 while (reader.Read())
                 {
@@ -110,16 +120,9 @@ namespace MuonTraSach
                     slip.borrowDate = reader.GetDateTime(3).ToString("dd/MM/yyyy");
                     slip.returnDate = reader.GetDateTime(4).ToString("dd/MM/yyyy");
                     borrowSlips.Add(slip);
+                    dtgv.Rows.Add(new object[] { stt, slip.id, slip.readerId, slip.readerName, slip.borrowDate, slip.returnDate });
+                    stt++;
                 }
-            conn.Close();
-
-            borrowSlips.OrderBy(o => o.id).ThenBy(o => o.readerId).ThenBy(o => o.readerName).ToList();
-            int stt = 1;
-            foreach (BorrowSlip slip in borrowSlips)
-            {
-                dtgv.Rows.Add(new object[] { stt, slip.id, slip.readerId, slip.readerName, slip.borrowDate, slip.returnDate });
-                stt++;
-            }
 
             if (dtgv.Rows.Count != 0)
                 if (optUpdate != 1)
@@ -135,17 +138,15 @@ namespace MuonTraSach
                 btnDelete.Enabled = true;
                 btnDetail.Enabled = true;
                 dtpBorrow.Enabled = true;
-                dtpReturn.Enabled = true;
             }
             else
             {
                 btnDelete.Enabled = false;
                 btnDetail.Enabled = false;
                 dtpBorrow.Enabled = false;
-                dtpReturn.Enabled = false;
             }
 
-            if (dataChanged)
+            if (optUpdate != -1)
             {
                 btnUpdate.Enabled = true;
                 btnCancel.Enabled = true;
@@ -161,44 +162,45 @@ namespace MuonTraSach
         {
             if (optUpdate != -1)
             {
-                string queryUpdateCmd = "";
+                string query = "";
                 string msg = "";
                 string id = lbSlipId.Text;
-                bool update = false;
+                bool accept = false;
                 if (optUpdate == 1)
                 {
-                    queryUpdateCmd = $@"UPDATE PHIEUMUON
-                    SET NgMuon = '{dtpBorrow.Value}', HanTra = '{dtpReturn.Value}'
+                    query = $@"UPDATE PHIEUMUON
+                    SET NgMuon = '{dtpBorrow.Value}', HanTra = '{lbReturnDate.Text}'
                     WHERE MaPhieuMuonSach = '{id}'";
                     msg = "Lưu thay đổi thành công!";
-                    update = true;
+                    accept = true;
                 }
                 else if (optUpdate == 2)
                 {
                     var result = MessageBox.Show($"Bạn có muốn xóa phiếu mượn sách {id} không?", "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
                     if (result == DialogResult.OK)
                     {
-                        queryUpdateCmd = $@"UPDATE CUONSACH SET TinhTrang = 0 WHERE CUONSACH.MaCuonSach IN (SELECT CTPHIEUMUON.MaCuonSach FROM CTPHIEUMUON 
-                        WHERE CTPHIEUMUON.MaPhieuMuonSach = '{id}')" + "\n" + $@"DELETE FROM CTPHIEUMUON WHERE MaPhieuMuonSach = '{id}'" + "\n" +
-                        $@"DELETE FROM CTPT WHERE MaPhieuMuonSach = '{id}'" + "\n" + $@"DELETE FROM PHIEUMUON WHERE MaPhieuMuonSach = '{id}'";
+                        query = $@"UPDATE CUONSACH SET TinhTrang = 1 
+                        WHERE CUONSACH.MaCuonSach IN (SELECT CTPHIEUMUON.MaCuonSach FROM CTPHIEUMUON 
+                        WHERE CTPHIEUMUON.MaPhieuMuonSach = '{id}')
+                        DELETE FROM CTPHIEUMUON WHERE MaPhieuMuonSach = '{id}'
+                        DELETE FROM CTPT WHERE MaPhieuMuonSach = '{id}'
+                        DELETE FROM PHIEUMUON WHERE MaPhieuMuonSach = '{id}'";
                         msg = $"Xóa phiếu mượn sách {id} thành công!";
-                        update = true;
+                        accept = true;
                     }
                     else
-                        update = false;
+                        accept = false;
                 }
 
-                if (update)
+                if (accept)
                 {
-                    SqlConnection conn = new SqlConnection(FormMuonSach.str);
-                    conn.Open();
-                    SqlCommand cmd = new SqlCommand(queryUpdateCmd, conn);
+                    cmd = conn.CreateCommand();
+                    cmd.CommandText = query;
                     cmd.ExecuteNonQuery();
-                    conn.Close();
 
                     MessageBox.Show(msg, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                    LoadData();
+                    LoadBorrowSlipsList();
                     optUpdate = -1;
                     dataChanged = true;
                 }
@@ -211,14 +213,14 @@ namespace MuonTraSach
             lbSlipId.Text = "";
             lbReaderId.Text = "";
             lbReaderName.Text = "";
+            lbReturnDate.Text = "";
             dtpBorrow.Value = DateTime.Now;
-            dtpReturn.Value = DateTime.Now;
 
             pnlSlipId.Width = 0;
             pnlReaderId.Width = 0;
             pnlReaderName.Width = 0;
+            pnlReturnDate.Width = 0;
 
-            dataChanged = false;
             isLocked = true;
             Lock();
         }
@@ -229,7 +231,6 @@ namespace MuonTraSach
             if (i != -1)
             {
                 isLocked = false;
-                dataChanged = false;
                 Lock();
 
                 index = i;
@@ -237,11 +238,12 @@ namespace MuonTraSach
                 lbReaderId.Text = dtgv.Rows[i].Cells[2].Value.ToString();
                 lbReaderName.Text = dtgv.Rows[i].Cells[3].Value.ToString();
                 dtpBorrow.Value = DateTime.ParseExact(dtgv.Rows[i].Cells[4].Value.ToString(), "dd/MM/yyyy", null);
-                dtpReturn.Value = DateTime.ParseExact(dtgv.Rows[i].Cells[5].Value.ToString(), "dd/MM/yyyy", null);
+                lbReturnDate.Text = dtgv.Rows[i].Cells[5].Value.ToString();
 
                 pnlSlipId.Width = lbSlipId.Width - 6;
                 pnlReaderId.Width = lbReaderId.Width - 6;
                 pnlReaderName.Width = lbReaderName.Width - 6;
+                pnlReturnDate.Width = lbReturnDate.Width - 6;
             }
         }
 
@@ -252,18 +254,19 @@ namespace MuonTraSach
 
         private void dtpBorrow_ValueChanged(object sender, EventArgs e)
         {
-            var value = (sender as DateTimePicker).Value;
-            if (index != -1)
+            if (index != -1 && dateDropdown && (sender as DateTimePicker).Value != DateTime.ParseExact(borrowSlips[index].borrowDate, "dd/MM/yyyy", null))
             {
-                if (value != DateTime.ParseExact(borrowSlips[index].borrowDate, "dd/MM/yyyy", null) && dateDropdown)
-                    if (value > DateTime.ParseExact(borrowSlips[index].returnDate, "dd/MM/yyyy", null))
-                    {
-                        MessageBox.Show("Ngày mượn không thể trễ hơn hạn trả!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        (sender as DateTimePicker).Value = DateTime.ParseExact(borrowSlips[index].borrowDate, "dd/MM/yyyy", null);
-                        dataChanged = false;
-                    }
-                    else
-                        dataChanged = true;
+
+                lbReturnDate.Text = dtpBorrow.Value.AddDays(maxDays).ToString("dd/MM/yyyy");
+                //if (value != DateTime.ParseExact(borrowSlips[index].borrowDate, "dd/MM/yyyy", null) && dateDropdown)         
+                //if (value > DateTime.ParseExact(borrowSlips[index].returnDate, "dd/MM/yyyy", null))
+                //{
+                //    MessageBox.Show("Ngày mượn không thể trễ hơn hạn trả!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                //    (sender as DateTimePicker).Value = DateTime.ParseExact(borrowSlips[index].borrowDate, "dd/MM/yyyy", null);
+                //    dataChanged = false;
+                //}
+                //else
+                //    dataChanged = true;
             }
             dateDropdown = false;
             Lock();
@@ -273,14 +276,13 @@ namespace MuonTraSach
         {
             optUpdate = 1;
             UpdateData();
-            dataChanged = false;
             Lock();
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
             dtpBorrow.Value = DateTime.ParseExact(dtgv.Rows[index].Cells[4].Value.ToString(), "dd/MM/yyyy", null);
-            dtpReturn.Value = DateTime.ParseExact(dtgv.Rows[index].Cells[5].Value.ToString(), "dd/MM/yyyy", null);
+            lbReturnDate.Text = dtgv.Rows[index].Cells[5].Value.ToString();
             btnUpdate.Enabled = false;
             btnCancel.Enabled = false;
         }
@@ -306,12 +308,12 @@ namespace MuonTraSach
 
         private void btnExit_Click(object sender, EventArgs e)
         {
-            //if (dataChanged)
-            //{
-            //    this.Hide();
-            //    LibraryManagement.fHome.SwitchForm(new FormMuonSach());
-            //    MessageBox.Show("Dữ liệu vừa được cập nhật!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            //}
+            if (dataChanged)
+            {
+                this.Hide();
+                new FormMuonSach();
+                MessageBox.Show("Dữ liệu vừa được cập nhật!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
             this.Close();
         }
     }
