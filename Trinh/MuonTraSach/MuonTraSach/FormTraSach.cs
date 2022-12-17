@@ -94,9 +94,14 @@ namespace MuonTraSach
             command.CommandText = @"SELECT TOP (1) MAPHIEUTRASACH
             FROM PHIEUTRASACH
             ORDER BY MAPHIEUTRASACH DESC";
-            string last = command.ExecuteScalar().ToString();
-            int stt = int.Parse(last.Substring(4, 3)) + 1;
-            newReturnSlip = $"MPTS{stt:000}";
+            if (command.ExecuteScalar() != null)
+            {
+                string last = command.ExecuteScalar().ToString();
+                int stt = int.Parse(last.Substring(4, 3)) + 1;
+                newReturnSlip = $"MPTS{stt:000}";
+            }
+            else
+                newReturnSlip = "MPMS001";
         }
 
         private void FillDataGridView(BindingList<ReturnBook> list, DataGridView dtgv, BindingSource bd)

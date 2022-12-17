@@ -119,9 +119,14 @@ namespace MuonTraSach
             command.CommandText = @"SELECT TOP(1) MAPHIEUMUONSACH
             FROM PHIEUMUON
             ORDER BY MaPhieuMuonSach DESC";
-            string last = command.ExecuteScalar().ToString();
-            int stt = int.Parse(last.Substring(4, 3)) + 1;
-            newBorrowSlip = $"MPMS{stt:000}";
+            if (command.ExecuteScalar() != null)
+            {
+                string last = command.ExecuteScalar().ToString();
+                int stt = int.Parse(last.Substring(4, 3)) + 1;
+                newBorrowSlip = $"MPMS{stt:000}";
+            }
+            else
+                newBorrowSlip = "MPMS001";
         }
 
         private void FillDataGridView(BindingList<Book> list, DataGridView dtgv, BindingSource bd)
@@ -409,8 +414,6 @@ namespace MuonTraSach
                 FROM PHIEUMUON, CTPHIEUMUON
                 WHERE MaDocGia = '{cbbReaderId.Text}' AND PHIEUMUON.MaPhieuMuonSach = CTPHIEUMUON.MaPhieuMuonSach AND TinhTrangPM = 0";
                 numborrowedBooks = int.Parse(command.ExecuteScalar().ToString());
-                lbBorrowed.Text = "Số sách đang mượn: " + numborrowedBooks;
-
                 lbBorrowed.Text = "Số sách đang mượn: " + numborrowedBooks;
                 dtgvChosen.Rows.Clear();
                 btnBorrow.Enabled = false;
