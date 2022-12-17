@@ -18,7 +18,7 @@ namespace MuonTraSach
         // TINHTRANG CUONSACH = 1: Available;; = 0: Is borrowed
         SqlConnection connection;
         SqlCommand command;
-        public static string stringConnect = @"Data Source=LAPTOP-RDTT4402;Initial Catalog=QLTV;Integrated Security=True";
+        public static string stringConnect = @"Data Source=LAPTOP-RDTT4402;Initial Catalog=QLTV1;Integrated Security=True";
 
         List<Reader> readers;
         BindingList<Book> stockBooks;
@@ -61,15 +61,6 @@ namespace MuonTraSach
             stockBooks = new BindingList<Book>();
             chosenBooks = new BindingList<Book>();
 
-            LoadData();
-
-            dtpReturn.Value = dtpBorrow.Value.AddDays(maxDays);
-            lbMaxBorrow.Text = "Số sách được mượn tối đa: " + max;
-            lbAmount.Text = "Số lượng: " + dtgvChosen.Rows.Count;
-        }
-
-        private void LoadData()
-        {
             //Get list of readers and load combobox
             command = connection.CreateCommand();
             command.CommandText = @"SELECT * FROM DOCGIA  WHERE NgHetHan >= GETDATE()";
@@ -83,6 +74,15 @@ namespace MuonTraSach
             cbbReaderId.DisplayMember = "MaDocGia";
             cbbReaderId.SelectedIndex = -1;
 
+            LoadData();
+
+            dtpReturn.Value = dtpBorrow.Value.AddDays(maxDays);
+            lbMaxBorrow.Text = "Số sách được mượn tối đa: " + max;
+            lbAmount.Text = "Số lượng: " + dtgvChosen.Rows.Count;
+        }
+
+        private void LoadData()
+        {
             //Get list of books in stock and fill datagridview
             command = connection.CreateCommand();
             command.CommandText = @"SELECT DISTINCT MaCuonSach, CUONSACH.MaSach, TenDauSach, TenTheLoai, TenTacGia
@@ -403,7 +403,15 @@ namespace MuonTraSach
             {
                 MessageBox.Show("Mượn sách thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 //fHome.Switch(new FormMuonSach();
-                lbBorrowed.Text = "Số sách đang mượn: " + (numborrowedBooks + dtgvChosen.Rows.Count);
+                LoadData();
+                command = connection.CreateCommand();
+                command.CommandText = $@"SELECT COUNT(*)
+                FROM PHIEUMUON, CTPHIEUMUON
+                WHERE MaDocGia = '{cbbReaderId.Text}' AND PHIEUMUON.MaPhieuMuonSach = CTPHIEUMUON.MaPhieuMuonSach AND TinhTrangPM = 0";
+                numborrowedBooks = int.Parse(command.ExecuteScalar().ToString());
+                lbBorrowed.Text = "Số sách đang mượn: " + numborrowedBooks;
+
+                lbBorrowed.Text = "Số sách đang mượn: " + numborrowedBooks;
                 dtgvChosen.Rows.Clear();
                 btnBorrow.Enabled = false;
                 borrowState = "";

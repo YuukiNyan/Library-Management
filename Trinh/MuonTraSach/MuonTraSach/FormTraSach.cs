@@ -59,11 +59,6 @@ namespace MuonTraSach
             bingdingBorrow = new BindingSource();
             bingdingChosen = new BindingSource();
 
-            LoadData();
-        }
-
-        private void LoadData()
-        {
             //Get list of readers and load combobox
             command = connection.CreateCommand();
             command.CommandText = @"SELECT * FROM DOCGIA  WHERE NgHetHan >= GETDATE()";
@@ -77,6 +72,11 @@ namespace MuonTraSach
             cbbReaderId.DisplayMember = "MaDocGia";
             cbbReaderId.SelectedIndex = -1;
 
+            LoadData();
+        }
+
+        private void LoadData()
+        {
             //Get max number of days can be borrowed
             command = connection.CreateCommand();
             command.CommandText = @"SELECT SoNgayMuonMax FROM THAMSO";
@@ -359,6 +359,7 @@ namespace MuonTraSach
             {
                 MessageBox.Show("Trả sách thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 //fHome.SwitchForm(new FormTraSach());
+                LoadData();
                 dtgvChosen.Rows.Clear();
                 btnReturn.Enabled = false;
                 returnState = "";
