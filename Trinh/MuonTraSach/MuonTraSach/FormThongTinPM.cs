@@ -103,7 +103,7 @@ namespace MuonTraSach
 
         private void UpdateData()
         {
-            string createBorrowSlip = $@"INSERT INTO PHIEUMUON (MaDocGia, NgMuon, HanTra) VALUES('{borrowSlip.readerId}','{borrowSlip.borrowDate}','{borrowSlip.returnDate}')";
+            string createBorrowSlip = $@"INSERT INTO PHIEUMUON (maPhieuMuonSach, MaDocGia, NgMuon, HanTra) VALUES('{borrowSlip.id}', '{borrowSlip.readerId}','{borrowSlip.borrowDate}','{borrowSlip.returnDate}')";
             string insertDetail = "";
             string updateBookState = "";
 

@@ -6,10 +6,14 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Reflection;
+using System.Security;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Input;
 
 namespace MuonTraSach
 {
@@ -408,6 +412,7 @@ namespace MuonTraSach
             {
                 MessageBox.Show("Mượn sách thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 //fHome.Switch(new FormMuonSach();
+                SendMail();
                 LoadData();
                 command = connection.CreateCommand();
                 command.CommandText = $@"SELECT COUNT(*)
@@ -420,6 +425,38 @@ namespace MuonTraSach
                 borrowState = "";
                 lbAmount.Text = "Số lượng: 0";
             }
+        }
+
+        private void SendMail()
+        {
+            var sender = new MailAddress("20520824@gm.uit.edu.vn");
+            command = connection.CreateCommand();
+            command.CommandText = $"SELECT EMAIL FROM DOCGIA WHERE MADOCGIA = '{cbbReaderId.Text}'";
+            var temp = command.ExecuteScalar().ToString();
+            var recv = new MailAddress(temp);
+            string pass = "Ngtrinh1";
+            string subject = "[THƯ VIỆN] Xác nhận mượn sách thành công";
+            string body = $"Chào {txtReaderName.Text},\n\nThư này dùng để xác nhận bạn đã mượn sách thành công ở thư viện chúng tôi. Bao gồm:\n";
+            for (int i = 0; i < dtgvChosen.Rows.Count; i++)
+            {
+                body += $"          + Sách {dtgvChosen.Rows[i].Cells[2].Value} của tác giả {dtgvChosen.Rows[i].Cells[4].Value}\n";
+            }
+            body += $"\nHạn trả: {dtpReturn.Text}\n\nTrân trọng";
+
+            SmtpClient smtp = new SmtpClient("smtp.gmail.com");
+            smtp.EnableSsl = true;
+            smtp.Port = 587;
+            smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
+            smtp.UseDefaultCredentials = false;
+            smtp.Credentials = new NetworkCredential(sender.Address, pass);
+
+            MailMessage mail = new MailMessage();
+            mail.From = new MailAddress(sender.Address, "THƯ VIỆN");
+            mail.To.Add(recv);
+            mail.Subject = subject;
+            mail.Body = body;
+
+            smtp.Send(mail);
         }
     }
 }
