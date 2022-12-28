@@ -1,0 +1,35 @@
+C:\Users\Lenovo\Documents\GitHub\Library-Management\Trinh\MuonTraSach\MuonTraSach\bin\Debug\MuonTraSach.exe.config
+C:\Users\Lenovo\Documents\GitHub\Library-Management\Trinh\MuonTraSach\MuonTraSach\bin\Debug\MuonTraSach.exe
+C:\Users\Lenovo\Documents\GitHub\Library-Management\Trinh\MuonTraSach\MuonTraSach\bin\Debug\MuonTraSach.pdb
+C:\Users\Lenovo\Documents\GitHub\Library-Management\Trinh\MuonTraSach\MuonTraSach\obj\Debug\MuonTraSach.csproj.AssemblyReference.cache
+C:\Users\Lenovo\Documents\GitHub\Library-Management\Trinh\MuonTraSach\MuonTraSach\obj\Debug\MuonTraSach.csproj.SuggestedBindingRedirects.cache
+C:\Users\Lenovo\Documents\GitHub\Library-Management\Trinh\MuonTraSach\MuonTraSach\obj\Debug\MuonTraSach.FormMuonSach.resources
+C:\Users\Lenovo\Documents\GitHub\Library-Management\Trinh\MuonTraSach\MuonTraSach\obj\Debug\MuonTraSach.Properties.Resources.resources
+C:\Users\Lenovo\Documents\GitHub\Library-Management\Trinh\MuonTraSach\MuonTraSach\obj\Debug\MuonTraSach.csproj.GenerateResource.cache
+C:\Users\Lenovo\Documents\GitHub\Library-Management\Trinh\MuonTraSach\MuonTraSach\obj\Debug\MuonTraSach.csproj.CoreCompileInputs.cache
+C:\Users\Lenovo\Documents\GitHub\Library-Management\Trinh\MuonTraSach\MuonTraSach\obj\Debug\MuonTraSach.exe
+C:\Users\Lenovo\Documents\GitHub\Library-Management\Trinh\MuonTraSach\MuonTraSach\obj\Debug\MuonTraSach.pdb
+C:\Users\Lenovo\Documents\GitHub\Library-Management\Trinh\MuonTraSach\MuonTraSach\obj\Debug\MuonTraSach.FormDanhSachPM.resources
+C:\Users\Lenovo\Documents\GitHub\Library-Management\Trinh\MuonTraSach\MuonTraSach\obj\Debug\MuonTraSach.FormChiTietPM.resources
+C:\Users\Lenovo\Documents\GitHub\Library-Management\Trinh\MuonTraSach\MuonTraSach\obj\Debug\MuonTraSach.FormThongTinPM.resources
+C:\Users\Lenovo\Documents\GitHub\Library-Management\Trinh\MuonTraSach\MuonTraSach\obj\Debug\MuonTraSach.FormTraSach.resources
+C:\Users\Lenovo\Documents\GitHub\Library-Management\Trinh\MuonTraSach\MuonTraSach\obj\Debug\MuonTraSach.FormDanhSachPT.resources
+C:\Users\Lenovo\Documents\GitHub\Library-Management\Trinh\MuonTraSach\MuonTraSach\obj\Debug\MuonTraSach.FormChiTietPT.resources
+C:\Users\Lenovo\Documents\GitHub\Library-Management\Trinh\MuonTraSach\MuonTraSach\obj\Debug\MuonTraSach.FormThongTinPT.resources
+C:\Users\Admin\Desktop\Công Việc Học Tập\Library-Management\Library-Management\Trinh\MuonTraSach\MuonTraSach\bin\Debug\MuonTraSach.exe.config
+C:\Users\Admin\Desktop\Công Việc Học Tập\Library-Management\Library-Management\Trinh\MuonTraSach\MuonTraSach\bin\Debug\MuonTraSach.exe
+C:\Users\Admin\Desktop\Công Việc Học Tập\Library-Management\Library-Management\Trinh\MuonTraSach\MuonTraSach\bin\Debug\MuonTraSach.pdb
+C:\Users\Admin\Desktop\Công Việc Học Tập\Library-Management\Library-Management\Trinh\MuonTraSach\MuonTraSach\obj\Debug\MuonTraSach.csprojAssemblyReference.cache
+C:\Users\Admin\Desktop\Công Việc Học Tập\Library-Management\Library-Management\Trinh\MuonTraSach\MuonTraSach\obj\Debug\MuonTraSach.FormChiTietPM.resources
+C:\Users\Admin\Desktop\Công Việc Học Tập\Library-Management\Library-Management\Trinh\MuonTraSach\MuonTraSach\obj\Debug\MuonTraSach.FormChiTietPT.resources
+C:\Users\Admin\Desktop\Công Việc Học Tập\Library-Management\Library-Management\Trinh\MuonTraSach\MuonTraSach\obj\Debug\MuonTraSach.FormDanhSachPM.resources
+C:\Users\Admin\Desktop\Công Việc Học Tập\Library-Management\Library-Management\Trinh\MuonTraSach\MuonTraSach\obj\Debug\MuonTraSach.FormDanhSachPT.resources
+C:\Users\Admin\Desktop\Công Việc Học Tập\Library-Management\Library-Management\Trinh\MuonTraSach\MuonTraSach\obj\Debug\MuonTraSach.FormMuonSach.resources
+C:\Users\Admin\Desktop\Công Việc Học Tập\Library-Management\Library-Management\Trinh\MuonTraSach\MuonTraSach\obj\Debug\MuonTraSach.FormThongTinPM.resources
+C:\Users\Admin\Desktop\Công Việc Học Tập\Library-Management\Library-Management\Trinh\MuonTraSach\MuonTraSach\obj\Debug\MuonTraSach.FormThongTinPT.resources
+C:\Users\Admin\Desktop\Công Việc Học Tập\Library-Management\Library-Management\Trinh\MuonTraSach\MuonTraSach\obj\Debug\MuonTraSach.FormTraSach.resources
+C:\Users\Admin\Desktop\Công Việc Học Tập\Library-Management\Library-Management\Trinh\MuonTraSach\MuonTraSach\obj\Debug\MuonTraSach.Properties.Resources.resources
+C:\Users\Admin\Desktop\Công Việc Học Tập\Library-Management\Library-Management\Trinh\MuonTraSach\MuonTraSach\obj\Debug\MuonTraSach.csproj.GenerateResource.cache
+C:\Users\Admin\Desktop\Công Việc Học Tập\Library-Management\Library-Management\Trinh\MuonTraSach\MuonTraSach\obj\Debug\MuonTraSach.csproj.CoreCompileInputs.cache
+C:\Users\Admin\Desktop\Công Việc Học Tập\Library-Management\Library-Management\Trinh\MuonTraSach\MuonTraSach\obj\Debug\MuonTraSach.exe
+C:\Users\Admin\Desktop\Công Việc Học Tập\Library-Management\Library-Management\Trinh\MuonTraSach\MuonTraSach\obj\Debug\MuonTraSach.pdb
