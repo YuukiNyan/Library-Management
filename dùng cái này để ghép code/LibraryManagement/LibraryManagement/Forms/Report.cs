@@ -26,14 +26,7 @@ namespace DemoDesign
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
         {
             lbInform.Visible = false;
-            if (cbbReportType.SelectedIndex == 0)
-            {
-                CategoryReport();
-            }
-            else
-            {
-                LateReport();
-            }
+            CategoryReport();
         }
 
         private void Report_Load(object sender, EventArgs e)
@@ -43,23 +36,9 @@ namespace DemoDesign
 
             binding = new BindingSource();
 
-            cbbReportType.SelectedIndex = 0;
-            dtp.Value = DateTime.Now.AddMonths(-1);
+            //cbbReportType.SelectedIndex = 0;
+            dtp.Value = DateTime.Now;
             lbTitle.Location = new Point((this.Width - lbTitle.Width) / 2, lbTitle.Location.Y);
-        }
-
-        private void cbbReportType_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            lbInform.Visible = false;
-            if (cbbReportType.SelectedIndex == 0)
-            {
-                CategoryReport();
-            }
-            else
-            {
-                dtp.Value = DateTime.Now;
-                LateReport();
-            }
         }
 
         private void CategoryReport()
@@ -241,14 +220,7 @@ namespace DemoDesign
         private void ToExcel(DataGridView dataGridView1, string fileName)
         {
             string sheetName = "";
-            if(cbbReportType.SelectedIndex == 0)
-            {
-                sheetName = "Báo cáo theo thể loại";
-            }
-            else
-            {
-                sheetName = "Báo cáo sách trả trễ";
-            }
+            sheetName = "Báo cáo theo thể loại";
             //khai báo thư viện hỗ trợ Microsoft.Office.Interop.Excel
             Microsoft.Office.Interop.Excel.Application excel;
             Microsoft.Office.Interop.Excel.Workbook workbook;

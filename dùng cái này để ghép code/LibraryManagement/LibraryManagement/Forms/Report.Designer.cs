@@ -42,10 +42,8 @@
             this.lbTotalBorrowTitle = new System.Windows.Forms.Label();
             this.lbTitleName = new System.Windows.Forms.Label();
             this.lbTotalBorrow = new System.Windows.Forms.Label();
-            this.cbbReportType = new System.Windows.Forms.ComboBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.btnExport = new LibraryManagement.nButton();
             this.lbInform = new System.Windows.Forms.Label();
+            this.btnExport = new LibraryManagement.nButton();
             ((System.ComponentModel.ISupportInitialize)(this.dtgv)).BeginInit();
             this.SuspendLayout();
             // 
@@ -128,7 +126,7 @@
             this.dtp.CustomFormat = "MM/yyyy";
             this.dtp.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtp.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtp.Location = new System.Drawing.Point(185, 134);
+            this.dtp.Location = new System.Drawing.Point(165, 105);
             this.dtp.Name = "dtp";
             this.dtp.Size = new System.Drawing.Size(141, 31);
             this.dtp.TabIndex = 57;
@@ -138,7 +136,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(70, 135);
+            this.label2.Location = new System.Drawing.Point(50, 106);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(119, 29);
             this.label2.TabIndex = 52;
@@ -148,11 +146,11 @@
             // 
             this.lbTitle.AutoSize = true;
             this.lbTitle.BackColor = System.Drawing.Color.Transparent;
-            this.lbTitle.Font = new System.Drawing.Font("Segoe UI", 22.2F, System.Drawing.FontStyle.Bold);
+            this.lbTitle.Font = new System.Drawing.Font("Segoe UI", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbTitle.ForeColor = System.Drawing.Color.Navy;
             this.lbTitle.Location = new System.Drawing.Point(495, 24);
             this.lbTitle.Name = "lbTitle";
-            this.lbTitle.Size = new System.Drawing.Size(274, 41);
+            this.lbTitle.Size = new System.Drawing.Size(322, 47);
             this.lbTitle.TabIndex = 49;
             this.lbTitle.Text = "Báo Cáo Thống Kê\r\n";
             // 
@@ -189,28 +187,15 @@
             this.lbTotalBorrow.TabIndex = 61;
             this.lbTotalBorrow.Text = "12";
             // 
-            // cbbReportType
+            // lbInform
             // 
-            this.cbbReportType.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.cbbReportType.FormattingEnabled = true;
-            this.cbbReportType.Items.AddRange(new object[] {
-            "Tình Hình Mượn Sách Theo Thể Loại",
-            "Sách Trả Trễ"});
-            this.cbbReportType.Location = new System.Drawing.Point(185, 84);
-            this.cbbReportType.Name = "cbbReportType";
-            this.cbbReportType.Size = new System.Drawing.Size(286, 28);
-            this.cbbReportType.TabIndex = 62;
-            this.cbbReportType.SelectedIndexChanged += new System.EventHandler(this.cbbReportType_SelectedIndexChanged);
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(33, 82);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(156, 29);
-            this.label6.TabIndex = 63;
-            this.label6.Text = "Loại báo cáo:\r\n";
+            this.lbInform.AutoSize = true;
+            this.lbInform.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbInform.Location = new System.Drawing.Point(560, 424);
+            this.lbInform.Name = "lbInform";
+            this.lbInform.Size = new System.Drawing.Size(177, 42);
+            this.lbInform.TabIndex = 65;
+            this.lbInform.Text = "Không có";
             // 
             // btnExport
             // 
@@ -223,7 +208,7 @@
             this.btnExport.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnExport.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnExport.ForeColor = System.Drawing.Color.White;
-            this.btnExport.Location = new System.Drawing.Point(1067, 48);
+            this.btnExport.Location = new System.Drawing.Point(1059, 92);
             this.btnExport.Name = "btnExport";
             this.btnExport.Size = new System.Drawing.Size(134, 49);
             this.btnExport.TabIndex = 64;
@@ -231,16 +216,6 @@
             this.btnExport.TextColor = System.Drawing.Color.White;
             this.btnExport.UseVisualStyleBackColor = false;
             this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
-            // 
-            // lbInform
-            // 
-            this.lbInform.AutoSize = true;
-            this.lbInform.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbInform.Location = new System.Drawing.Point(560, 424);
-            this.lbInform.Name = "lbInform";
-            this.lbInform.Size = new System.Drawing.Size(177, 42);
-            this.lbInform.TabIndex = 65;
-            this.lbInform.Text = "Không có";
             // 
             // Report
             // 
@@ -250,8 +225,6 @@
             this.ClientSize = new System.Drawing.Size(1260, 724);
             this.Controls.Add(this.lbInform);
             this.Controls.Add(this.btnExport);
-            this.Controls.Add(this.cbbReportType);
-            this.Controls.Add(this.label6);
             this.Controls.Add(this.lbTotalBorrow);
             this.Controls.Add(this.lbTitleName);
             this.Controls.Add(this.lbTotalBorrowTitle);
@@ -279,8 +252,6 @@
         private System.Windows.Forms.Label lbTotalBorrowTitle;
         private System.Windows.Forms.Label lbTitleName;
         private System.Windows.Forms.Label lbTotalBorrow;
-        private System.Windows.Forms.ComboBox cbbReportType;
-        private System.Windows.Forms.Label label6;
         private LibraryManagement.nButton btnExport;
         private System.Windows.Forms.DataGridViewTextBoxColumn col1;
         private System.Windows.Forms.DataGridViewTextBoxColumn kind;
