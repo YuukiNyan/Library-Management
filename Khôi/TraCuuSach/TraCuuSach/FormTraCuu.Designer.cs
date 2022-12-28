@@ -44,22 +44,15 @@ namespace TraCuuSach
             this.lbTongSoTheLoai = new System.Windows.Forms.Label();
             this.lbTongSoTacGia = new System.Windows.Forms.Label();
             this.gbBoLoc = new TraCuuSach.VBButton();
-            this.radioButton5 = new TraCuuSach.RJRadioButton();
-            this.radioButton3 = new TraCuuSach.RJRadioButton();
-            this.radioButton2 = new TraCuuSach.RJRadioButton();
-            this.radioButton1 = new TraCuuSach.RJRadioButton();
-            this.radioButton4 = new TraCuuSach.RJRadioButton();
             this.cbTenSach = new System.Windows.Forms.ComboBox();
             this.btnXuatExcel = new TraCuuSach.But();
             this.btnHuy = new TraCuuSach.But();
             this.btnApDung = new TraCuuSach.But();
             this.lbTenSach = new System.Windows.Forms.Label();
-            this.lbMaSach = new System.Windows.Forms.Label();
             this.lbTacGia = new System.Windows.Forms.Label();
             this.lbTheLoai = new System.Windows.Forms.Label();
             this.cbTacGia = new System.Windows.Forms.ComboBox();
             this.cbTinhTrang = new System.Windows.Forms.ComboBox();
-            this.cbMaSach = new System.Windows.Forms.ComboBox();
             this.cbTheLoai = new System.Windows.Forms.ComboBox();
             this.lbTinhTrang = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDanhSachCuonSach)).BeginInit();
@@ -223,9 +216,9 @@ namespace TraCuuSach
             this.lbTongSoTheLoai.ForeColor = System.Drawing.Color.Navy;
             this.lbTongSoTheLoai.Location = new System.Drawing.Point(18, 129);
             this.lbTongSoTheLoai.Name = "lbTongSoTheLoai";
-            this.lbTongSoTheLoai.Size = new System.Drawing.Size(261, 32);
+            this.lbTongSoTheLoai.Size = new System.Drawing.Size(331, 32);
             this.lbTongSoTheLoai.TabIndex = 21;
-            this.lbTongSoTheLoai.Text = "Tổng Số Đầu Sách:";
+            this.lbTongSoTheLoai.Text = "Tổng số sách chưa mượn";
             // 
             // lbTongSoTacGia
             // 
@@ -245,22 +238,15 @@ namespace TraCuuSach
             this.gbBoLoc.BorderColor = System.Drawing.Color.Navy;
             this.gbBoLoc.BorderRadius = 20;
             this.gbBoLoc.BorderSize = 1;
-            this.gbBoLoc.Controls.Add(this.radioButton5);
-            this.gbBoLoc.Controls.Add(this.radioButton3);
-            this.gbBoLoc.Controls.Add(this.radioButton2);
-            this.gbBoLoc.Controls.Add(this.radioButton1);
-            this.gbBoLoc.Controls.Add(this.radioButton4);
             this.gbBoLoc.Controls.Add(this.cbTenSach);
             this.gbBoLoc.Controls.Add(this.btnXuatExcel);
             this.gbBoLoc.Controls.Add(this.btnHuy);
             this.gbBoLoc.Controls.Add(this.btnApDung);
             this.gbBoLoc.Controls.Add(this.lbTenSach);
-            this.gbBoLoc.Controls.Add(this.lbMaSach);
             this.gbBoLoc.Controls.Add(this.lbTacGia);
             this.gbBoLoc.Controls.Add(this.lbTheLoai);
             this.gbBoLoc.Controls.Add(this.cbTacGia);
             this.gbBoLoc.Controls.Add(this.cbTinhTrang);
-            this.gbBoLoc.Controls.Add(this.cbMaSach);
             this.gbBoLoc.Controls.Add(this.cbTheLoai);
             this.gbBoLoc.Controls.Add(this.lbTinhTrang);
             this.gbBoLoc.ForeColor = System.Drawing.Color.White;
@@ -270,94 +256,8 @@ namespace TraCuuSach
             this.gbBoLoc.TabIndex = 8;
             this.gbBoLoc.TextColor = System.Drawing.Color.White;
             // 
-            // radioButton5
-            // 
-            this.radioButton5.AutoSize = true;
-            this.radioButton5.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.radioButton5.CheckedColor = System.Drawing.Color.MidnightBlue;
-            this.radioButton5.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioButton5.Location = new System.Drawing.Point(211, 169);
-            this.radioButton5.MinimumSize = new System.Drawing.Size(0, 21);
-            this.radioButton5.Name = "radioButton5";
-            this.radioButton5.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.radioButton5.Size = new System.Drawing.Size(27, 21);
-            this.radioButton5.TabIndex = 23;
-            this.radioButton5.TabStop = true;
-            this.radioButton5.UnCheckedColor = System.Drawing.Color.Black;
-            this.radioButton5.UseVisualStyleBackColor = false;
-            this.radioButton5.CheckedChanged += new System.EventHandler(this.radioButton5_CheckedChanged);
-            // 
-            // radioButton3
-            // 
-            this.radioButton3.AutoSize = true;
-            this.radioButton3.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.radioButton3.CheckedColor = System.Drawing.Color.MidnightBlue;
-            this.radioButton3.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioButton3.Location = new System.Drawing.Point(474, 99);
-            this.radioButton3.MinimumSize = new System.Drawing.Size(0, 21);
-            this.radioButton3.Name = "radioButton3";
-            this.radioButton3.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.radioButton3.Size = new System.Drawing.Size(27, 21);
-            this.radioButton3.TabIndex = 23;
-            this.radioButton3.TabStop = true;
-            this.radioButton3.UnCheckedColor = System.Drawing.Color.Black;
-            this.radioButton3.UseVisualStyleBackColor = false;
-            this.radioButton3.CheckedChanged += new System.EventHandler(this.radioButton3_CheckedChanged);
-            // 
-            // radioButton2
-            // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.radioButton2.CheckedColor = System.Drawing.Color.MidnightBlue;
-            this.radioButton2.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioButton2.Location = new System.Drawing.Point(38, 99);
-            this.radioButton2.MinimumSize = new System.Drawing.Size(0, 21);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.radioButton2.Size = new System.Drawing.Size(27, 21);
-            this.radioButton2.TabIndex = 23;
-            this.radioButton2.TabStop = true;
-            this.radioButton2.UnCheckedColor = System.Drawing.Color.Black;
-            this.radioButton2.UseVisualStyleBackColor = false;
-            this.radioButton2.CheckedChanged += new System.EventHandler(this.radioButton2_CheckedChanged);
-            // 
-            // radioButton1
-            // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.radioButton1.CheckedColor = System.Drawing.Color.MidnightBlue;
-            this.radioButton1.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioButton1.Location = new System.Drawing.Point(38, 32);
-            this.radioButton1.MinimumSize = new System.Drawing.Size(0, 21);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.radioButton1.Size = new System.Drawing.Size(27, 21);
-            this.radioButton1.TabIndex = 23;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.UnCheckedColor = System.Drawing.Color.Black;
-            this.radioButton1.UseVisualStyleBackColor = false;
-            this.radioButton1.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
-            // 
-            // radioButton4
-            // 
-            this.radioButton4.AutoSize = true;
-            this.radioButton4.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.radioButton4.CheckedColor = System.Drawing.Color.MidnightBlue;
-            this.radioButton4.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioButton4.Location = new System.Drawing.Point(474, 34);
-            this.radioButton4.MinimumSize = new System.Drawing.Size(0, 21);
-            this.radioButton4.Name = "radioButton4";
-            this.radioButton4.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.radioButton4.Size = new System.Drawing.Size(27, 21);
-            this.radioButton4.TabIndex = 23;
-            this.radioButton4.TabStop = true;
-            this.radioButton4.UnCheckedColor = System.Drawing.Color.Black;
-            this.radioButton4.UseVisualStyleBackColor = false;
-            this.radioButton4.CheckedChanged += new System.EventHandler(this.radioButton4_CheckedChanged);
-            // 
             // cbTenSach
             // 
-            this.cbTenSach.Enabled = false;
             this.cbTenSach.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbTenSach.FormattingEnabled = true;
             this.cbTenSach.ItemHeight = 29;
@@ -447,17 +347,6 @@ namespace TraCuuSach
             this.lbTenSach.TabIndex = 19;
             this.lbTenSach.Text = "Tên Sách:";
             // 
-            // lbMaSach
-            // 
-            this.lbMaSach.AutoSize = true;
-            this.lbMaSach.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbMaSach.ForeColor = System.Drawing.Color.Navy;
-            this.lbMaSach.Location = new System.Drawing.Point(71, 32);
-            this.lbMaSach.Name = "lbMaSach";
-            this.lbMaSach.Size = new System.Drawing.Size(134, 32);
-            this.lbMaSach.TabIndex = 18;
-            this.lbMaSach.Text = "Mã Sách:";
-            // 
             // lbTacGia
             // 
             this.lbTacGia.AutoSize = true;
@@ -482,7 +371,6 @@ namespace TraCuuSach
             // 
             // cbTacGia
             // 
-            this.cbTacGia.Enabled = false;
             this.cbTacGia.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbTacGia.FormattingEnabled = true;
             this.cbTacGia.Location = new System.Drawing.Point(599, 99);
@@ -493,7 +381,6 @@ namespace TraCuuSach
             // 
             // cbTinhTrang
             // 
-            this.cbTinhTrang.Enabled = false;
             this.cbTinhTrang.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbTinhTrang.FormattingEnabled = true;
             this.cbTinhTrang.Items.AddRange(new object[] {
@@ -505,20 +392,8 @@ namespace TraCuuSach
             this.cbTinhTrang.TabIndex = 0;
             this.cbTinhTrang.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cbTinhTrang_KeyPress);
             // 
-            // cbMaSach
-            // 
-            this.cbMaSach.Enabled = false;
-            this.cbMaSach.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbMaSach.FormattingEnabled = true;
-            this.cbMaSach.Location = new System.Drawing.Point(176, 33);
-            this.cbMaSach.Name = "cbMaSach";
-            this.cbMaSach.Size = new System.Drawing.Size(265, 37);
-            this.cbMaSach.TabIndex = 0;
-            this.cbMaSach.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.comboBox1_KeyPress);
-            // 
             // cbTheLoai
             // 
-            this.cbTheLoai.Enabled = false;
             this.cbTheLoai.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbTheLoai.FormattingEnabled = true;
             this.cbTheLoai.Location = new System.Drawing.Point(600, 34);
@@ -578,7 +453,6 @@ namespace TraCuuSach
         private System.Windows.Forms.Label lbTongSoTheLoai;
         private System.Windows.Forms.Label lbTongSoSach;
         private System.Windows.Forms.Label lbTenSach;
-        private System.Windows.Forms.Label lbMaSach;
         private System.Windows.Forms.Label lbTacGia;
         private System.Windows.Forms.Label lbTheLoai;
         private System.Windows.Forms.Label lbTinhTrang;
@@ -588,14 +462,8 @@ namespace TraCuuSach
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.ComboBox cbMaSach;
         private But btnHuy;
         private But btnXuatExcel;
         private System.Windows.Forms.DataGridView dgvDanhSachCuonSach;
-        private RJRadioButton radioButton4;
-        private RJRadioButton radioButton3;
-        private RJRadioButton radioButton5;
-        private RJRadioButton radioButton2;
-        private RJRadioButton radioButton1;
     }
 }

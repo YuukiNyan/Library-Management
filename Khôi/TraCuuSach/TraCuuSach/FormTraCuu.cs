@@ -17,7 +17,7 @@ namespace TraCuuSach
         SqlConnection connection;
         SqlCommand command;
   System.Data.DataTable table = new System.Data.DataTable();
-        string str = @"Data Source=LAPTOP-RDTT4402;Initial Catalog=QLTV;Integrated Security=True";
+        string str = @"Data Source=ADMIN\SQLEXPRESS;Initial Catalog=QLTV;Integrated Security=True";
         SqlDataAdapter adapter = new SqlDataAdapter();
         public FormTraCuu()
         {
@@ -58,7 +58,7 @@ for (int i=1;i<=g.Columns.Count;i++)
         private void comboBox1_KeyPress(object sender, KeyPressEventArgs e)
         {
             // if (this.chkAutoComplete.Checked)
-            this.AutoComplete(this.cbMaSach, e, true);
+            //this.AutoComplete(this.cbMaSach, e, true);
         }
 
 
@@ -125,9 +125,9 @@ for (int i=1;i<=g.Columns.Count;i++)
             adapter.SelectCommand = command;
             table1.Clear();
             adapter.Fill(table1);
-            cbMaSach.DataSource = table1;
-            cbMaSach.DisplayMember = "MS";
-            cbMaSach.SelectedIndex = -1;
+            //cbMaSach.DataSource = table1;
+            //cbMaSach.DisplayMember = "MS";
+            //cbMaSach.SelectedIndex = -1;
             //------------------------- load combox theloai
             command.CommandText = "select * from TheLoai";
             adapter.SelectCommand = command;
@@ -189,17 +189,12 @@ for (int i=1;i<=g.Columns.Count;i++)
             adapter.Fill(table12);
             label12.Text = table12.Rows[0].ItemArray[0].ToString();
 
-            command.CommandText = "select count (*) from dausach";
-            adapter.SelectCommand = command;
-            table13.Clear();
-            adapter.Fill(table13);
-            label13.Text = table13.Rows[0].ItemArray[0].ToString();
-
             command.CommandText = "select count(*) from tracuu where TinhTrang=1";
             adapter.SelectCommand = command;
             table14.Clear();
             adapter.Fill(table14);
             label14.Text = table14.Rows[0].ItemArray[0].ToString();
+            label13.Text = (int.Parse(label14.Text) - int.Parse(label12.Text)).ToString();
         }
         private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
@@ -212,8 +207,8 @@ for (int i=1;i<=g.Columns.Count;i++)
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            btnApDung.Enabled = false;
-            btnHuy.Enabled = false;
+            //btnApDung.Enabled = false;
+            //btnHuy.Enabled = false;
             connection = new SqlConnection(str);
             connection.Open();
             this.btnHuy.BorderRadius = 20;
@@ -222,24 +217,32 @@ for (int i=1;i<=g.Columns.Count;i++)
             loadCombobox();
             disableSortHeader();
             command = connection.CreateCommand();
-            command.CommandText = "drop table if exists TraCuu ";
+            command.CommandText = "drop table if exists TraCuu";
             command.ExecuteNonQuery();
-          
+            command = connection.CreateCommand();
+            command.CommandText = "drop table if exists TraCuu2 ";
+            command.ExecuteNonQuery();
+            command.CommandText = "drop table if exists TraCuu3 ";
+            command.ExecuteNonQuery();
+
             command = connection.CreateCommand();
             command.CommandText = "create table TraCuu(MaSach varchar(50),TenDauSach nvarchar(100),TenTheLoai nvarchar(100),TenTacGia nvarchar(100),TinhTrang varchar(50)) ";
             command.ExecuteNonQuery();
             command.CommandText = "insert into TraCuu select left(CS.MaCuonSach, 6) , TenDauSach,TenTheLoai , TenTacGia ,TinhTrang from SACH as S, DAUSACH as DS,CuonSach as CS, TheLoai as TL,TacGia as TG, CTTacGia as CT where CT.MaTacGia=TG.MaTacGia and CT.MaDauSach=DS.MaDauSach and DS.MaTheLoai=TL.MaTheLoai and S.MaSach=CS.MaSach and S.MaDauSach=DS.MaDauSach  ";
             command.ExecuteNonQuery();
-           
+            command.CommandText = "create table TraCuu2(MaSach varchar(50),TenDauSach nvarchar(100),TenTheLoai nvarchar(100),TenTacGia nvarchar(100),TinhTrang varchar(50)) ";
+            command.ExecuteNonQuery();
+            command.CommandText = "create table TraCuu3(MaSach varchar(50),TenDauSach nvarchar(100),TenTheLoai nvarchar(100),TenTacGia nvarchar(100),TinhTrang varchar(50)) ";
+            command.ExecuteNonQuery();
             LoadDataGridView();
         }
-      
+
         private void but2_Click(object sender, EventArgs e)
         {
-             
-                string s1 = "", s2 = "", s3 = "", s4 = "", s5 = "";
-            if (cbMaSach.Text != "")
-                s1 = cbMaSach.Text;//MaSach
+
+            string s1 = "", s2 = "", s3 = "", s4 = "", s5 = "";
+            //if (cbMaSach.Text != "")
+            //    s1 = cbMaSach.Text;//MaSach
             if (cbTheLoai.Text != "")
                 s2 = cbTheLoai.Text;//MaTheLoai
             if (cbTenSach.Text != "")
@@ -248,67 +251,109 @@ for (int i=1;i<=g.Columns.Count;i++)
                 s4 = cbTacGia.Text;//MaTacGia
             if (cbTinhTrang.Text != "")
                 s5 = cbTinhTrang.Text;//TenTinhTrang
+            command.CommandText = "insert into Tracuu2 select *from Tracuu";
             command.ExecuteNonQuery();
-            if ((radioButton1.Checked==true && s1 == "") || (radioButton2.Checked == true && s3 == "") || (radioButton4.Checked == true && s2 == "") || (radioButton3.Checked == true && s4 == "") || (radioButton5.Checked == true && s5 == ""))
+            if ((s1 == "") && (s3 == "") && (s2 == "") && (s4 == "") && (s5 == ""))
             {
                 MessageBox.Show("Bạn đang để trống giá trị Lọc");
             }
-            if (s1 != "")
+            else
             {
-                command.CommandText = "Select ROW_NUMBER() OVER (ORDER BY t.MaSach) AS [Số thứ tự],t.masach as [Mã Cuốn Sách],t.TenDauSach as [Tên Sách],t.TenTheLoai as [Thể Loại],t.TenTacGia as [Tác Giả],t.TinhTrang as [Tình Trạng] from TraCuu as t,sach as s,cuonsach as cs where s.MaSach='"+s1+"' and cs.masach=s.masach and t.masach=cs.macuonsach";
-                command.ExecuteNonQuery();
-
-            }
-            if (s2 != "")
-            {
-                command.CommandText = "Select ROW_NUMBER() OVER (ORDER BY MaSach) AS [Số thứ tự],masach as [Mã Cuốn Sách],TenDauSach as [Tên Sách],TenTheLoai as [Thể Loại],TenTacGia as [Tác Giả],TinhTrang as [Tình Trạng] from TraCuu where TenTheLoai=N'" + s2 + "'";
-                command.ExecuteNonQuery();
-
-            }
-            if (s3 != "")
-            {
-                command.CommandText = "Select ROW_NUMBER() OVER (ORDER BY MaSach) AS [Số thứ tự],masach as [Mã Cuốn Sách],TenDauSach as [Tên Sách],TenTheLoai as [Thể Loại],TenTacGia as [Tác Giả],TinhTrang as [Tình Trạng] from TraCuu where TenDauSach=N'" + s3 + "'";
-                command.ExecuteNonQuery();
-            }
-            if (s4 != "")
-            {
-                command.CommandText = "Select ROW_NUMBER() OVER (ORDER BY MaSach) AS [Số thứ tự],masach as [Mã Cuốn Sách],TenDauSach as [Tên Sách],TenTheLoai as [Thể Loại],TenTacGia as [Tác Giả],TinhTrang as [Tình Trạng] from TraCuu where TenTacGia=N'" + s4 + "'";
-                command.ExecuteNonQuery();
-            }
-            if (s5 != "")
-            {
-                if (s5=="Đang Mượn")
-                command.CommandText = "Select ROW_NUMBER() OVER (ORDER BY MaSach) AS [Số thứ tự],masach as [Mã Cuốn Sách],TenDauSach as [Tên Sách],TenTheLoai as [Thể Loại],TenTacGia as [Tác Giả],TinhTrang as [Tình Trạng] from TraCuu where TinhTrang='1'";
-                else
-                    if (s5=="Chưa Mượn")
-                    command.CommandText = "Select ROW_NUMBER() OVER (ORDER BY MaSach) AS [Số thứ tự],masach as [Mã Cuốn Sách],TenDauSach as [Tên Sách],TenTheLoai as [Thể Loại],TenTacGia as [Tác Giả],TinhTrang as [Tình Trạng] from TraCuu where TinhTrang='0'";
-                command.ExecuteNonQuery();
-            }
-  
-           
-            if (s1 != "" || s3 != "" || s2 != "" || s4 != "" || s5 != "")
-            {
-                MessageBox.Show("Đây là kết quả dựa trên bộ lộc bạn đã chọn");
-                table.Clear();
-                adapter.Fill(table);
-
-                dgvDanhSachCuonSach.DataSource = table;
-                for (int i = 0; i < dgvDanhSachCuonSach.Rows.Count; i++)
+                if (s2 != "")
                 {
-                    if (dgvDanhSachCuonSach.Rows[i].Cells[5].Value.ToString() == "1")
-                    {
-                        dgvDanhSachCuonSach.Rows[i].Cells[5].Value = "Đang Mượn";
-                    }
-                    else
-                        dgvDanhSachCuonSach.Rows[i].Cells[5].Value = "Chưa Mượn";
+                    command.CommandText = "insert into Tracuu3 select *from Tracuu2 intersect select * from TraCuu where TenTheLoai=N'" + s2 + "' ";
+                    command.ExecuteNonQuery();
+                    command.CommandText = "delete TraCuu2";
+                    command.ExecuteNonQuery();
+                    command.CommandText = "insert into TraCuu2 select * from TraCuu3";
+                    command.ExecuteNonQuery();
+                    command.CommandText = "delete TraCuu3";
+                    command.ExecuteNonQuery();
+
                 }
+                if (s3 != "")
+                {
+                    command.CommandText = "insert into Tracuu3 select *from Tracuu2 intersect select * from TraCuu where TenDauSach=N'" + s3 + "' ";
+                    command.ExecuteNonQuery();
+                    command.CommandText = "delete TraCuu2";
+                    command.ExecuteNonQuery();
+                    command.CommandText = "insert into TraCuu2 select * from TraCuu3";
+                    command.ExecuteNonQuery();
+                    command.CommandText = "delete TraCuu3";
+                    command.ExecuteNonQuery();
+                }
+                if (s4 != "")
+                {
+                    command.CommandText = "insert into Tracuu3 select *from Tracuu2 intersect select * from TraCuu where TenTacGia=N'" + s4 + "' ";
+                    command.ExecuteNonQuery();
+                    command.CommandText = "delete TraCuu2";
+                    command.ExecuteNonQuery();
+                    command.CommandText = "insert into TraCuu2 select * from TraCuu3";
+                    command.ExecuteNonQuery();
+                    command.CommandText = "delete TraCuu3";
+                    command.ExecuteNonQuery();
+                }
+                if (s5 != "")
+                {
+                    if (s5 == "Đang Mượn")
+                        command.CommandText = "insert into Tracuu3 select *from Tracuu2 intersect select * from TraCuu where TinhTrang='1' ";
+                    else
+                        if (s5 == "Đã Trả")
+                        command.CommandText = "insert into Tracuu3 select *from Tracuu2 intersect select * from TraCuu where TinhTrang='0' ";
+                    command.ExecuteNonQuery();
+                    command.CommandText = "delete TraCuu2";
+                    command.ExecuteNonQuery();
+                    command.CommandText = "insert into TraCuu2 select * from TraCuu3";
+                    command.ExecuteNonQuery();
+                    command.CommandText = "delete TraCuu3";
+                    command.ExecuteNonQuery();
+                }
+
+                System.Data.DataTable table10 = new System.Data.DataTable();
+                command = connection.CreateCommand();
+                command.CommandText = "select count (*) from TraCuu2";
+                adapter.SelectCommand = command;
+                table10.Clear();
+                adapter.Fill(table10);
+                if (table10.Rows[0].ItemArray[0].ToString() == "0")
+                    MessageBox.Show("Không tìm thấy nội dung thỏa yêu cầu");
+                else
+                {
+                    MessageBox.Show("Đây là kết quả dựa trên bộ lộc bạn đã chọn");
+                    command.CommandText = "Select ROW_NUMBER() OVER (ORDER BY MaSach) AS [Số thứ tự],masach as [Mã Cuốn Sách],TenDauSach as [Tên Sách],TenTheLoai as [Thể Loại],TenTacGia as [Tác Giả],TinhTrang as [Tình Trạng] from TraCuu2";
+                    adapter.SelectCommand = command;
+                    table.Clear();
+                    adapter.Fill(table);
+                    int dm = 0,cm=0;
+
+                    dgvDanhSachCuonSach.DataSource = table;
+                    for (int i = 0; i < dgvDanhSachCuonSach.Rows.Count; i++)
+                    {
+                        if (dgvDanhSachCuonSach.Rows[i].Cells[5].Value.ToString() == "1")
+                        {
+                            dgvDanhSachCuonSach.Rows[i].Cells[5].Value = "Đang Mượn";
+                            dm++;
+                        }
+                        else
+                            dgvDanhSachCuonSach.Rows[i].Cells[5].Value = "Chưa Mượn";
+                        cm++;
+                    }
+
+                    label12.Text = dgvDanhSachCuonSach.Rows.Count.ToString();
+                    label13.Text = dm.ToString();
+                    label14.Text = cm.ToString();
+                }
+                command.CommandText = "delete TraCuu2";
+                command.ExecuteNonQuery();
+                command.CommandText = "delete TraCuu3";
+                command.ExecuteNonQuery();
             }
         }
 
         private void but1_Click(object sender, EventArgs e)
         {
             //   this.Close();
-            cbMaSach.Text = "";
+            //cbMaSach.Text = "";
             cbTheLoai.Text = "";
             cbTinhTrang.Text = "";
             cbTacGia.Text = "";
@@ -322,8 +367,6 @@ for (int i=1;i<=g.Columns.Count;i++)
             dgvDanhSachCuonSach.DataSource = null;
             dgvDanhSachCuonSach.DataSource = a;
         
-
-
                 for (int i = 0; i < dgvDanhSachCuonSach.Rows.Count; i++)
                 {
                     if (dgvDanhSachCuonSach.Rows[i].Cells[5].Value.ToString() == "1")
@@ -346,60 +389,60 @@ for (int i=1;i<=g.Columns.Count;i++)
             this.AutoComplete(this.cbTheLoai, e, true);
         }
 
-        private void radioButton1_CheckedChanged(object sender, EventArgs e)
-        {
-            btnApDung.Enabled = true;
-            btnHuy.Enabled = true;
-            if (radioButton1.Checked == true)
-                cbMaSach.Enabled = true;
-            else
-                cbMaSach.Enabled = false;
-            cbMaSach.Text = "";
-        }
+        //private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        //{
+        //    btnApDung.Enabled = true;
+        //    btnHuy.Enabled = true;
+        //    if (radioButton1.Checked == true)
+        //        cbMaSach.Enabled = true;
+        //    else
+        //        cbMaSach.Enabled = false;
+        //    cbMaSach.Text = "";
+        //}
 
-        private void radioButton4_CheckedChanged(object sender, EventArgs e)
-        {
-            btnApDung.Enabled = true;
-            btnHuy.Enabled = true;
-            if (radioButton4.Checked == true)
-                cbTheLoai.Enabled = true;
-            else
-                cbTheLoai.Enabled = false;
-            cbTheLoai.Text = "";
-        }
+        //private void radioButton4_CheckedChanged(object sender, EventArgs e)
+        //{
+        //    btnApDung.Enabled = true;
+        //    btnHuy.Enabled = true;
+        //    if (radioButton4.Checked == true)
+        //        cbTheLoai.Enabled = true;
+        //    else
+        //        cbTheLoai.Enabled = false;
+        //    cbTheLoai.Text = "";
+        //}
 
-        private void radioButton2_CheckedChanged(object sender, EventArgs e)
-        {
-            btnApDung.Enabled = true;
-            btnHuy.Enabled = true;
-            if (radioButton2.Checked == true)
-                cbTenSach.Enabled = true;
-            else
-                cbTenSach.Enabled = false;
-            cbTenSach.Text = "";
-        }
+        //private void radioButton2_CheckedChanged(object sender, EventArgs e)
+        //{
+        //    btnApDung.Enabled = true;
+        //    btnHuy.Enabled = true;
+        //    if (radioButton2.Checked == true)
+        //        cbTenSach.Enabled = true;
+        //    else
+        //        cbTenSach.Enabled = false;
+        //    cbTenSach.Text = "";
+        //}
 
-        private void radioButton3_CheckedChanged(object sender, EventArgs e)
-        {
-            btnApDung.Enabled = true;
-            btnHuy.Enabled = true;
-            if (radioButton3.Checked == true)
-                cbTacGia.Enabled = true;
-            else
-                cbTacGia.Enabled = false;
-            cbTacGia.Text = "";
-        }
+        //private void radioButton3_CheckedChanged(object sender, EventArgs e)
+        //{
+        //    btnApDung.Enabled = true;
+        //    btnHuy.Enabled = true;
+        //    if (radioButton3.Checked == true)
+        //        cbTacGia.Enabled = true;
+        //    else
+        //        cbTacGia.Enabled = false;
+        //    cbTacGia.Text = "";
+        //}
 
-        private void radioButton5_CheckedChanged(object sender, EventArgs e)
-        {
-            btnApDung.Enabled = true;
-            btnHuy.Enabled = true;
-            if (radioButton5.Checked == true)
-                cbTinhTrang.Enabled = true;
-            else
-                cbTinhTrang.Enabled = false;
-            cbTinhTrang.Text = "";
-        }
+        //private void radioButton5_CheckedChanged(object sender, EventArgs e)
+        //{
+        //    btnApDung.Enabled = true;
+        //    btnHuy.Enabled = true;
+        //    if (radioButton5.Checked == true)
+        //        cbTinhTrang.Enabled = true;
+        //    else
+        //        cbTinhTrang.Enabled = false;
+        //    cbTinhTrang.Text = "";
+        //}
 
         private void btnXuatExcel_Click(object sender, EventArgs e)
         {

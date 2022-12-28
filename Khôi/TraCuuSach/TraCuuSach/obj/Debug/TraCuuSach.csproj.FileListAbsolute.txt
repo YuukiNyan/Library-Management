@@ -58,22 +58,23 @@ C:\Users\ACER\source\repos\CLONE_GIT\clone\Library_Management\TraCuuSach\TraCuuS
 C:\Users\ACER\source\repos\CLONE_GIT\clone\Library_Management\TraCuuSach\TraCuuSach\obj\Debug\TraCuuSach.csproj.CoreCompileInputs.cache
 C:\Users\ACER\source\repos\CLONE_GIT\clone\Library_Management\TraCuuSach\TraCuuSach\obj\Debug\TraCuuSach.exe
 C:\Users\ACER\source\repos\CLONE_GIT\clone\Library_Management\TraCuuSach\TraCuuSach\obj\Debug\TraCuuSach.pdb
-C:\Users\Lenovo\Documents\GitHub\Library-Management\Khôi\TraCuuSach\TraCuuSach\bin\Debug\TraCuuSach.exe.config
-C:\Users\Lenovo\Documents\GitHub\Library-Management\Khôi\TraCuuSach\TraCuuSach\bin\Debug\TraCuuSach.exe
-C:\Users\Lenovo\Documents\GitHub\Library-Management\Khôi\TraCuuSach\TraCuuSach\bin\Debug\TraCuuSach.pdb
-C:\Users\Lenovo\Documents\GitHub\Library-Management\Khôi\TraCuuSach\TraCuuSach\obj\Debug\TraCuuSach.csproj.AssemblyReference.cache
-C:\Users\Lenovo\Documents\GitHub\Library-Management\Khôi\TraCuuSach\TraCuuSach\obj\Debug\TraCuuSach.csproj.SuggestedBindingRedirects.cache
-C:\Users\Lenovo\Documents\GitHub\Library-Management\Khôi\TraCuuSach\TraCuuSach\obj\Debug\TraCuuSach.FormMuonSach.resources
-C:\Users\Lenovo\Documents\GitHub\Library-Management\Khôi\TraCuuSach\TraCuuSach\obj\Debug\TraCuuSach.FormTraCuu.resources
-C:\Users\Lenovo\Documents\GitHub\Library-Management\Khôi\TraCuuSach\TraCuuSach\obj\Debug\TraCuuSach.Properties.Resources.resources
-C:\Users\Lenovo\Documents\GitHub\Library-Management\Khôi\TraCuuSach\TraCuuSach\obj\Debug\TraCuuSach.csproj.GenerateResource.cache
-C:\Users\Lenovo\Documents\GitHub\Library-Management\Khôi\TraCuuSach\TraCuuSach\obj\Debug\TraCuuSach.csproj.CoreCompileInputs.cache
-C:\Users\Lenovo\Documents\GitHub\Library-Management\Khôi\TraCuuSach\TraCuuSach\obj\Debug\TraCuuSach.exe
-C:\Users\Lenovo\Documents\GitHub\Library-Management\Khôi\TraCuuSach\TraCuuSach\obj\Debug\TraCuuSach.pdb
-C:\Users\Lenovo\Documents\GitHub\Library-Management\Khôi\TraCuuSach\TraCuuSach\obj\Debug\TraCuuSach.FormTraSach.resources
-C:\Users\Lenovo\Documents\GitHub\Library-Management\Khôi\TraCuuSach\TraCuuSach\obj\Debug\TraCuuSach.FormCTPM.resources
-C:\Users\Lenovo\Documents\GitHub\Library-Management\Khôi\TraCuuSach\TraCuuSach\obj\Debug\TraCuuSach.FormDanhSachPM.resources
-C:\Users\Lenovo\Documents\GitHub\Library-Management\Khôi\TraCuuSach\TraCuuSach\obj\Debug\TraCuuSach.FormThongTinPM.resources
-C:\Users\Lenovo\Documents\GitHub\Library-Management\Khôi\TraCuuSach\TraCuuSach\obj\Debug\TraCuuSach.FormThongTinPT.resources
-C:\Users\Lenovo\Documents\GitHub\Library-Management\Khôi\TraCuuSach\TraCuuSach\obj\Debug\TraCuuSach.FormDanhSachPT.resources
-C:\Users\Lenovo\Documents\GitHub\Library-Management\Khôi\TraCuuSach\TraCuuSach\obj\Debug\TraCuuSach.FormCTPT.resources
+C:\Users\Admin\Desktop\Công Việc Học Tập\1Library_Management\Library_Management\NEWW\TraCuuSach\TraCuuSach\obj\Debug\TraCuuSach.csprojAssemblyReference.cache
+C:\Users\Admin\Desktop\Công Việc Học Tập\1Library_Management\Library_Management\NEWW\TraCuuSach\TraCuuSach\obj\Debug\TraCuuSach.FormTraCuu.resources
+C:\Users\Admin\Desktop\Công Việc Học Tập\1Library_Management\Library_Management\NEWW\TraCuuSach\TraCuuSach\obj\Debug\TraCuuSach.Properties.Resources.resources
+C:\Users\Admin\Desktop\Công Việc Học Tập\1Library_Management\Library_Management\NEWW\TraCuuSach\TraCuuSach\obj\Debug\TraCuuSach.csproj.GenerateResource.cache
+C:\Users\Admin\Desktop\Công Việc Học Tập\1Library_Management\Library_Management\NEWW\TraCuuSach\TraCuuSach\obj\Debug\TraCuuSach.csproj.CoreCompileInputs.cache
+C:\Users\Admin\Desktop\Công Việc Học Tập\1Library_Management\Library_Management\NEWW\TraCuuSach\TraCuuSach\obj\Debug\TraCuuSach.exe
+C:\Users\Admin\Desktop\Công Việc Học Tập\1Library_Management\Library_Management\NEWW\TraCuuSach\TraCuuSach\obj\Debug\TraCuuSach.pdb
+C:\Users\Admin\Desktop\Công Việc Học Tập\1Library_Management\Library_Management\NEWW\TraCuuSach\TraCuuSach\bin\Debug\TraCuuSach.exe.config
+C:\Users\Admin\Desktop\Công Việc Học Tập\1Library_Management\Library_Management\NEWW\TraCuuSach\TraCuuSach\bin\Debug\TraCuuSach.exe
+C:\Users\Admin\Desktop\Công Việc Học Tập\1Library_Management\Library_Management\NEWW\TraCuuSach\TraCuuSach\bin\Debug\TraCuuSach.pdb
+C:\Users\Admin\Desktop\Công Việc Học Tập\Library-Management\Library-Management\Khôi\TraCuuSach\TraCuuSach\bin\Debug\TraCuuSach.exe.config
+C:\Users\Admin\Desktop\Công Việc Học Tập\Library-Management\Library-Management\Khôi\TraCuuSach\TraCuuSach\bin\Debug\TraCuuSach.exe
+C:\Users\Admin\Desktop\Công Việc Học Tập\Library-Management\Library-Management\Khôi\TraCuuSach\TraCuuSach\bin\Debug\TraCuuSach.pdb
+C:\Users\Admin\Desktop\Công Việc Học Tập\Library-Management\Library-Management\Khôi\TraCuuSach\TraCuuSach\obj\Debug\TraCuuSach.csprojAssemblyReference.cache
+C:\Users\Admin\Desktop\Công Việc Học Tập\Library-Management\Library-Management\Khôi\TraCuuSach\TraCuuSach\obj\Debug\TraCuuSach.FormTraCuu.resources
+C:\Users\Admin\Desktop\Công Việc Học Tập\Library-Management\Library-Management\Khôi\TraCuuSach\TraCuuSach\obj\Debug\TraCuuSach.Properties.Resources.resources
+C:\Users\Admin\Desktop\Công Việc Học Tập\Library-Management\Library-Management\Khôi\TraCuuSach\TraCuuSach\obj\Debug\TraCuuSach.csproj.GenerateResource.cache
+C:\Users\Admin\Desktop\Công Việc Học Tập\Library-Management\Library-Management\Khôi\TraCuuSach\TraCuuSach\obj\Debug\TraCuuSach.csproj.CoreCompileInputs.cache
+C:\Users\Admin\Desktop\Công Việc Học Tập\Library-Management\Library-Management\Khôi\TraCuuSach\TraCuuSach\obj\Debug\TraCuuSach.exe
+C:\Users\Admin\Desktop\Công Việc Học Tập\Library-Management\Library-Management\Khôi\TraCuuSach\TraCuuSach\obj\Debug\TraCuuSach.pdb

@@ -54,73 +54,15 @@
     <Compile Include="CustomPic.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="FormCTPM.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FormCTPM.Designer.cs">
-      <DependentUpon>FormCTPM.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FormCTPT.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FormCTPT.Designer.cs">
-      <DependentUpon>FormCTPT.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FormDanhSachPT.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FormDanhSachPT.Designer.cs">
-      <DependentUpon>FormDanhSachPT.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FormMuonSach.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FormMuonSach.Designer.cs">
-      <DependentUpon>FormMuonSach.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FormThongTinPT.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FormThongTinPT.Designer.cs">
-      <DependentUpon>FormThongTinPT.cs</DependentUpon>
-    </Compile>
     <Compile Include="FormTraCuu.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FormTraCuu.Designer.cs">
       <DependentUpon>FormTraCuu.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormTraSach.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FormTraSach.Designer.cs">
-      <DependentUpon>FormTraSach.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FormThongTinPM.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FormThongTinPM.Designer.cs">
-      <DependentUpon>FormThongTinPM.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FormDanhSachPM.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FormDanhSachPM.Designer.cs">
-      <DependentUpon>FormDanhSachPM.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Book.cs" />
-    <Compile Include="Models\BorrowSlip.cs" />
-    <Compile Include="Models\DetailBorrowSlip.cs" />
-    <Compile Include="Models\DetailReturnSlip.cs" />
-    <Compile Include="Models\Reader.cs" />
-    <Compile Include="Models\ReturnBook.cs" />
-    <Compile Include="Models\ReturnSlip.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="radion.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="ToggleButton.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="VBButton.cs">
@@ -129,32 +71,8 @@
     <Compile Include="VNPanel.cs">
       <SubType>Component</SubType>
     </Compile>
-    <EmbeddedResource Include="FormCTPM.resx">
-      <DependentUpon>FormCTPM.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FormCTPT.resx">
-      <DependentUpon>FormCTPT.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FormDanhSachPT.resx">
-      <DependentUpon>FormDanhSachPT.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FormMuonSach.resx">
-      <DependentUpon>FormMuonSach.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FormThongTinPT.resx">
-      <DependentUpon>FormThongTinPT.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="FormTraCuu.resx">
       <DependentUpon>FormTraCuu.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FormTraSach.resx">
-      <DependentUpon>FormTraSach.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FormThongTinPM.resx">
-      <DependentUpon>FormThongTinPM.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FormDanhSachPM.resx">
-      <DependentUpon>FormDanhSachPM.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
