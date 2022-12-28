@@ -414,7 +414,7 @@
             this.txtFineThisPeriod.Name = "txtFineThisPeriod";
             this.txtFineThisPeriod.Size = new System.Drawing.Size(265, 35);
             this.txtFineThisPeriod.TabIndex = 82;
-            this.txtFineThisPeriod.Text = "0";
+            this.txtFineThisPeriod.Text = "0 VNĐ";
             // 
             // lbWCode
             // 

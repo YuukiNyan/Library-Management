@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,9 +27,12 @@ namespace MuonTraSach
 
         int maxDays;
         long finePerDay;
+        long fineThisPeriod;
+        long totalFine;
         int addRow = -1, removeRow = -1;
         public static bool print = true;
         string newReturnSlip;
+
 
         public static string returnState = "";
 
@@ -152,7 +156,7 @@ namespace MuonTraSach
 
             //Calculate total late days, fine this period and total fine of that reader
             int totalLateDays = 0;
-            long fineThisPeriod = 0;
+            fineThisPeriod = 0;
             foreach (ReturnBook b in chosenBooks)
             {
                 totalLateDays += b.lateDays;
@@ -160,8 +164,15 @@ namespace MuonTraSach
             }
 
             lbLateDays.Text = totalLateDays.ToString();
-            txtFineThisPeriod.Text = fineThisPeriod.ToString();
-            txbTotalFine.Text = (readers[cbbReaderId.SelectedIndex].debt + fineThisPeriod).ToString();
+            if (fineThisPeriod != 0)
+                txtFineThisPeriod.Text = string.Format("{0:0,0 VNĐ}", fineThisPeriod);
+            else
+                txtFineThisPeriod.Text = "0 VNĐ";
+            totalFine = readers[cbbReaderId.SelectedIndex].debt + fineThisPeriod;
+            if (totalFine != 0)
+                txbTotalFine.Text = string.Format("{0:0,0 VNĐ}", totalFine);
+            else
+                txbTotalFine.Text = "0 VNĐ";
         }
 
         private void ChangeBookBetweenTwoList(BindingList<ReturnBook> l1, BindingList<ReturnBook> l2, int i)
@@ -188,8 +199,13 @@ namespace MuonTraSach
                 //Get reader name by cbbReaderId
                 txtReaderName.Text = readers[cbbReaderId.SelectedIndex].name;
                 lbLateDays.Text = "0";
-                txtFineThisPeriod.Text = "0";
-                txbTotalFine.Text = readers[cbbReaderId.SelectedIndex].debt.ToString();
+                fineThisPeriod = 0;
+                txtFineThisPeriod.Text = "0 VNĐ";
+                totalFine = readers[cbbReaderId.SelectedIndex].debt;
+                if (totalFine != 0)
+                    txbTotalFine.Text = string.Format("{0:0,0 VNĐ}", totalFine);
+                else
+                    txbTotalFine.Text = "0 VNĐ";
                 dtpReturn.Enabled = true;
 
                 //Get list of books were borrowed by cbbReaderId and fill datagridview
@@ -341,8 +357,10 @@ namespace MuonTraSach
         {
             txtReaderName.Text = "";
             lbLateDays.Text = "0";
-            txtFineThisPeriod.Text = "0";
-            txbTotalFine.Text = "0";
+            fineThisPeriod = 0;
+            txtFineThisPeriod.Text = "0 VNĐ";
+            totalFine = 0;
+            txbTotalFine.Text = "0 VNĐ";
             dtgvBorrow.Rows.Clear();
             dtgvChosen.Rows.Clear();
             btnReturn.Enabled = false;
@@ -354,10 +372,8 @@ namespace MuonTraSach
             string readerId = cbbReaderId.Text;
             string name = txtReaderName.Text;
             string date = dtpReturn.Value.ToString("yyyy - MM - dd");
-            string totalFine = txbTotalFine.Text;
-            string fine = txtFineThisPeriod.Text;
 
-            FormThongTinPT.returnSlip = new ReturnSlip(newReturnSlip, readerId, name, date, totalFine, fine, chosenBooks);
+            FormThongTinPT.returnSlip = new ReturnSlip(newReturnSlip, readerId, name, date, totalFine.ToString(), fineThisPeriod.ToString(), chosenBooks);
             new FormThongTinPT().ShowDialog();
 
             if (returnState == "Success")
@@ -365,6 +381,11 @@ namespace MuonTraSach
                 MessageBox.Show("Trả sách thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 //fHome.SwitchForm(new FormTraSach());
                 LoadData();
+                lbLateDays.Text = "0";
+                fineThisPeriod = 0;
+                txtFineThisPeriod.Text = "0 VNĐ";
+                totalFine = 0;
+                txbTotalFine.Text = "0 VNĐ";
                 dtgvChosen.Rows.Clear();
                 btnReturn.Enabled = false;
                 returnState = "";

@@ -16,8 +16,8 @@ namespace MuonTraSach
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FormMuonSach());
-            //Application.Run(new FormTraSach());
+            //Application.Run(new FormMuonSach());
+            Application.Run(new FormTraSach());
         }
     }
 }

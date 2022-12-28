@@ -22,7 +22,7 @@ namespace MuonTraSach
         // TINHTRANG CUONSACH = 1: Available;; = 0: Is borrowed
         SqlConnection connection;
         SqlCommand command;
-        public static string stringConnect = @"Data Source=ADMIN\SQLEXPRESS;Initial Catalog=QLTV;Integrated Security=True";
+        public static string stringConnect = @"Data Source=LAPTOP-RDTT4402;Initial Catalog=QLTV1;Integrated Security=True";
 
         List<Reader> readers;
         BindingList<Book> stockBooks;
