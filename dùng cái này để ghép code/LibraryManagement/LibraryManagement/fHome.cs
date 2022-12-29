@@ -332,12 +332,12 @@ namespace LibraryManagement
 
         private void btnFind_Click(object sender, EventArgs e)
         {
-            SwitchForm(new TraCuuSach.FormTraCuu());
+            SwitchForm(new TraCuuSach.FormTraCuuNew());
         }
 
         private void btnChangeRule_Click(object sender, EventArgs e)
         {
-            SwitchForm(new ThayDoiQuyDinh.FormThayDoiQuyDinh());
+            SwitchForm(new ThayDoiQuyDinh.FormThayDoiQuyDinhNew());
         }
 
         private void btnAddReader_Click(object sender, EventArgs e)
@@ -362,12 +362,12 @@ namespace LibraryManagement
 
         private void mượnSáchToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SwitchForm(new DemoDesign.LendBook());
+            SwitchForm(new MuonTraSach.FormMuonSach());
         }
 
         private void trảSáchToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SwitchForm(new DemoDesign.RecvBook());
+            SwitchForm(new MuonTraSach.FormTraSach());
         }
 
         private void đầuSáchToolStripMenuItem_Click(object sender, EventArgs e)
@@ -402,7 +402,7 @@ namespace LibraryManagement
 
         private void phiếuToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SwitchForm(new PhieuThuTien.FormThuTien());
+            SwitchForm(new PhieuThuTien.FormThuTien1());
         }
     }
 }

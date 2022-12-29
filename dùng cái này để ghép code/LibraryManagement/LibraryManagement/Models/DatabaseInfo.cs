@@ -9,7 +9,7 @@ namespace LibraryManagement.Models
     public class DatabaseInfo
     {
         //Change the connectionString value before re-build the app
-        public static string connectionString = @"Data Source=TRUNGNGUYEN\SQLEXPRESS;Initial Catalog=QLTVnew;Integrated Security=True";
+        public static string connectionString = @"Data Source=DESKTOP-OHQADN1\SQLEXPRESS;Initial Catalog=QLTV;Integrated Security=True";
         public static string bookStockQueryCmd = @"SELECT DISTINCT CUONSACH.MaSach, TenDauSach, TenTheLoai, TenTacGia, CUONSACH.MaCuonSach
             FROM SACH, DAUSACH, CUONSACH, THELOAI, CTTACGIA, TACGIA
             WHERE SACH.MaDauSach = DAUSACH.MaDauSach AND DAUSACH.MaTheLoai = THELOAI.MaTheLoai

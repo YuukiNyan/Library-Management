@@ -79,6 +79,18 @@
     <Compile Include="CustomControl\nbut.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="CustomControl\New\radion.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CustomControl\New\ToggleButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CustomControl\New\VBButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CustomControl\New\VNPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="CustomControl\nhapsach_button.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -157,6 +169,72 @@
     <Compile Include="Forms\Finding\FormTraCuu.designer.cs">
       <DependentUpon>FormTraCuu.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\New\Find\FormTraCuu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\New\Find\FormTraCuu.designer.cs">
+      <DependentUpon>FormTraCuu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\New\FormChiTietPM.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\New\FormChiTietPM.designer.cs">
+      <DependentUpon>FormChiTietPM.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\New\FormChiTietPT.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\New\FormChiTietPT.designer.cs">
+      <DependentUpon>FormChiTietPT.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\New\FormDanhSachPM.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\New\FormDanhSachPM.designer.cs">
+      <DependentUpon>FormDanhSachPM.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\New\FormDanhSachPT.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\New\FormDanhSachPT.designer.cs">
+      <DependentUpon>FormDanhSachPT.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\New\FormMuonSach.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\New\FormMuonSach.designer.cs">
+      <DependentUpon>FormMuonSach.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\New\FormThongTinPM.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\New\FormThongTinPM.designer.cs">
+      <DependentUpon>FormThongTinPM.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\New\FormThongTinPT.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\New\FormThongTinPT.designer.cs">
+      <DependentUpon>FormThongTinPT.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\New\FormTraSach.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\New\FormTraSach.designer.cs">
+      <DependentUpon>FormTraSach.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\New\Money\FormThuTien.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\New\Money\FormThuTien.designer.cs">
+      <DependentUpon>FormThuTien.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\New\QuyDinh\FormThayDoiQuyDinh.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\New\QuyDinh\FormThayDoiQuyDinh.designer.cs">
+      <DependentUpon>FormThayDoiQuyDinh.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\ReaderManagement\FormLoaiDocGia.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -233,6 +311,13 @@
     <Compile Include="Models\DatabaseInfo.cs" />
     <Compile Include="Models\DetailBorrowSlip.cs" />
     <Compile Include="Models\MailService.cs" />
+    <Compile Include="Models\New\Book.cs" />
+    <Compile Include="Models\New\BorrowSlip.cs" />
+    <Compile Include="Models\New\DetailBorrowSlip.cs" />
+    <Compile Include="Models\New\DetailReturnSlip.cs" />
+    <Compile Include="Models\New\Reader.cs" />
+    <Compile Include="Models\New\ReturnBook.cs" />
+    <Compile Include="Models\New\ReturnSlip.cs" />
     <Compile Include="Models\Parameters.cs" />
     <Compile Include="Models\Reader.cs" />
     <Compile Include="Models\Book.cs" />
@@ -274,6 +359,39 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Finding\FormTraCuu.resx">
       <DependentUpon>FormTraCuu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\New\Find\FormTraCuu.resx">
+      <DependentUpon>FormTraCuu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\New\FormChiTietPM.resx">
+      <DependentUpon>FormChiTietPM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\New\FormChiTietPT.resx">
+      <DependentUpon>FormChiTietPT.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\New\FormDanhSachPM.resx">
+      <DependentUpon>FormDanhSachPM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\New\FormDanhSachPT.resx">
+      <DependentUpon>FormDanhSachPT.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\New\FormMuonSach.resx">
+      <DependentUpon>FormMuonSach.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\New\FormThongTinPM.resx">
+      <DependentUpon>FormThongTinPM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\New\FormThongTinPT.resx">
+      <DependentUpon>FormThongTinPT.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\New\FormTraSach.resx">
+      <DependentUpon>FormTraSach.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\New\Money\FormThuTien.resx">
+      <DependentUpon>FormThuTien.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\New\QuyDinh\FormThayDoiQuyDinh.resx">
+      <DependentUpon>FormThayDoiQuyDinh.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ReaderManagement\FormLoaiDocGia.resx">
       <DependentUpon>FormLoaiDocGia.cs</DependentUpon>
@@ -411,6 +529,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\key.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="CustomControl\New\ThuTien\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -238,3 +238,14 @@ D:\Trung\Study\PPPTPMHDT\DoAn\GhepForm\Library-Management\dùng cái này để 
 D:\Trung\Study\PPPTPMHDT\DoAn\GhepForm\Library-Management\dùng cái này để ghép code\LibraryManagement\LibraryManagement\obj\Debug\LibraryManagement.csproj.CopyComplete
 D:\Trung\Study\PPPTPMHDT\DoAn\GhepForm\Library-Management\dùng cái này để ghép code\LibraryManagement\LibraryManagement\obj\Debug\LibraryManagement.exe
 D:\Trung\Study\PPPTPMHDT\DoAn\GhepForm\Library-Management\dùng cái này để ghép code\LibraryManagement\LibraryManagement\obj\Debug\LibraryManagement.pdb
+D:\Trung\Study\PPPTPMHDT\DoAn\GhepForm\Library-Management\dùng cái này để ghép code\LibraryManagement\LibraryManagement\obj\Debug\MuonTraSach.FormChiTietPM.resources
+D:\Trung\Study\PPPTPMHDT\DoAn\GhepForm\Library-Management\dùng cái này để ghép code\LibraryManagement\LibraryManagement\obj\Debug\MuonTraSach.FormChiTietPT.resources
+D:\Trung\Study\PPPTPMHDT\DoAn\GhepForm\Library-Management\dùng cái này để ghép code\LibraryManagement\LibraryManagement\obj\Debug\MuonTraSach.FormDanhSachPM.resources
+D:\Trung\Study\PPPTPMHDT\DoAn\GhepForm\Library-Management\dùng cái này để ghép code\LibraryManagement\LibraryManagement\obj\Debug\MuonTraSach.FormDanhSachPT.resources
+D:\Trung\Study\PPPTPMHDT\DoAn\GhepForm\Library-Management\dùng cái này để ghép code\LibraryManagement\LibraryManagement\obj\Debug\MuonTraSach.FormMuonSach.resources
+D:\Trung\Study\PPPTPMHDT\DoAn\GhepForm\Library-Management\dùng cái này để ghép code\LibraryManagement\LibraryManagement\obj\Debug\MuonTraSach.FormThongTinPM.resources
+D:\Trung\Study\PPPTPMHDT\DoAn\GhepForm\Library-Management\dùng cái này để ghép code\LibraryManagement\LibraryManagement\obj\Debug\MuonTraSach.FormThongTinPT.resources
+D:\Trung\Study\PPPTPMHDT\DoAn\GhepForm\Library-Management\dùng cái này để ghép code\LibraryManagement\LibraryManagement\obj\Debug\MuonTraSach.FormTraSach.resources
+D:\Trung\Study\PPPTPMHDT\DoAn\GhepForm\Library-Management\dùng cái này để ghép code\LibraryManagement\LibraryManagement\obj\Debug\PhieuThuTien.FormThuTien1.resources
+D:\Trung\Study\PPPTPMHDT\DoAn\GhepForm\Library-Management\dùng cái này để ghép code\LibraryManagement\LibraryManagement\obj\Debug\ThayDoiQuyDinh.FormThayDoiQuyDinhNew.resources
+D:\Trung\Study\PPPTPMHDT\DoAn\GhepForm\Library-Management\dùng cái này để ghép code\LibraryManagement\LibraryManagement\obj\Debug\TraCuuSach.FormTraCuuNew.resources
