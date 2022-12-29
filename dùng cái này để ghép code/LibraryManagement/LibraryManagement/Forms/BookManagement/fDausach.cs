@@ -25,7 +25,7 @@ namespace formdausach
 
         }
         DataTable dt = new DataTable();
-         
+
         private DataTable ketnoi(string truyvan)
         {
             myConnection = new SqlConnection(chuoiKetNoi);
@@ -106,7 +106,7 @@ namespace formdausach
             cbTenTL.SelectedIndex = -1;
             //cbMaTL.SelectedIndex = -1;
             txb_MaDauSach.Text = dgvDauSach.Rows[0].Cells[0].Value.ToString();
-            txb_TenDauSach.Text =  dgvDauSach.Rows[0].Cells[1].Value.ToString();
+            txb_TenDauSach.Text = dgvDauSach.Rows[0].Cells[1].Value.ToString();
             cbTenTL.Text = dgvDauSach.Rows[0].Cells[3].Value.ToString();
             lbxTacGia.DataSource = null;
             lbxTacGia.Items.Clear();
@@ -141,17 +141,17 @@ namespace formdausach
             cbTenTL.Text = dgvDauSach.CurrentRow.Cells[3].Value.ToString();
             string cauTruyVan = "SELECT TacGia.MaTacGia AS [MaTacGia], TenTacGia " +
                                 "FROM DAUSACH, TACGIA, CTTACGIA " +
-                                "WHERE DAUSACH.MaDauSach = CTTACGIA.MaDauSach AND "+
-                                "CTTACGIA.MaTacGia = TACGIA.MaTacGia AND "+
+                                "WHERE DAUSACH.MaDauSach = CTTACGIA.MaDauSach AND " +
+                                "CTTACGIA.MaTacGia = TACGIA.MaTacGia AND " +
                                 "CTTACGIA.MaDauSach = '" + txb_MaDauSach.Text + "'";
             ketnoi(cauTruyVan);
             cbTacGia.SelectedIndex = -1;
             dt.Clear();
             myDataAdapter.Fill(dt);
-            for(int i =0; i< dt.Rows.Count; i++)
+            for (int i = 0; i < dt.Rows.Count; i++)
             {
                 lbxTacGia.Items.Add(dt.Rows[i].ItemArray[1].ToString());
-            }    
+            }
             errMaTL.Clear();
             errTenTL.Clear();
             errTenDS.Clear();
@@ -188,7 +188,7 @@ namespace formdausach
             {
 
                 string themdongsql = "INSERT INTO DAUSACH(TenDauSach, MaTheLoai)" +
-                "VALUES (N'" + txb_TenDauSach.Text + "', '" + lbMaTL.Text + "')";
+                "VALUES (N'" + txb_TenDauSach.Text + "', '" + lbMaTheLoai.Text + "')";
                 ketnoiNonQuery(themdongsql);
                 MessageBox.Show("Thêm thành công.", "Thông Báo");
                 loadDgv();
@@ -304,7 +304,7 @@ namespace formdausach
                 try
                 {
                     //string xoadongsql = "DELETE FROM DAUSACH WHERE MaDauSach = '" + txb_MaDauSach.Text + "'";
-                    string xoadongsql = "IF EXISTS(SELECT * FROM SACH WHERE MaDauSach = '" +txb_MaDauSach.Text + "' AND SoLuong > 0) " +
+                    string xoadongsql = "IF EXISTS(SELECT * FROM SACH WHERE MaDauSach = '" + txb_MaDauSach.Text + "' AND SoLuong > 0) " +
                                          "BEGIN SELECT 1 END ELSE BEGIN SELECT 2 END";
                     ketnoi(xoadongsql);
                     int number = Convert.ToInt32(myCommand.ExecuteScalar());
@@ -349,9 +349,9 @@ namespace formdausach
             for (int i = 0; i < dgvDauSach.RowCount; i++)
             {
 
-                if (txb_TenDauSach.Text.ToUpper() == dgvDauSach.Rows[i].Cells[1].Value.ToString().ToUpper()&&txb_MaDauSach.Text!=dgvDauSach.Rows[i].Cells[0].Value.ToString())
+                if (txb_TenDauSach.Text.ToUpper() == dgvDauSach.Rows[i].Cells[1].Value.ToString().ToUpper() && txb_MaDauSach.Text != dgvDauSach.Rows[i].Cells[0].Value.ToString())
                 {
-                    ck=1 ;
+                    ck = 1;
                 }
             }
             if (ck == 0)
@@ -401,7 +401,7 @@ namespace formdausach
                             xoaCTTacGia(txb_MaDauSach.Text);
                             string capnhatdongsql;
                             capnhatdongsql = "UPDATE DAUSACH " +
-                                "SET TenDauSach = N'" + txb_TenDauSach.Text + "', MaTheLoai = '" + lbMaTL.Text + "'" +
+                                "SET TenDauSach = N'" + txb_TenDauSach.Text + "', MaTheLoai = '" + lbMaTheLoai.Text + "'" +
                                 "WHERE MaDauSach = '" + txb_MaDauSach.Text + "'";
                             ketnoi(capnhatdongsql);
                             myCommand.ExecuteNonQuery();
@@ -433,8 +433,8 @@ namespace formdausach
             }
             else
                 MessageBox.Show("Tên đầu sách đã có, bạn không thể cập nhật");
-            
-            
+
+
 
         }
 
@@ -452,7 +452,7 @@ namespace formdausach
             ketnoi(cauTruyVan);
             string maTL = Convert.ToString(myCommand.ExecuteScalar());
             lbMaTheLoai.Text = maTL;
-            
+
         }
 
         private void btnDown_Click(object sender, EventArgs e)
@@ -490,7 +490,7 @@ namespace formdausach
         {
             if (lbxTacGia.SelectedIndex >= 0)
             {
-                
+
                 dt.Rows.RemoveAt(lbxTacGia.SelectedIndex);
                 lbxTacGia.Items.RemoveAt(lbxTacGia.SelectedIndex);
             }
@@ -498,7 +498,7 @@ namespace formdausach
             {
                 MessageBox.Show("Vui lòng chọn tác giả bên dưới!", "Thông báo");
             }
-            
+
         }
 
         private void vbButton1_Click(object sender, EventArgs e)

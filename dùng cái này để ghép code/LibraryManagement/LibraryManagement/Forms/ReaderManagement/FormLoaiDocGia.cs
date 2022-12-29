@@ -176,50 +176,50 @@ namespace FormLoaiDocGia
             if (ck == 0)
             {
                 xuly = 1;
-            {
-                if (txbTenLoaiDocGia.Text == "")
                 {
-                    errTenLDG.SetError(txbTenLoaiDocGia, "Vui lòng nhập Tên DG");
+                    if (txbTenLoaiDocGia.Text == "")
+                    {
+                        errTenLDG.SetError(txbTenLoaiDocGia, "Vui lòng nhập Tên DG");
+                    }
+                    else
+                    {
+                        errTenLDG.Clear();
+                    }
+
+                }
+
+                if (txbTenLoaiDocGia.Text.Length > 0)
+                {
+                    if (xuly == 1)
+                    {
+                        try
+                        {
+                            string capnhatdongsql;
+                            capnhatdongsql = "UPDATE LOAIDOCGIA " +
+                                "SET TenLoaiDocGia = N'" + txbTenLoaiDocGia.Text + "'" +
+                                "WHERE MaLoaiDocGia = '" + txbMaLoaiDocGia.Text + "'";
+                            ketnoi(capnhatdongsql);
+                            myCommand.ExecuteNonQuery();
+                            MessageBox.Show("Sửa thành công.", "Thông Báo");
+                            loadDgv();
+                        }
+                        catch
+                        {
+                            MessageBox.Show("Sửa thất bại.\nVui lòng kiểm tra lại dữ liệu.", "Thông Báo");
+                        }
+                    }
+                    btnLuu.Enabled = false;
+                    btnThemMoi.Enabled = true;
+                    btnCapNhat.Enabled = true;
+                    btnXoa.Enabled = true;
+                    dgvLoaiDocGia.Enabled = true;
                 }
                 else
                 {
-                    errTenLDG.Clear();
+                    MessageBox.Show("Vui lòng nhập đủ thông tin.", "Thông Báo");
+                    if (txbTenLoaiDocGia.Text.Length == 0)
+                        txbTenLoaiDocGia.Focus();
                 }
-
-            }
-
-            if (txbTenLoaiDocGia.Text.Length > 0)
-            {
-                if (xuly == 1)
-                {
-                    try
-                    {
-                        string capnhatdongsql;
-                        capnhatdongsql = "UPDATE LOAIDOCGIA " +
-                            "SET TenLoaiDocGia = N'" + txbTenLoaiDocGia.Text + "'" +
-                            "WHERE MaLoaiDocGia = '" + txbMaLoaiDocGia.Text + "'";
-                        ketnoi(capnhatdongsql);
-                        myCommand.ExecuteNonQuery();
-                        MessageBox.Show("Sửa thành công.", "Thông Báo");
-                        loadDgv();
-                    }
-                    catch
-                    {
-                        MessageBox.Show("Sửa thất bại.\nVui lòng kiểm tra lại dữ liệu.", "Thông Báo");
-                    }
-                }
-                btnLuu.Enabled = false;
-                btnThemMoi.Enabled = true;
-                btnCapNhat.Enabled = true;
-                btnXoa.Enabled = true;
-                dgvLoaiDocGia.Enabled = true;
-            }
-            else
-            {
-                MessageBox.Show("Vui lòng nhập đủ thông tin.", "Thông Báo");
-                if (txbTenLoaiDocGia.Text.Length == 0)
-                    txbTenLoaiDocGia.Focus();
-            }
             }
             else
                 MessageBox.Show("Tên loại độc giả này đã có, bạn không thể lưu mới");

@@ -372,6 +372,7 @@
             this.txbDChi.Name = "txbDChi";
             this.txbDChi.Size = new System.Drawing.Size(250, 39);
             this.txbDChi.TabIndex = 13;
+            this.txbDChi.TextChanged += new System.EventHandler(this.txbDChi_TextChanged);
             // 
             // txbHoTen
             // 

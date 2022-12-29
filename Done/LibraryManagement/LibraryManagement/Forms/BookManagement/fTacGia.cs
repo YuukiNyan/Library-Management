@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using System.Globalization;
 
 namespace FormTacGia
 {
@@ -272,6 +273,14 @@ namespace FormTacGia
                 e.Handled = true;
             if (e.KeyChar == 8||e.KeyChar==13)
                 e.Handled = false;
+        }
+
+        private void txbTenTG_TextChanged(object sender, EventArgs e)
+        {
+            CultureInfo cultureInfo = System.Threading.Thread.CurrentThread.CurrentCulture;
+            TextInfo textInfo = cultureInfo.TextInfo;
+            txbTenTG.Text = textInfo.ToTitleCase(txbTenTG.Text.ToLower());
+            txbTenTG.Select(txbTenTG.Text.Length, 0);
         }
     }
 }

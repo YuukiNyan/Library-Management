@@ -8,13 +8,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using System.Text.RegularExpressions;
 
 namespace FormNhapSach
 {
     public partial class formCTPN : Form
     {
         // Khai báo 
-        string chuoiKetNoi = @"Data Source=ADMIN\SQLEXPRESS;Initial Catalog=QLTV;Integrated Security=True";
+        string chuoiKetNoi = @"Data Source=LAPTOP-281DQ5C3\SQLEXPRESS;Initial Catalog=QLTV_re;Integrated Security=True";
         private SqlConnection myConnection; // kết nối tới csdl
         private SqlDataAdapter myDataAdapter;   // Vận chuyển csdl qa DataSet
         private DataTable myTable;  // Dùng để lưu bảng lấy từ c#
@@ -388,7 +389,8 @@ namespace FormNhapSach
             {
                 string capnhatdong;
                 xoaCuonSach(txbMaCTPN.Text);
-                capnhatdong = "UPDATE  CT_PHIEUNHAP SET MaPhieuNhapSach = '" + cbMaPN.Text + "', MaSach = '" + cbMaSach.Text + "', SoLuong = " + txbSoLuong.Text + ", DonGia = " + txbDonGia.Text + "" +
+                int value = Parse(txbDonGia.Text);
+                capnhatdong = "UPDATE  CT_PHIEUNHAP SET MaPhieuNhapSach = '" + cbMaPN.Text + "', MaSach = '" + cbMaSach.Text + "', SoLuong = " + txbSoLuong.Text + ", DonGia = " + value.ToString() + "" +
                                 "WHERE MaCTPN = '" + txbMaCTPN.Text + "'";
                 ketnoiNonQuery(capnhatdong);
                 int ktSoLuong;
@@ -403,6 +405,10 @@ namespace FormNhapSach
             {
                 MessageBox.Show("Sửa thất bại.\nĐã có cuốn sách trong lần nhập này được mượn.", "Thông Báo");
             }
+        }
+        public static int Parse(string input)
+        {
+            return int.Parse(Regex.Replace(input, @"[^\d.]", ""));
         }
         private void btnCapNhat_Click(object sender, EventArgs e)
         {
@@ -452,8 +458,6 @@ namespace FormNhapSach
             }
 
 
-            float ktTriGia;
-            bool isNumberTriGia = float.TryParse(txbDonGia.Text, out ktTriGia);
             int ktSoLuong;
             bool isNumberSoLuong = int.TryParse(txbSoLuong.Text, out ktSoLuong);
             if (isNumberSoLuong == false || ktSoLuong <= 0)
@@ -461,12 +465,12 @@ namespace FormNhapSach
                 MessageBox.Show("Vui lòng nhập số lượng là số nguyên dương", "Thông Báo");
                 return;
             }
-            if (isNumberTriGia == false || ktTriGia <= 0)
+            if (txbDonGia.Text == "")
             {
                 MessageBox.Show("Vui lòng nhập giá tiền lớn hơn 0", "Thông Báo");
                 return;
             }
-            if (cbMaPN.Text.Length > 0 && cbTenSach.Text.Length > 0 && txbDonGia.Text.Length > 0 && isNumberTriGia == true && ktTriGia > 0 && txbSoLuong.Text.Length > 0 && isNumberSoLuong == true)
+            if (cbMaPN.Text.Length > 0 && cbTenSach.Text.Length > 0 && txbDonGia.Text.Length > 0  && txbSoLuong.Text.Length > 0 && isNumberSoLuong == true)
             {
                 if (xuly == 0)
                 {
@@ -613,6 +617,11 @@ namespace FormNhapSach
                 filePath = OpenFile.FileName;
                 //MessageBox.Show(filePath);
             }
+            else
+            {
+                MessageBox.Show("Vui lòng chọn file excel để nhập sách");
+                return;
+            }
             try
             {
                 Microsoft.Office.Interop.Excel.Application xlApp = new Microsoft.Office.Interop.Excel.Application();
@@ -655,10 +664,10 @@ namespace FormNhapSach
                     string query = @"INSERT INTO CT_PHIEUNHAP (MaPhieuNhapSach, MaSach, SoLuong, DonGia)
                                         Values ('" + Columns1 + "', '" + Columns2 + "', " + Columns3 + ", " + Columns4 + ") ";
                     ketnoiNonQuery(query);
-                    myConnection.Close();
+                        
+                        myConnection.Close();
                    
-                   // MessageBox.Show("Kết thúc import", "Thông báo");*/
-                }
+                    }
                  MessageBox.Show("Nhập sách thành công", "Thông báo");
                 loadDgv();
             }

@@ -85,13 +85,13 @@ namespace FormNhapSach
             txbMaPhieuNhap.Text = dgvPhieuNhap.CurrentRow.Cells[0].Value.ToString();
             dtp_NgayNhap.Text = dgvPhieuNhap.CurrentRow.Cells[1].Value.ToString();
             txbTongTien.Text = dgvPhieuNhap.CurrentRow.Cells[2].FormattedValue.ToString();
-            
+
             btnLuu.Enabled = false;
             btnThemMoi.Enabled = true;
             btnXoa.Enabled = true;
             btnCapNhat.Enabled = true;
         }
-  
+
 
         private void btnThemMoi_Click(object sender, EventArgs e)
         {
@@ -123,23 +123,23 @@ namespace FormNhapSach
         {
             xuly = 0;
 
-                string query = null;
-                if (xuly == 0)
-                {
-                    themPhieuNS();
-                    query = "SELECT TOP 1 MaPhieuNhapSach FROM PHIEUNHAPSACH ORDER BY MaPhieuNhapSach DESC ";
-                    ketnoi(query);
-                    txbMaPhieuNhap.Text = Convert.ToString(myCommand.ExecuteScalar());
-                }
+            string query = null;
+            if (xuly == 0)
+            {
+                themPhieuNS();
+                query = "SELECT TOP 1 MaPhieuNhapSach FROM PHIEUNHAPSACH ORDER BY MaPhieuNhapSach DESC ";
+                ketnoi(query);
+                txbMaPhieuNhap.Text = Convert.ToString(myCommand.ExecuteScalar());
+            }
 
-                dgvPhieuNhap.AutoGenerateColumns = false;
-                myConnection.Close();
-                btnLuu.Enabled = false;
-                btnThemMoi.Enabled = true;
-                btnCapNhat.Enabled = true;
-                btnXoa.Enabled = true;
-                dgvPhieuNhap.Enabled = true;
-                dgvPhieuNhap.FirstDisplayedScrollingRowIndex = dgvPhieuNhap.RowCount - 1;
+            dgvPhieuNhap.AutoGenerateColumns = false;
+            myConnection.Close();
+            btnLuu.Enabled = false;
+            btnThemMoi.Enabled = true;
+            btnCapNhat.Enabled = true;
+            btnXoa.Enabled = true;
+            dgvPhieuNhap.Enabled = true;
+            dgvPhieuNhap.FirstDisplayedScrollingRowIndex = dgvPhieuNhap.RowCount - 1;
             query = "DROP TABLE IF EXISTS MAPN CREATE TABLE MAPN(MaPhieuNhap VARCHAR(50)) INSERT INTO MAPN VALUES ('" + txbMaPhieuNhap.Text + "')";
             ketnoiNonQuery(query);
             formCTPN ne = new formCTPN();
@@ -152,18 +152,18 @@ namespace FormNhapSach
         private void formCTPN_FormClosed(object sender, FormClosedEventArgs e)
         {
             loadDgv();
-            for (int i=0;i<dgvPhieuNhap.RowCount;i++)
+            for (int i = 0; i < dgvPhieuNhap.RowCount; i++)
             {
-                if (dgvPhieuNhap.Rows[i].Cells[0].Value.ToString()==txbMaPhieuNhap.Text)
+                if (dgvPhieuNhap.Rows[i].Cells[0].Value.ToString() == txbMaPhieuNhap.Text)
                 {
                     txbTongTien.Text = dgvPhieuNhap.Rows[i].Cells[2].Value.ToString();
                     break;
-                }    
-            }    
+                }
+            }
         }
         private void btnCapNhat_Click(object sender, EventArgs e)
         {
-         
+
             /*xuly = 1;
            
                     try
@@ -183,10 +183,10 @@ namespace FormNhapSach
                     }
                 */
             btnLuu.Enabled = false;
-                btnThemMoi.Enabled = true;
-                btnCapNhat.Enabled = true;
-                btnXoa.Enabled = true;
-                dgvPhieuNhap.Enabled = true;
+            btnThemMoi.Enabled = true;
+            btnCapNhat.Enabled = true;
+            btnXoa.Enabled = true;
+            dgvPhieuNhap.Enabled = true;
             string query = "DROP TABLE IF EXISTS MAPN CREATE TABLE MAPN(MaPhieuNhap VARCHAR(50)) INSERT INTO MAPN VALUES ('" + txbMaPhieuNhap.Text + "')";
             ketnoiNonQuery(query);
             formCTPN ne = new formCTPN();
@@ -198,12 +198,12 @@ namespace FormNhapSach
         private void xoaPhieuNhap()
         {
 
-        DialogResult dlr;
-        dlr = MessageBox.Show("Bạn chắc chắn muốn xóa.", "Thông Báo", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-        if (dlr == DialogResult.Yes)
-        {
-            try
+            DialogResult dlr;
+            dlr = MessageBox.Show("Bạn chắc chắn muốn xóa.", "Thông Báo", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (dlr == DialogResult.Yes)
             {
+                try
+                {
                     string xoadongsql = "IF EXISTS ( SELECT * FROM CT_PHIEUNHAP WHERE MaPhieuNhapSach = '" + txbMaPhieuNhap.Text + "') BEGIN SELECT 1 END ELSE BEGIN SELECT 2 END";
                     ketnoiNonQuery(xoadongsql);
                     int xoa = Convert.ToInt32(myCommand.ExecuteScalar());
@@ -221,14 +221,14 @@ namespace FormNhapSach
                     else
                         MessageBox.Show("Đã có chi tiết phiếu nhập trong phiếu nhập trên!", "Thông báo");
 
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Xóa thất bại.\nHiện vẫn còn thông tin chi tiết phiếu nhập của phiếu nhập này.", "Thông Báo");
+                }
             }
-            catch (Exception)
-            {
-                MessageBox.Show("Xóa thất bại.\nHiện vẫn còn thông tin chi tiết phiếu nhập của phiếu nhập này.", "Thông Báo");
-            }
+            loadDgv();
         }
-        loadDgv();
-    }
 
         private void btnXoa_Click(object sender, EventArgs e)
         {

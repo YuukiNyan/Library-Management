@@ -24,19 +24,19 @@ namespace LibraryManage
         SqlCommand myCommand;   // Thực hiện cách lệnh truy vấn
 
         // Phương thức hiển thị các thuộc tính bảng Độc Giả lên txt
-        public string maDG, tenDG,email, ngaySinhDG, diaChiDG, loaiDG, NgLapThe;
+        public string maDG, tenDG, email, ngaySinhDG, diaChiDG, loaiDG, NgLapThe;
         public Form1()
         {
             InitializeComponent();
-           
+
             foreach (DataGridViewColumn col in dgvDSDocGia.Columns)
             {
                 col.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
                 col.HeaderCell.Style.Font = new Font("Arial", 8F, FontStyle.Bold, GraphicsUnit.Pixel);
             }
             dgvDSDocGia.EnableHeadersVisualStyles = false;
-            
-              
+
+
         }
         private DataTable ketnoi(string truyvan)
         {
@@ -56,7 +56,7 @@ namespace LibraryManage
             string thuchiencaulenh = nonquery;
             myCommand = new SqlCommand(thuchiencaulenh, myConnection);
             myCommand.ExecuteNonQuery();
-           
+
         }
         // gán kích thước cho từng column
         private void setSizeCol()
@@ -87,7 +87,7 @@ namespace LibraryManage
             string strNumber = (++numberID).ToString();
             fullID = "DG" + strNumber.PadLeft(3, '0');
             return fullID;
-        }    
+        }
         void loadDgv()
         {
             string cauTruyVan = "SELECT MaDocGia AS [Mã ĐG], HoTen AS [Tên ĐG], TenLoaiDocGia AS [Loại ĐG], NgSinh AS [Ngày Sinh], DChi AS [Địa Chỉ], Email AS [Email], NgLapThe AS [N.Lập Thẻ], NgHetHan AS [N.Hết Hạn], TongNo AS [Tổng Nợ] " +
@@ -96,7 +96,7 @@ namespace LibraryManage
             dgvDSDocGia.DataSource = ketnoi(cauTruyVan);
             dgvDSDocGia.AutoGenerateColumns = false;
             myConnection.Close();
-        }    
+        }
 
         void setFormatDMY()
         {
@@ -149,7 +149,7 @@ namespace LibraryManage
         private void btnXoa_Click(object sender, EventArgs e)
         {
             xoaDG();
-            
+
         }
         // Lưu
         public string SaveStringSQL(string pQuery)
@@ -172,7 +172,7 @@ namespace LibraryManage
 
             try
             {
-                
+
                 string themdongsql = "INSERT INTO DOCGIA(HoTen, MaLoaiDocGia, NgSinh, DChi, Email, NgLapThe, TongNo)" +
                 "VALUES (N'" + txbHoTen.Text + "', '" + maLDG + "', '" + dtpNgSinh.Value.Date.ToString("MM/dd/yyyy") + "', N'" + txbDChi.Text + "', '" + txbEmail.Text + "', '" + dtpNgLapThe.Value.Date.ToString("MM/dd/yyyy") + "', 0)";
                 ketnoiNonQuery(themdongsql);
@@ -197,7 +197,7 @@ namespace LibraryManage
 
         private void printDocument1_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
         {
-            if (txbMaDG.Text == "" || txbHoTen.Text == "" || txbNgayHetHan.Text == "" || dtpNgLapThe.Text == "" || dtpNgSinh.Text == "" || cbLoaiDG.Text == "" )
+            if (txbMaDG.Text == "" || txbHoTen.Text == "" || txbNgayHetHan.Text == "" || dtpNgLapThe.Text == "" || dtpNgSinh.Text == "" || cbLoaiDG.Text == "")
             {
                 MessageBox.Show("vui lòng chọn 1 bộ dữ liệu bên dưới để tiến hành in");
             }
@@ -239,6 +239,14 @@ namespace LibraryManage
             TextInfo textInfo = cultureInfo.TextInfo;
             txbHoTen.Text = textInfo.ToTitleCase(txbHoTen.Text.ToLower());
             txbHoTen.Select(txbHoTen.Text.Length, 0);
+        }
+
+        private void txbDChi_TextChanged(object sender, EventArgs e)
+        {
+            CultureInfo cultureInfo = System.Threading.Thread.CurrentThread.CurrentCulture;
+            TextInfo textInfo = cultureInfo.TextInfo;
+            txbDChi.Text = textInfo.ToTitleCase(txbDChi.Text.ToLower());
+            txbDChi.Select(txbDChi.Text.Length, 0);
         }
 
         private void btnCapNhat_Click(object sender, EventArgs e)
@@ -311,7 +319,7 @@ namespace LibraryManage
                     return;
                 }
 
-                
+
                 if (xuly == 1)
                 {
                     try
@@ -321,7 +329,7 @@ namespace LibraryManage
                         string maLDG = Convert.ToString(myCommand.ExecuteScalar());
                         string capnhatdongsql;
                         capnhatdongsql = "UPDATE DOCGIA " +
-                            "SET HoTen = N'" + txbHoTen.Text + "', MaLoaiDocGia = '" + maLDG + "', NgSinh = '" + dtpNgSinh.Value.Date.ToString("MM/dd/yyyy") + "', DChi = N'" + txbDChi.Text + "', Email = '" + txbEmail.Text + "', NgLapThe = '" + dtpNgLapThe.Value.Date.ToString("MM/dd/yyyy")+ "', TongNo = 0 " +
+                            "SET HoTen = N'" + txbHoTen.Text + "', MaLoaiDocGia = '" + maLDG + "', NgSinh = '" + dtpNgSinh.Value.Date.ToString("MM/dd/yyyy") + "', DChi = N'" + txbDChi.Text + "', Email = '" + txbEmail.Text + "', NgLapThe = '" + dtpNgLapThe.Value.Date.ToString("MM/dd/yyyy") + "', TongNo = 0 " +
                             "WHERE MaDocGia = '" + txbMaDG.Text + "'";
                         ketnoi(capnhatdongsql);
                         myCommand.ExecuteNonQuery();
@@ -354,7 +362,7 @@ namespace LibraryManage
             }
         }
 
-        
+
         private void btnLuu_Click(object sender, EventArgs e)
         {
             xuly = 0;
@@ -376,12 +384,12 @@ namespace LibraryManage
                 {
                     errEmail.Clear();
                 }
-                if(!checkIsMail(txbEmail.Text))
+                if (!checkIsMail(txbEmail.Text))
                 {
                     errEmail.SetError(txbEmail, "Vui lòng nhập Email");
                     MessageBox.Show("Vui lòng nhập đúng định dạng email!", "Thông báo");
                     return;
-                }    
+                }
                 else
                 {
                     errEmail.Clear();
@@ -406,7 +414,7 @@ namespace LibraryManage
                 }
             }
 
-            if ( txbHoTen.Text.Length > 0 && txbDChi.Text.Length > 0 && dtpNgSinh.Text.Length > 0 && cbLoaiDG.Text.Length > 0 && dtpNgLapThe.Text.Length > 0)
+            if (txbHoTen.Text.Length > 0 && txbDChi.Text.Length > 0 && dtpNgSinh.Text.Length > 0 && cbLoaiDG.Text.Length > 0 && dtpNgLapThe.Text.Length > 0)
             {
                 string query = "SELECT TuoiToiThieu FROM THAMSO ";
                 ketnoi(query);
@@ -434,12 +442,12 @@ namespace LibraryManage
                     txbMaDG.Text = Convert.ToString(myCommand.ExecuteScalar());
                     query = "SELECT NgHetHan FROM DOCGIA WHERE MaDocGia = '" + txbMaDG.Text + "'"; ;
                     ketnoi(query);
-                    txbNgayHetHan.Text =  tranferFormatTextBox(Convert.ToString(myCommand.ExecuteScalar()));
+                    txbNgayHetHan.Text = tranferFormatTextBox(Convert.ToString(myCommand.ExecuteScalar()));
                     txbTongNo.Text = "0.0000";
                 }
-               
+
                 dgvDSDocGia.AutoGenerateColumns = false;
-                 myConnection.Close();
+                myConnection.Close();
                 btnLuu.Enabled = false;
                 btnThemMoi.Enabled = true;
                 btnCapNhat.Enabled = true;
@@ -457,7 +465,7 @@ namespace LibraryManage
                     txbDChi.Focus();
                 else if (txbEmail.Text.Length == 0)
                     txbEmail.Focus();
-                
+
             }
         }
 
@@ -486,8 +494,8 @@ namespace LibraryManage
             txbNgayHetHan.Text = tranferFormatTextBox(dgvDSDocGia.Rows[0].Cells[7].Value.ToString());
             txbTongNo.Text = dgvDSDocGia.Rows[0].Cells[8].FormattedValue.ToString().Trim();
             //dgvDSDocGia.Columns[8].DefaultCellStyle.NullValue = 0;
-            
-            
+
+
             string query = "SELECT TuoiToiThieu FROM THAMSO ";
             ketnoi(query);
             int tuoiMin = Convert.ToInt32(myCommand.ExecuteScalar());
@@ -516,13 +524,14 @@ namespace LibraryManage
             cbLoaiDG.SelectedItem = null;
             dtpNgLapThe.Text = "";
             txbNgayHetHan.Text = "";
-            txbTongNo.Text = "0.0000";
+            //txbTongNo.Text = "0.0000";
             txbHoTen.Focus();
             btnCapNhat.Enabled = false;
             btnXoa.Enabled = false;
             //btnThem.Enabled = false;
             btnLuu.Enabled = true;
             xuly = 0;
+            txbTongNo.Text = dgvDSDocGia.Rows[0].Cells[8].FormattedValue.ToString().Trim();
             dtpNgLapThe_ValueChanged(this, e);
         }
         // Phương thức xóa độc giả

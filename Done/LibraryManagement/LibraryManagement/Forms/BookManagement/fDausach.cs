@@ -188,7 +188,7 @@ namespace formdausach
             {
 
                 string themdongsql = "INSERT INTO DAUSACH(TenDauSach, MaTheLoai)" +
-                "VALUES (N'" + txb_TenDauSach.Text + "', '" + lbMaTL.Text + "')";
+                "VALUES (N'" + txb_TenDauSach.Text + "', '" + lbMaTheLoai.Text + "')";
                 ketnoiNonQuery(themdongsql);
                 MessageBox.Show("Thêm thành công.", "Thông Báo");
                 loadDgv();
@@ -401,7 +401,7 @@ namespace formdausach
                             xoaCTTacGia(txb_MaDauSach.Text);
                             string capnhatdongsql;
                             capnhatdongsql = "UPDATE DAUSACH " +
-                                "SET TenDauSach = N'" + txb_TenDauSach.Text + "', MaTheLoai = '" + lbMaTL.Text + "'" +
+                                "SET TenDauSach = N'" + txb_TenDauSach.Text + "', MaTheLoai = '" + lbMaTheLoai.Text + "'" +
                                 "WHERE MaDauSach = '" + txb_MaDauSach.Text + "'";
                             ketnoi(capnhatdongsql);
                             myCommand.ExecuteNonQuery();

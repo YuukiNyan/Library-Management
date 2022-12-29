@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using System.Globalization;
+using System.Text.RegularExpressions;
 
 namespace FormSach
 {
@@ -160,8 +162,10 @@ namespace FormSach
             try
             {
                 string capnhatdong;
-                capnhatdong = "UPDATE  SACH SET MaDauSach = '" + cbMaDS.Text + "', NhaXuatBan = N'" + txbNhaXuatBan.Text + "', NamXuatBan = " + dtpNamXuatBan.Text + ", TriGia = " + txbGiaTien.Text +
-                                "WHERE MaSach = '" + txbMaSach.Text + "'";
+                int value = Parse(txbGiaTien.Text);
+                //MessageBox.Show(value.ToString());
+                capnhatdong = "UPDATE  SACH SET MaDauSach = '" + cbMaDS.Text + "', NhaXuatBan = N'" + txbNhaXuatBan.Text + "', NamXuatBan = " + dtpNamXuatBan.Text + ", TriGia = " + value.ToString() +
+                                " WHERE MaSach = '" + txbMaSach.Text + "'";
                 ketnoiNonQuery(capnhatdong);
                 MessageBox.Show("Sửa thành công.", "Thông Báo");
             }
@@ -284,11 +288,15 @@ namespace FormSach
             } 
             else { MessageBox.Show("Phiên bản sách này đã có trong thư viện, bạn không thể lưu mới"); }
         }
+        public static int Parse(string input)
+        {
+            return int.Parse(Regex.Replace(input, @"[^\d.]", ""));
+        }
 
         private void btnCapNhat_Click(object sender, EventArgs e)
         {
             int ck = 0;
-            for (int i = 0; i < dgvSach.RowCount; i++)
+            /*for (int i = 0; i < dgvSach.RowCount; i++)
             {
 
                 if (cbMaDS.Text == dgvSach.Rows[i].Cells[1].Value.ToString() && txbNhaXuatBan.Text.ToUpper() == dgvSach.Rows[i].Cells[5].Value.ToString().ToUpper() &&
@@ -296,7 +304,7 @@ namespace FormSach
                 {
                     ck = 1;
                 }
-            }
+            }*/
             if (ck == 0)
             {
                 xuly = 1;
@@ -345,15 +353,12 @@ namespace FormSach
                 }
 
 
-                float ktTriGia;
-                bool isNumberTriGia = float.TryParse(txbGiaTien.Text, out ktTriGia);
-
-                if (isNumberTriGia == false || ktTriGia <= 0)
+                if (txbGiaTien.Text=="")
                 {
-                    MessageBox.Show("Vui lòng nhập số dương lớn hơn 0 trong ô:\nGiá Tiền.", "Thông Báo");
+                    MessageBox.Show("Vui lòng nhập giá sách trong ô:\nGiá Tiền.", "Thông Báo");
                     return;
                 }
-                if (cbMaDS.Text.Length > 0 && cbTenSach.Text.Length > 0 && txbTenTG.Text.Length > 0 && txbNhaXuatBan.Text.Length > 0 && txbGiaTien.Text.Length > 0 && isNumberTriGia == true && ktTriGia > 0)
+                if (cbMaDS.Text.Length > 0 && cbTenSach.Text.Length > 0 && txbTenTG.Text.Length > 0 && txbNhaXuatBan.Text.Length > 0 && txbGiaTien.Text.Length > 0)
                 {
                     if (xuly == 0)
                     {
@@ -491,6 +496,12 @@ namespace FormSach
         private void txbSoLuongTon_KeyPress(object sender, KeyPressEventArgs e)
         {
             e.Handled = true;
+        }
+
+        private void txbGiaTien_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!Char.IsDigit(e.KeyChar) && !Char.IsControl(e.KeyChar))
+                e.Handled = true;
         }
     }
 }

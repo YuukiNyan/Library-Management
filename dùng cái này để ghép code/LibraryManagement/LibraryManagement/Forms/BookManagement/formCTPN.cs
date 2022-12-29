@@ -8,13 +8,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using System.Text.RegularExpressions;
 
 namespace FormNhapSach
 {
     public partial class formCTPN : Form
     {
         // Khai báo 
-        string chuoiKetNoi = @"Data Source=ADMIN\SQLEXPRESS;Initial Catalog=QLTV;Integrated Security=True";
+        string chuoiKetNoi = $@"{LibraryManagement.Models.DatabaseInfo.connectionString}";
         private SqlConnection myConnection; // kết nối tới csdl
         private SqlDataAdapter myDataAdapter;   // Vận chuyển csdl qa DataSet
         private DataTable myTable;  // Dùng để lưu bảng lấy từ c#
@@ -68,7 +69,7 @@ namespace FormNhapSach
                                 "GROUP BY MaCTPN, TenDauSach, SACH.MaSach, NhaXuatBan, NamXuatBan, CT_PHIEUNHAP.SoLuong, DonGia, ThanhTien";
             dgvCTPhieuNS.DataSource = ketnoi(cauTruyVan);
             dgvCTPhieuNS.AutoGenerateColumns = false;
-            if(dgvCTPhieuNS.RowCount > 0)
+            if (dgvCTPhieuNS.RowCount > 0)
             {
                 txbMaCTPN.Text = dgvCTPhieuNS.Rows[0].Cells[0].Value.ToString();
                 cbMaSach.Text = dgvCTPhieuNS.Rows[0].Cells[1].Value.ToString();
@@ -98,7 +99,7 @@ namespace FormNhapSach
         }
         void loadMaPN()
         {
-            
+
             string query = "SELECT * FROM MAPN";
             ketnoi(query);
             string maPN = Convert.ToString(myCommand.ExecuteScalar());
@@ -127,7 +128,7 @@ namespace FormNhapSach
             txbMaCTPN.Text = getNextIdCTPNS();
             //cbMaPN.SelectedIndex = -1;
             //cbTenSach.SelectedIndex = -1;
-            if(dgvCTPhieuNS.RowCount > 0)
+            if (dgvCTPhieuNS.RowCount > 0)
             {
                 txbMaCTPN.Text = dgvCTPhieuNS.Rows[0].Cells[0].Value.ToString();
                 cbMaSach.Text = dgvCTPhieuNS.Rows[0].Cells[1].Value.ToString();
@@ -142,11 +143,11 @@ namespace FormNhapSach
                 dgvCTPhieuNS.Columns[8].DefaultCellStyle.Format = "#,0 VNĐ";
                 txbDonGia.Text = dgvCTPhieuNS.Rows[0].Cells[7].FormattedValue.ToString();
                 txbThanhTien.Text = dgvCTPhieuNS.Rows[0].Cells[8].FormattedValue.ToString();
-            }    
-            
-            
-            
-            
+            }
+
+
+
+
         }
 
         private void dgvCTPhieuNS_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -162,7 +163,7 @@ namespace FormNhapSach
             txbNamXB.Text = dgvCTPhieuNS.CurrentRow.Cells[5].Value.ToString();
             txbNhaXB.Text = dgvCTPhieuNS.CurrentRow.Cells[4].Value.ToString();
             txbSoLuong.Text = dgvCTPhieuNS.CurrentRow.Cells[6].Value.ToString();
-            
+
             txbDonGia.Text = dgvCTPhieuNS.CurrentRow.Cells[7].FormattedValue.ToString();
             txbThanhTien.Text = dgvCTPhieuNS.CurrentRow.Cells[8].FormattedValue.ToString();
             btnLuu.Enabled = false;
@@ -315,7 +316,7 @@ namespace FormNhapSach
             {
                 if (xuly == 0)
                 {
-                    
+
                     themCTPN();
                 }
                 else if (xuly == 1)
@@ -358,7 +359,7 @@ namespace FormNhapSach
             i++;
             if (i > 4 && cbTenSach.SelectedValue != null)
             {
-                string cautruyVan = "SELECT MaSach FROM SACH WHERE MaDauSach = '" + cbTenSach.SelectedValue.ToString()+"'";
+                string cautruyVan = "SELECT MaSach FROM SACH WHERE MaDauSach = '" + cbTenSach.SelectedValue.ToString() + "'";
                 DataTable dt = ketnoi(cautruyVan);
                 cbMaSach.DataSource = dt;
                 cbMaSach.DisplayMember = "MaSach";
@@ -388,7 +389,8 @@ namespace FormNhapSach
             {
                 string capnhatdong;
                 xoaCuonSach(txbMaCTPN.Text);
-                capnhatdong = "UPDATE  CT_PHIEUNHAP SET MaPhieuNhapSach = '" + cbMaPN.Text + "', MaSach = '" + cbMaSach.Text + "', SoLuong = " + txbSoLuong.Text + ", DonGia = " + txbDonGia.Text + "" +
+                int value = Parse(txbDonGia.Text);
+                capnhatdong = "UPDATE  CT_PHIEUNHAP SET MaPhieuNhapSach = '" + cbMaPN.Text + "', MaSach = '" + cbMaSach.Text + "', SoLuong = " + txbSoLuong.Text + ", DonGia = " + value.ToString() + "" +
                                 "WHERE MaCTPN = '" + txbMaCTPN.Text + "'";
                 ketnoiNonQuery(capnhatdong);
                 int ktSoLuong;
@@ -403,6 +405,10 @@ namespace FormNhapSach
             {
                 MessageBox.Show("Sửa thất bại.\nĐã có cuốn sách trong lần nhập này được mượn.", "Thông Báo");
             }
+        }
+        public static int Parse(string input)
+        {
+            return int.Parse(Regex.Replace(input, @"[^\d.]", ""));
         }
         private void btnCapNhat_Click(object sender, EventArgs e)
         {
@@ -452,8 +458,6 @@ namespace FormNhapSach
             }
 
 
-            float ktTriGia;
-            bool isNumberTriGia = float.TryParse(txbDonGia.Text, out ktTriGia);
             int ktSoLuong;
             bool isNumberSoLuong = int.TryParse(txbSoLuong.Text, out ktSoLuong);
             if (isNumberSoLuong == false || ktSoLuong <= 0)
@@ -461,12 +465,12 @@ namespace FormNhapSach
                 MessageBox.Show("Vui lòng nhập số lượng là số nguyên dương", "Thông Báo");
                 return;
             }
-            if (isNumberTriGia == false || ktTriGia <= 0)
+            if (txbDonGia.Text == "")
             {
                 MessageBox.Show("Vui lòng nhập giá tiền lớn hơn 0", "Thông Báo");
                 return;
             }
-            if (cbMaPN.Text.Length > 0 && cbTenSach.Text.Length > 0 && txbDonGia.Text.Length > 0 && isNumberTriGia == true && ktTriGia > 0 && txbSoLuong.Text.Length > 0 && isNumberSoLuong == true)
+            if (cbMaPN.Text.Length > 0 && cbTenSach.Text.Length > 0 && txbDonGia.Text.Length > 0 && txbSoLuong.Text.Length > 0 && isNumberSoLuong == true)
             {
                 if (xuly == 0)
                 {
@@ -521,13 +525,13 @@ namespace FormNhapSach
 
         }
 
-       /* private void txbSoLuong_TextChanged(object sender, EventArgs e)
-        {
-            if (txbDonGia.Text != "" && txbSoLuong.Text != "")
-            {
-                txbThanhTien.Text = (float.Parse(txbDonGia.Text) * float.Parse(txbSoLuong.Text)).ToString();
-            }
-        }*/
+        /* private void txbSoLuong_TextChanged(object sender, EventArgs e)
+         {
+             if (txbDonGia.Text != "" && txbSoLuong.Text != "")
+             {
+                 txbThanhTien.Text = (float.Parse(txbDonGia.Text) * float.Parse(txbSoLuong.Text)).ToString();
+             }
+         }*/
 
         /*private void txbDonGia_TextChanged(object sender, EventArgs e)
         {
@@ -549,7 +553,7 @@ namespace FormNhapSach
 
         private void cbMaSach_TextChanged(object sender, EventArgs e)
         {
-            
+
             if (cbMaSach.SelectedValue != null)
             {
 
@@ -613,6 +617,11 @@ namespace FormNhapSach
                 filePath = OpenFile.FileName;
                 //MessageBox.Show(filePath);
             }
+            else
+            {
+                MessageBox.Show("Vui lòng chọn file excel để nhập sách");
+                return;
+            }
             try
             {
                 Microsoft.Office.Interop.Excel.Application xlApp = new Microsoft.Office.Interop.Excel.Application();
@@ -620,52 +629,52 @@ namespace FormNhapSach
                 Microsoft.Office.Interop.Excel.Workbook xlWorkbook = xlApp.Workbooks.Open(filePath);
 
                 Microsoft.Office.Interop.Excel._Worksheet xlWorksheet = xlWorkbook.Sheets[1];
-           
-            string sheetName = xlWorksheet.Name;
-            int rows = xlWorksheet.UsedRange.Rows.Count;
-            int cols = xlWorksheet.UsedRange.Columns.Count;
-            //MessageBox.Show(rows.ToString() + ", " + cols.ToString());
-            DataTable dtResult = new DataTable();
-            for (int c = 1; c <= cols; c++)
-            {
-                string colname = xlWorksheet.Cells[1, c].Text;
-                dtResult.Columns.Add(colname);
-            }
-            
-            for (int r = 2; r <= rows; r++)
-            {
-                DataRow dr = dtResult.NewRow();
+
+                string sheetName = xlWorksheet.Name;
+                int rows = xlWorksheet.UsedRange.Rows.Count;
+                int cols = xlWorksheet.UsedRange.Columns.Count;
+                //MessageBox.Show(rows.ToString() + ", " + cols.ToString());
+                DataTable dtResult = new DataTable();
                 for (int c = 1; c <= cols; c++)
                 {
-                    dr[c - 1] = xlWorksheet.Cells[r, c].Text;
+                    string colname = xlWorksheet.Cells[1, c].Text;
+                    dtResult.Columns.Add(colname);
                 }
-                dtResult.Rows.Add(dr);
-            }
-            string Columns1 = "", Columns2 = "";
-            int Columns3 = 0, Columns4 = 0;
-            try
-            {
-                for (int i = 0; i < dtResult.Rows.Count; i++)
+
+                for (int r = 2; r <= rows; r++)
                 {
-                    Columns1 = dtResult.Rows[i]["MaPhieuNhapSach"].ToString().Trim();
-                    Columns2 = dtResult.Rows[i]["MaSach"].ToString().Trim();
-                    Columns3 = int.Parse(dtResult.Rows[i]["SoLuong"].ToString().Trim());
-                    Columns4 = int.Parse(dtResult.Rows[i]["DonGia"].ToString().Trim());
-                    
-                    string query = @"INSERT INTO CT_PHIEUNHAP (MaPhieuNhapSach, MaSach, SoLuong, DonGia)
-                                        Values ('" + Columns1 + "', '" + Columns2 + "', " + Columns3 + ", " + Columns4 + ") ";
-                    ketnoiNonQuery(query);
-                    myConnection.Close();
-                   
-                   // MessageBox.Show("Kết thúc import", "Thông báo");*/
+                    DataRow dr = dtResult.NewRow();
+                    for (int c = 1; c <= cols; c++)
+                    {
+                        dr[c - 1] = xlWorksheet.Cells[r, c].Text;
+                    }
+                    dtResult.Rows.Add(dr);
                 }
-                 MessageBox.Show("Nhập sách thành công", "Thông báo");
-                loadDgv();
-            }
-            catch
-            {
-                MessageBox.Show("Nhập sách thất bại", "Thông báo");
-            }
+                string Columns1 = "", Columns2 = "";
+                int Columns3 = 0, Columns4 = 0;
+                try
+                {
+                    for (int i = 0; i < dtResult.Rows.Count; i++)
+                    {
+                        Columns1 = dtResult.Rows[i]["MaPhieuNhapSach"].ToString().Trim();
+                        Columns2 = dtResult.Rows[i]["MaSach"].ToString().Trim();
+                        Columns3 = int.Parse(dtResult.Rows[i]["SoLuong"].ToString().Trim());
+                        Columns4 = int.Parse(dtResult.Rows[i]["DonGia"].ToString().Trim());
+
+                        string query = @"INSERT INTO CT_PHIEUNHAP (MaPhieuNhapSach, MaSach, SoLuong, DonGia)
+                                        Values ('" + Columns1 + "', '" + Columns2 + "', " + Columns3 + ", " + Columns4 + ") ";
+                        ketnoiNonQuery(query);
+
+                        myConnection.Close();
+
+                    }
+                    MessageBox.Show("Nhập sách thành công", "Thông báo");
+                    loadDgv();
+                }
+                catch
+                {
+                    MessageBox.Show("Nhập sách thất bại", "Thông báo");
+                }
             }
             catch
             {

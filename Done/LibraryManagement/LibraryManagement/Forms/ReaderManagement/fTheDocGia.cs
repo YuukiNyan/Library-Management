@@ -241,6 +241,14 @@ namespace LibraryManage
             txbHoTen.Select(txbHoTen.Text.Length, 0);
         }
 
+        private void txbDChi_TextChanged(object sender, EventArgs e)
+        {
+            CultureInfo cultureInfo = System.Threading.Thread.CurrentThread.CurrentCulture;
+            TextInfo textInfo = cultureInfo.TextInfo;
+            txbDChi.Text = textInfo.ToTitleCase(txbDChi.Text.ToLower());
+            txbDChi.Select(txbDChi.Text.Length, 0);
+        }
+
         private void btnCapNhat_Click(object sender, EventArgs e)
         {
             xuly = 1;
@@ -516,13 +524,14 @@ namespace LibraryManage
             cbLoaiDG.SelectedItem = null;
             dtpNgLapThe.Text = "";
             txbNgayHetHan.Text = "";
-            txbTongNo.Text = "0.0000";
+            //txbTongNo.Text = "0.0000";
             txbHoTen.Focus();
             btnCapNhat.Enabled = false;
             btnXoa.Enabled = false;
             //btnThem.Enabled = false;
             btnLuu.Enabled = true;
             xuly = 0;
+            txbTongNo.Text = dgvDSDocGia.Rows[0].Cells[8].FormattedValue.ToString().Trim();
             dtpNgLapThe_ValueChanged(this, e);
         }
         // Phương thức xóa độc giả

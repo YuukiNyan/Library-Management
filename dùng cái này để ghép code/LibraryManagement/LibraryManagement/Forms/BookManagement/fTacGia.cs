@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using System.Globalization;
 
 namespace FormTacGia
 {
@@ -88,12 +89,12 @@ namespace FormTacGia
 
         private void btnThemMoi_Click(object sender, EventArgs e)
         {
-                errTenTG.Clear();
-                txbMaTG.Text = getNextIdDG();
-                txbTenTG.Text = "";
-                btnCapNhat.Enabled = false;
-                btnXoa.Enabled = false;
-                btnLuu.Enabled = true;
+            errTenTG.Clear();
+            txbMaTG.Text = getNextIdDG();
+            txbTenTG.Text = "";
+            btnCapNhat.Enabled = false;
+            btnXoa.Enabled = false;
+            btnLuu.Enabled = true;
         }
         private void themTacGia()
         {
@@ -127,43 +128,43 @@ namespace FormTacGia
             if (ck == 0)
             {
                 xuly = 0;
-            {
-                if (txbTenTG.Text == "")
                 {
-                    errTenTG.SetError(txbTenTG, "Vui lòng nhập Tên DG");
+                    if (txbTenTG.Text == "")
+                    {
+                        errTenTG.SetError(txbTenTG, "Vui lòng nhập Tên DG");
+                    }
+                    else
+                    {
+                        errTenTG.Clear();
+                    }
+
+                }
+
+                if (txbTenTG.Text.Length > 0)
+                {
+                    string query = null;
+                    if (xuly == 0)
+                    {
+                        themTacGia();
+                        query = "SELECT TOP 1 MaTacGia FROM TACGIA ORDER BY MaTacGia DESC ";
+                        ketnoi(query);
+                        txbMaTG.Text = Convert.ToString(myCommand.ExecuteScalar());
+                    }
+
+                    dgvTacGia.AutoGenerateColumns = false;
+                    myConnection.Close();
+                    btnLuu.Enabled = false;
+                    btnThemMoi.Enabled = true;
+                    btnCapNhat.Enabled = true;
+                    btnXoa.Enabled = true;
+                    dgvTacGia.Enabled = true;
+                    dgvTacGia.FirstDisplayedScrollingRowIndex = dgvTacGia.RowCount - 1;
                 }
                 else
                 {
-                    errTenTG.Clear();
-                }
-
-            }
-
-            if (txbTenTG.Text.Length > 0 )
-            {
-                string query = null;
-                if (xuly == 0)
-                {
-                    themTacGia();
-                    query = "SELECT TOP 1 MaTacGia FROM TACGIA ORDER BY MaTacGia DESC ";
-                    ketnoi(query);
-                    txbMaTG.Text = Convert.ToString(myCommand.ExecuteScalar());
-                }
-
-                dgvTacGia.AutoGenerateColumns = false;
-                myConnection.Close();
-                btnLuu.Enabled = false;
-                btnThemMoi.Enabled = true;
-                btnCapNhat.Enabled = true;
-                btnXoa.Enabled = true;
-                dgvTacGia.Enabled = true;
-                dgvTacGia.FirstDisplayedScrollingRowIndex = dgvTacGia.RowCount - 1;
-            }
-            else
-            {
-                MessageBox.Show("Vui lòng nhập đủ thông tin.", "Thông Báo");
-                if (txbTenTG.Text.Length == 0)
-                    txbTenTG.Focus();
+                    MessageBox.Show("Vui lòng nhập đủ thông tin.", "Thông Báo");
+                    if (txbTenTG.Text.Length == 0)
+                        txbTenTG.Focus();
                 }
             }
             else
@@ -186,50 +187,50 @@ namespace FormTacGia
             if (ck == 0)
             {
                 xuly = 1;
-            {
-                if (txbTenTG.Text == "")
                 {
-                    errTenTG.SetError(txbTenTG, "Vui lòng nhập Tên DG");
+                    if (txbTenTG.Text == "")
+                    {
+                        errTenTG.SetError(txbTenTG, "Vui lòng nhập Tên DG");
+                    }
+                    else
+                    {
+                        errTenTG.Clear();
+                    }
+
+                }
+
+                if (txbTenTG.Text.Length > 0)
+                {
+                    if (xuly == 1)
+                    {
+                        try
+                        {
+                            string capnhatdongsql;
+                            capnhatdongsql = "UPDATE TACGIA " +
+                                "SET TenTacGia = N'" + txbTenTG.Text + "'" +
+                                "WHERE MaTacGia = '" + txbMaTG.Text + "'";
+                            ketnoi(capnhatdongsql);
+                            myCommand.ExecuteNonQuery();
+                            MessageBox.Show("Sửa thành công.", "Thông Báo");
+                            loadDgv();
+                        }
+                        catch
+                        {
+                            MessageBox.Show("Sửa thất bại.\nVui lòng kiểm tra lại dữ liệu.", "Thông Báo");
+                        }
+                    }
+                    btnLuu.Enabled = false;
+                    btnThemMoi.Enabled = true;
+                    btnCapNhat.Enabled = true;
+                    btnXoa.Enabled = true;
+                    dgvTacGia.Enabled = true;
                 }
                 else
                 {
-                    errTenTG.Clear();
+                    MessageBox.Show("Vui lòng nhập đủ thông tin.", "Thông Báo");
+                    if (txbTenTG.Text.Length == 0)
+                        txbTenTG.Focus();
                 }
-
-            }
-
-            if (txbTenTG.Text.Length > 0)
-            {
-                if (xuly == 1)
-                {
-                    try
-                    { 
-                        string capnhatdongsql;
-                        capnhatdongsql = "UPDATE TACGIA " +
-                            "SET TenTacGia = N'" + txbTenTG.Text +"'" +
-                            "WHERE MaTacGia = '" + txbMaTG.Text + "'";
-                        ketnoi(capnhatdongsql);
-                        myCommand.ExecuteNonQuery();
-                        MessageBox.Show("Sửa thành công.", "Thông Báo");
-                        loadDgv();
-                    }
-                    catch
-                    {
-                        MessageBox.Show("Sửa thất bại.\nVui lòng kiểm tra lại dữ liệu.", "Thông Báo");
-                    }
-                }
-                btnLuu.Enabled = false;
-                btnThemMoi.Enabled = true;
-                btnCapNhat.Enabled = true;
-                btnXoa.Enabled = true;
-                dgvTacGia.Enabled = true;
-            }
-            else
-            {
-                MessageBox.Show("Vui lòng nhập đủ thông tin.", "Thông Báo");
-                if (txbTenTG.Text.Length == 0)
-                    txbTenTG.Focus();
-            }
             }
             else
             {
@@ -268,10 +269,18 @@ namespace FormTacGia
 
         private void txbTenTG_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (Char.IsDigit(e.KeyChar) ||char.IsSurrogate(e.KeyChar))
+            if (Char.IsDigit(e.KeyChar) || char.IsSurrogate(e.KeyChar))
                 e.Handled = true;
-            if (e.KeyChar == 8||e.KeyChar==13)
+            if (e.KeyChar == 8 || e.KeyChar == 13)
                 e.Handled = false;
+        }
+
+        private void txbTenTG_TextChanged(object sender, EventArgs e)
+        {
+            CultureInfo cultureInfo = System.Threading.Thread.CurrentThread.CurrentCulture;
+            TextInfo textInfo = cultureInfo.TextInfo;
+            txbTenTG.Text = textInfo.ToTitleCase(txbTenTG.Text.ToLower());
+            txbTenTG.Select(txbTenTG.Text.Length, 0);
         }
     }
 }
