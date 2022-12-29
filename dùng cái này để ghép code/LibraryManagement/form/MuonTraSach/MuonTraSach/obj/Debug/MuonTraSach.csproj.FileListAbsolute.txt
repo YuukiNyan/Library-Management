@@ -33,3 +33,21 @@ C:\Users\Admin\Desktop\Công Việc Học Tập\Library-Management\Library-Manag
 C:\Users\Admin\Desktop\Công Việc Học Tập\Library-Management\Library-Management\Trinh\MuonTraSach\MuonTraSach\obj\Debug\MuonTraSach.csproj.CoreCompileInputs.cache
 C:\Users\Admin\Desktop\Công Việc Học Tập\Library-Management\Library-Management\Trinh\MuonTraSach\MuonTraSach\obj\Debug\MuonTraSach.exe
 C:\Users\Admin\Desktop\Công Việc Học Tập\Library-Management\Library-Management\Trinh\MuonTraSach\MuonTraSach\obj\Debug\MuonTraSach.pdb
+D:\Trung\Study\PPPTPMHDT\DoAn\GhepForm\Library-Management\dùng cái này để ghép code\LibraryManagement\form\MuonTraSach\MuonTraSach\bin\Debug\MuonTraSach.exe.config
+D:\Trung\Study\PPPTPMHDT\DoAn\GhepForm\Library-Management\dùng cái này để ghép code\LibraryManagement\form\MuonTraSach\MuonTraSach\bin\Debug\MuonTraSach.exe
+D:\Trung\Study\PPPTPMHDT\DoAn\GhepForm\Library-Management\dùng cái này để ghép code\LibraryManagement\form\MuonTraSach\MuonTraSach\bin\Debug\MuonTraSach.pdb
+D:\Trung\Study\PPPTPMHDT\DoAn\GhepForm\Library-Management\dùng cái này để ghép code\LibraryManagement\form\MuonTraSach\MuonTraSach\obj\Debug\MuonTraSach.csproj.AssemblyReference.cache
+D:\Trung\Study\PPPTPMHDT\DoAn\GhepForm\Library-Management\dùng cái này để ghép code\LibraryManagement\form\MuonTraSach\MuonTraSach\obj\Debug\MuonTraSach.csproj.SuggestedBindingRedirects.cache
+D:\Trung\Study\PPPTPMHDT\DoAn\GhepForm\Library-Management\dùng cái này để ghép code\LibraryManagement\form\MuonTraSach\MuonTraSach\obj\Debug\MuonTraSach.FormChiTietPM.resources
+D:\Trung\Study\PPPTPMHDT\DoAn\GhepForm\Library-Management\dùng cái này để ghép code\LibraryManagement\form\MuonTraSach\MuonTraSach\obj\Debug\MuonTraSach.FormChiTietPT.resources
+D:\Trung\Study\PPPTPMHDT\DoAn\GhepForm\Library-Management\dùng cái này để ghép code\LibraryManagement\form\MuonTraSach\MuonTraSach\obj\Debug\MuonTraSach.FormDanhSachPM.resources
+D:\Trung\Study\PPPTPMHDT\DoAn\GhepForm\Library-Management\dùng cái này để ghép code\LibraryManagement\form\MuonTraSach\MuonTraSach\obj\Debug\MuonTraSach.FormDanhSachPT.resources
+D:\Trung\Study\PPPTPMHDT\DoAn\GhepForm\Library-Management\dùng cái này để ghép code\LibraryManagement\form\MuonTraSach\MuonTraSach\obj\Debug\MuonTraSach.FormMuonSach.resources
+D:\Trung\Study\PPPTPMHDT\DoAn\GhepForm\Library-Management\dùng cái này để ghép code\LibraryManagement\form\MuonTraSach\MuonTraSach\obj\Debug\MuonTraSach.FormThongTinPM.resources
+D:\Trung\Study\PPPTPMHDT\DoAn\GhepForm\Library-Management\dùng cái này để ghép code\LibraryManagement\form\MuonTraSach\MuonTraSach\obj\Debug\MuonTraSach.FormThongTinPT.resources
+D:\Trung\Study\PPPTPMHDT\DoAn\GhepForm\Library-Management\dùng cái này để ghép code\LibraryManagement\form\MuonTraSach\MuonTraSach\obj\Debug\MuonTraSach.FormTraSach.resources
+D:\Trung\Study\PPPTPMHDT\DoAn\GhepForm\Library-Management\dùng cái này để ghép code\LibraryManagement\form\MuonTraSach\MuonTraSach\obj\Debug\MuonTraSach.Properties.Resources.resources
+D:\Trung\Study\PPPTPMHDT\DoAn\GhepForm\Library-Management\dùng cái này để ghép code\LibraryManagement\form\MuonTraSach\MuonTraSach\obj\Debug\MuonTraSach.csproj.GenerateResource.cache
+D:\Trung\Study\PPPTPMHDT\DoAn\GhepForm\Library-Management\dùng cái này để ghép code\LibraryManagement\form\MuonTraSach\MuonTraSach\obj\Debug\MuonTraSach.csproj.CoreCompileInputs.cache
+D:\Trung\Study\PPPTPMHDT\DoAn\GhepForm\Library-Management\dùng cái này để ghép code\LibraryManagement\form\MuonTraSach\MuonTraSach\obj\Debug\MuonTraSach.exe
+D:\Trung\Study\PPPTPMHDT\DoAn\GhepForm\Library-Management\dùng cái này để ghép code\LibraryManagement\form\MuonTraSach\MuonTraSach\obj\Debug\MuonTraSach.pdb
